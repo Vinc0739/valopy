@@ -1,0 +1,49 @@
+{
+    "_comments": "Queue Status endpoint - Available game modes and queue metadata",
+    "queue_status": {
+        "status": 1,
+        "data": [
+            {
+                "mode": "Competitive",
+                "mode_id": "competitive",
+                "enabled": true,
+                "team_size": 5,
+                "number_of_teams": 2,
+                "party_size": {
+                    "max": 5,
+                    "min": 1,
+                    "full_party_bypass": true
+                },
+                "ranked": true,
+                "tournament": true,
+                "required_account_level": 20,
+                "game_rules": {
+                    "overtime_win_by_two": true,
+                    "allow_lenient_surrender": true
+                },
+                "platforms": [
+                    "pc",
+                    "console"
+                ],
+                "maps": [
+                    {
+                        "map": {
+                            "id": "map-ascent-id",
+                            "name": "Ascent"
+                        },
+                        "enabled": true
+                    }
+                ]
+            },
+            {
+                "mode": "Unrated",
+                "mode_id": "unrated",
+                "enabled": true,
+                "team_size": 5,
+                "number_of_teams": 2,
+                "ranked": false,
+                "required_account_level": 1
+            }
+        ]
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "_comments": "Version endpoint - Client version information",
+    "version_response": {
+        "status": 200,
+        "data": {
+            "version": "04.00.00.655657",
+            "clientVersion": "release-04.00-shipping-20-655657",
+            "branch": "release-04.00",
+            "region": "EU"
+        }
+    }
+}

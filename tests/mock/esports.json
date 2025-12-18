@@ -1,0 +1,43 @@
+{
+    "_comments": "Esports endpoint - Professional tournament schedules and match data",
+    "esports_schedule": {
+        "status": 1,
+        "data": [
+            {
+                "date": "2025-12-18T20:00:00Z",
+                "state": "completed",
+                "type": "match",
+                "vod": "https://youtu.be/example",
+                "league": {
+                    "name": "VCT Americas",
+                    "identifier": "vct_americas",
+                    "icon": "https://static.lolesports.com/leagues/vct_americas.png",
+                    "region": "north america"
+                },
+                "tournament": {
+                    "name": "vct_americas_2025_regular_season",
+                    "season": "2025"
+                },
+                "match": {
+                    "id": "match-id-1",
+                    "teams": [
+                        {
+                            "name": "Team A",
+                            "code": "TA",
+                            "icon": "team-icon-url",
+                            "has_won": true,
+                            "game_wins": 2
+                        },
+                        {
+                            "name": "Team B",
+                            "code": "TB",
+                            "icon": "team-icon-url",
+                            "has_won": false,
+                            "game_wins": 0
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+{
+    "_comments": "Raw endpoint - Returns raw Riot API response without parsing",
+    "note": "Raw endpoint returns binary data or raw responses from Riot API. Structure varies by endpoint."
+}

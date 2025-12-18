@@ -1,0 +1,38 @@
+{
+    "_comments": "Account endpoint - supports both V1/V2 and name/tag or puuid lookups. Same schema applies.",
+    "v1_by_name_tag": {
+        "status": 200,
+        "data": {
+            "puuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+            "region": "na",
+            "account_level": 45,
+            "name": "example",
+            "tag": "1234",
+            "card": {
+                "small": "https://media.valorant-api.com/agent-roles/11fb7dd7-47f9-4122-b774-dff3ee9b6b19/displayicon.png",
+                "large": "https://media.valorant-api.com/agent-roles/11fb7dd7-47f9-4122-b774-dff3ee9b6b19/displayicon.png",
+                "wide": "https://media.valorant-api.com/agent-roles/11fb7dd7-47f9-4122-b774-dff3ee9b6b19/displayicon.png",
+                "id": "card-id-1234"
+            },
+            "last_update": "2025-12-18T10:30:00Z",
+            "last_update_raw": 1766059800
+        }
+    },
+    "v2_by_name_tag": {
+        "status": 200,
+        "data": {
+            "puuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+            "region": "na",
+            "account_level": 45,
+            "name": "example",
+            "tag": "1234",
+            "card": "card-id-1234",
+            "title": "Title Name",
+            "platforms": [
+                "PC"
+            ],
+            "updated_at": "2025-12-18T14:43:57.782Z"
+        }
+    },
+    "_note": "V1 by puuid and V2 by puuid use same response schemas as their name/tag variants"
+}

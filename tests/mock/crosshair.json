@@ -1,0 +1,4 @@
+{
+    "_comments": "Crosshair endpoint - Returns binary image data (PNG format)",
+    "note": "This endpoint returns an image/png binary response, not JSON. Used to generate crosshair images."
+}

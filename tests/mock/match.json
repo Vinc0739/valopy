@@ -1,0 +1,118 @@
+{
+    "_comments": "Match endpoint - V2 and V4 have different structures. V3 matchlist is deprecated.",
+    "v2_match_details": {
+        "status": 200,
+        "data": {
+            "metadata": {
+                "map": "Ascent",
+                "game_version": "release-03.12-shipping-16-649370",
+                "game_length": 2356581,
+                "game_start": 1641934366,
+                "game_start_patched": "2025-12-18T10:00:00Z",
+                "rounds_played": 23,
+                "mode": "Competitive",
+                "mode_id": "competitive",
+                "queue": "Standard",
+                "season_id": "season-id-1",
+                "platform": "PC",
+                "matchid": "match-id-1",
+                "region": "eu",
+                "cluster": "London"
+            },
+            "players": {
+                "all_players": [
+                    {
+                        "puuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+                        "name": "example",
+                        "tag": "1234",
+                        "team": "Red",
+                        "level": 104,
+                        "character": "Sova",
+                        "currenttier": 20,
+                        "currenttier_patched": "Diamond 2",
+                        "stats": {
+                            "score": 3500,
+                            "kills": 18,
+                            "deaths": 12,
+                            "assists": 5,
+                            "bodyshots": 30,
+                            "headshots": 12,
+                            "legshots": 5
+                        }
+                    }
+                ]
+            },
+            "teams": {
+                "red": {
+                    "has_won": true,
+                    "rounds_won": 13,
+                    "rounds_lost": 10
+                },
+                "blue": {
+                    "has_won": false,
+                    "rounds_won": 10,
+                    "rounds_lost": 13
+                }
+            }
+        }
+    },
+    "v4_match_details": {
+        "status": 200,
+        "data": {
+            "metadata": {
+                "match_id": "match-id-1",
+                "map": {
+                    "id": "map-ascent-id",
+                    "name": "Ascent"
+                },
+                "game_version": "release-08.11-shipping-51-2606987",
+                "game_length_in_ms": 2356581,
+                "started_at": "2025-12-18T10:00:00Z",
+                "is_completed": true,
+                "queue": {
+                    "id": "competitive",
+                    "name": "Competitive"
+                },
+                "season": {
+                    "id": "season-id-1",
+                    "short": "e9a3"
+                },
+                "platform": "pc",
+                "region": "eu",
+                "cluster": "Frankfurt 1"
+            },
+            "players": [
+                {
+                    "puuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+                    "name": "example",
+                    "tag": "1234",
+                    "team_id": "Red",
+                    "agent": {
+                        "id": "agent-sova-id",
+                        "name": "Sova"
+                    },
+                    "stats": {
+                        "score": 3500,
+                        "kills": 18,
+                        "deaths": 12,
+                        "assists": 5
+                    },
+                    "tier": {
+                        "id": 20,
+                        "name": "Diamond 2"
+                    }
+                }
+            ],
+            "teams": [
+                {
+                    "team_id": "Red",
+                    "rounds": {
+                        "won": 13,
+                        "lost": 10
+                    },
+                    "won": true
+                }
+            ]
+        }
+    }
+}

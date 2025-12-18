@@ -1,0 +1,77 @@
+{
+    "_comments": "Matchlist endpoint - V3 and V4 available. Returns array of matches.",
+    "v3_matches": {
+        "status": 200,
+        "data": [
+            {
+                "metadata": {
+                    "map": "Ascent",
+                    "game_length": 2356581,
+                    "game_start": 1641934366,
+                    "rounds_played": 23,
+                    "mode": "Competitive",
+                    "mode_id": "competitive",
+                    "season_id": "season-id-1",
+                    "platform": "PC",
+                    "matchid": "match-id-1",
+                    "region": "eu",
+                    "cluster": "London"
+                },
+                "players": {
+                    "all_players": [
+                        {
+                            "puuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+                            "name": "example",
+                            "tag": "1234",
+                            "team": "Red",
+                            "level": 104,
+                            "character": "Sova",
+                            "currenttier": 20,
+                            "stats": {
+                                "kills": 18,
+                                "deaths": 12,
+                                "assists": 5
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "v4_matches": {
+        "status": 200,
+        "data": [
+            {
+                "metadata": {
+                    "match_id": "match-id-1",
+                    "map": {
+                        "id": "map-ascent-id",
+                        "name": "Ascent"
+                    },
+                    "started_at": "2025-12-18T10:00:00Z",
+                    "is_completed": true,
+                    "queue": {
+                        "id": "competitive",
+                        "name": "Competitive"
+                    },
+                    "season": {
+                        "id": "season-id-1",
+                        "short": "e9a3"
+                    }
+                },
+                "players": [
+                    {
+                        "puuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+                        "name": "example",
+                        "tag": "1234",
+                        "team_id": "Red",
+                        "agent": {
+                            "id": "agent-sova-id",
+                            "name": "Sova"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

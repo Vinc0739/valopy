@@ -1,0 +1,160 @@
+{
+    "version": "1.0.0",
+    "characters": [
+        {
+            "name": "Sova",
+            "localizedNames": {
+                "en-US": "Sova",
+                "es-ES": "Sova",
+                "fr-FR": "Sova"
+            },
+            "id": "character-sova-id",
+            "assetName": "Sova",
+            "assetPath": "/Game/Characters/Sova"
+        }
+    ],
+    "maps": [
+        {
+            "name": "Ascent",
+            "localizedNames": {
+                "en-US": "Ascent",
+                "es-ES": "Ascent",
+                "fr-FR": "Ascent"
+            },
+            "id": "map-ascent-id",
+            "assetName": "Ascent",
+            "assetPath": "/Game/Maps/Ascent"
+        }
+    ],
+    "chromas": [
+        {
+            "name": "Chroma 1",
+            "localizedNames": {
+                "en-US": "Chroma 1"
+            },
+            "id": "chroma-id",
+            "assetName": "Chroma1",
+            "assetPath": "/Game/Chromas/Chroma1"
+        }
+    ],
+    "skins": [
+        {
+            "name": "Reaver Vandal",
+            "localizedNames": {
+                "en-US": "Reaver Vandal"
+            },
+            "id": "skin-reaver-vandal",
+            "assetName": "ReaverVandal",
+            "assetPath": "/Game/Skins/ReaverVandal"
+        }
+    ],
+    "skinLevels": [
+        {
+            "name": "Skin Level 1",
+            "localizedNames": {
+                "en-US": "Skin Level 1"
+            },
+            "id": "skin-level-1",
+            "assetName": "SkinLevel1",
+            "assetPath": "/Game/SkinLevels/Level1"
+        }
+    ],
+    "equips": [
+        {
+            "name": "Equipment",
+            "localizedNames": {
+                "en-US": "Equipment"
+            },
+            "id": "equipment-id",
+            "assetName": "Equipment",
+            "assetPath": "/Game/Equipment"
+        }
+    ],
+    "gameModes": [
+        {
+            "name": "Competitive",
+            "localizedNames": {
+                "en-US": "Competitive"
+            },
+            "id": "mode-competitive",
+            "assetName": "Competitive",
+            "assetPath": "/Game/Modes/Competitive"
+        }
+    ],
+    "sprays": [
+        {
+            "name": "Spray 1",
+            "localizedNames": {
+                "en-US": "Spray 1"
+            },
+            "id": "spray-id",
+            "assetName": "Spray1",
+            "assetPath": "/Game/Sprays/Spray1"
+        }
+    ],
+    "sprayLevels": [
+        {
+            "name": "Spray Level 1",
+            "localizedNames": {
+                "en-US": "Spray Level 1"
+            },
+            "id": "spray-level-id",
+            "assetName": "SprayLevel1",
+            "assetPath": "/Game/SprayLevels/Level1"
+        }
+    ],
+    "charms": [
+        {
+            "name": "Charm 1",
+            "localizedNames": {
+                "en-US": "Charm 1"
+            },
+            "id": "charm-id",
+            "assetName": "Charm1",
+            "assetPath": "/Game/Charms/Charm1"
+        }
+    ],
+    "charmLevels": [
+        {
+            "name": "Charm Level 1",
+            "localizedNames": {
+                "en-US": "Charm Level 1"
+            },
+            "id": "charm-level-id",
+            "assetName": "CharmLevel1",
+            "assetPath": "/Game/CharmLevels/Level1"
+        }
+    ],
+    "playerCards": [
+        {
+            "name": "Player Card 1",
+            "localizedNames": {
+                "en-US": "Player Card 1"
+            },
+            "id": "player-card-id",
+            "assetName": "PlayerCard1",
+            "assetPath": "/Game/PlayerCards/Card1"
+        }
+    ],
+    "playerTitles": [
+        {
+            "name": "Player Title 1",
+            "localizedNames": {
+                "en-US": "Player Title 1"
+            },
+            "id": "player-title-id",
+            "assetName": "Title1",
+            "assetPath": "/Game/Titles/Title1"
+        }
+    ],
+    "acts": [
+        {
+            "name": "Episode 1 Act 1",
+            "localizedNames": {
+                "en-US": "Episode 1 Act 1"
+            },
+            "id": "act-e1a1-id",
+            "isActive": false
+        }
+    ]
+}

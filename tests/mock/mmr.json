@@ -1,0 +1,76 @@
+{
+    "_comments": "MMR endpoint - V2 and V3 available with different response structures",
+    "v2_mmr": {
+        "status": 200,
+        "data": {
+            "name": "Henrik3",
+            "tag": "EUW3",
+            "current_data": {
+                "currenttier": 12,
+                "currenttier_patched": "Gold 1",
+                "ranking_in_tier": 20,
+                "mmr_change_to_last_game": -16,
+                "elo": 920
+            },
+            "highest_rank": {
+                "tier": 19,
+                "patched_tier": "Diamond 2",
+                "season": "e5a3"
+            },
+            "by_season": {
+                "e9a3": {
+                    "wins": 12,
+                    "number_of_games": 24,
+                    "final_rank": 12,
+                    "final_rank_patched": "Gold 1"
+                }
+            }
+        }
+    },
+    "v3_mmr": {
+        "status": 200,
+        "data": {
+            "account": {
+                "puuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+                "name": "example",
+                "tag": "1234"
+            },
+            "peak": {
+                "season": {
+                    "id": "season-id-1",
+                    "short": "e9a3"
+                },
+                "tier": {
+                    "id": 24,
+                    "name": "Radiant"
+                }
+            },
+            "current": {
+                "tier": {
+                    "id": 20,
+                    "name": "Diamond 2"
+                },
+                "rr": 75,
+                "elo": 2100,
+                "leaderboard_placement": {
+                    "rank": 100,
+                    "updated_at": "2025-12-18T15:14:39.718Z"
+                }
+            },
+            "seasonal": [
+                {
+                    "season": {
+                        "id": "season-id-1",
+                        "short": "e9a3"
+                    },
+                    "wins": 45,
+                    "games": 60,
+                    "end_tier": {
+                        "id": 20,
+                        "name": "Diamond 2"
+                    }
+                }
+            ]
+        }
+    }
+}
