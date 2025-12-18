@@ -4,7 +4,7 @@
 
 ![Python Version](https://img.shields.io/badge/python-3.14+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Tests](https://img.shields.io/badge/tests-45%20passing-brightgreen.svg)
+[![Tests](https://github.com/Vinc0739/valopy/actions/workflows/jobs.yml/badge.svg?branch=main)](https://github.com/Vinc0739/valopy/actions/workflows/jobs.yml)
 
 An async Python wrapper for the **[unofficial Valorant API](https://github.com/Henrik-3/unofficial-valorant-api)** created by [Henrik-3](https://github.com/Henrik-3).
 
