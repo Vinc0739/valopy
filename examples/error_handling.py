@@ -22,4 +22,5 @@ async def safe_fetch_account():
         except ValoPyHTTPError as e:
             print(f"HTTP Error {e.status_code}: {e.message}")
 
+
 asyncio.run(safe_fetch_account())

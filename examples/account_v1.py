@@ -20,4 +20,5 @@ async def get_account_info():
         print(f"Card (Large): {account.card.large}")
         print(f"Card (Wide): {account.card.wide}")
 
+
 asyncio.run(get_account_info())

@@ -7,6 +7,31 @@ on:
     branches: [ main, dev ]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.14'
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v2
+      with:
+        version: "latest"
+    
+    - name: Install dependencies
+      run: uv sync --group dev
+    
+    - name: Check formatting with Black
+      run: uv run black --check valopy/ tests/
+    
+    - name: Lint with Ruff
+      run: uv run ruff check valopy/ tests/
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -39,31 +64,6 @@ jobs:
         files: ./coverage.xml
         flags: unittests
         name: codecov-umbrella
-
-  lint:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.14'
-    
-    - name: Install uv
-      uses: astral-sh/setup-uv@v2
-      with:
-        version: "latest"
-    
-    - name: Install dependencies
-      run: uv sync --group dev
-    
-    - name: Check formatting with Black
-      run: uv run black --check valopy/ tests/
-    
-    - name: Lint with Ruff
-      run: uv run ruff check valopy/ tests/
 
   docs:
     runs-on: ubuntu-latest

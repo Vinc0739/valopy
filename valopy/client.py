@@ -58,10 +58,8 @@ class Client:
         return self
 
     async def __aexit__(
-        self, exc_type: type[BaseException] | None,
-        exc_val: BaseException | None,
-        exc_tb: types.TracebackType | None
-    )-> None:
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
+    ) -> None:
         """Async context manager exit.
 
         Parameters
@@ -102,9 +100,7 @@ class Client:
             _log.debug("Force update enabled for account %s#%s", name, tag)
 
         endpoint = Endpoint.ACCOUNT_BY_NAME_V1.value.format(name=name, tag=tag)
-        result = await self.adapter.get(
-            endpoint=endpoint, params={"force": str(force_update).lower()}
-        )
+        result = await self.adapter.get(endpoint=endpoint, params={"force": str(force_update).lower()})
 
         _log.info("Successfully retrieved Account V1 for %s#%s", name, tag)
         return result.data  # type: ignore
@@ -132,9 +128,7 @@ class Client:
             _log.debug("Force update enabled for account %s#%s", name, tag)
 
         endpoint = Endpoint.ACCOUNT_BY_NAME_V2.value.format(name=name, tag=tag)
-        result = await self.adapter.get(
-            endpoint=endpoint, params={"force": str(force_update).lower()}
-        )
+        result = await self.adapter.get(endpoint=endpoint, params={"force": str(force_update).lower()})
 
         _log.info("Successfully retrieved Account V2 for %s#%s", name, tag)
         return result.data  # type: ignore

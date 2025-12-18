@@ -66,8 +66,8 @@ class ValoPyPermissionError(ValoPyHTTPError):
     """
 
     def __init__(
-            self, status_code: int,url: Optional[str] = None, request_headers: dict = {}, redacted: bool = False
-        ) -> None:
+        self, status_code: int, url: Optional[str] = None, request_headers: dict = {}, redacted: bool = False
+    ) -> None:
         self.message = f"Permission Denied for KEY: {request_headers.get("Authorization", "[REDACTED]")}"
         self.status_code = status_code
         self.url = url
@@ -138,8 +138,9 @@ class ValoPyRateLimitError(ValoPyHTTPError):
         self.rate_reset = response_headers.get("x-ratelimit-reset")
 
         self.message = (
-            f"Rate Limit Exceeded ({self.rate_remain}/{self.rate_limit}), "
-            f"try again in {self.rate_reset}: {url}"if self.rate_limit else f"Rate Limit Exceeded: {url}"
+            f"Rate Limit Exceeded ({self.rate_remain}/{self.rate_limit}), try again in {self.rate_reset}: {url}"
+            if self.rate_limit
+            else f"Rate Limit Exceeded: {url}"
         )
 
         self.status_code = status_code

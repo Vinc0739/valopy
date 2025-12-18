@@ -85,8 +85,7 @@ def dict_to_dataclass(data: dict, dataclass_type: Any) -> Any:
                         len(value),
                     )
                     kwargs[field_name] = [
-                        dict_to_dataclass(item, inner_type) if isinstance(item, dict) else item
-                        for item in value
+                        dict_to_dataclass(item, inner_type) if isinstance(item, dict) else item for item in value
                     ]
                 else:
                     kwargs[field_name] = value

@@ -8,10 +8,7 @@ async def search_content():
         content = await client.get_content()
 
         # Find a specific character by name
-        jett = next(
-            (char for char in content.characters if char.name == "Jett"),
-            None
-        )
+        jett = next((char for char in content.characters if char.name == "Jett"), None)
 
         if jett:
             print(f"Found: {jett.name}")

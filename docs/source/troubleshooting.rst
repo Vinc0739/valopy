@@ -7,7 +7,7 @@ Installation Issues
 -------------------
 
 ImportError: No module named 'valopy'
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Problem:** You get an error like ``ImportError: No module named 'valopy'`` when trying to import ValoPy.
 

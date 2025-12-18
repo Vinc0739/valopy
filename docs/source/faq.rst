@@ -52,7 +52,7 @@ Pass your API key to the ``Client`` constructor:
        pass
 
 Using ValoPy
------------
+~~~~~~~~~~~~
 
 What's the difference between AccountV1 and AccountV2?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,7 +98,7 @@ Performance & Optimization
 --------------------------
 
 Is ValoPy performant?
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 Yes. ValoPy includes several performance optimizations:
 
@@ -110,7 +110,7 @@ Yes. ValoPy includes several performance optimizations:
 These optimizations provide **20-40% overall performance improvements** compared to naive implementations.
 
 How many requests can ValoPy handle?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ValoPy can handle thousands of concurrent requests thanks to asyncio. The main limitation is your API rate limits and network bandwidth.
 
@@ -118,7 +118,7 @@ Error Handling
 --------------
 
 What exceptions does ValoPy raise?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ValoPy defines several custom exceptions in the :doc:`api/exceptions` module:
 
@@ -250,7 +250,7 @@ Contributing
 ------------
 
 Can I contribute to ValoPy?
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Yes! Contributions are welcome. Please:
 
@@ -279,7 +279,7 @@ Please report bugs on the GitHub issues page. Include:
 4. The full error traceback
 
 Can I use ValoPy in production?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Yes, ValoPy is suitable for production use. It includes proper error handling, type hints, and comprehensive testing.
 

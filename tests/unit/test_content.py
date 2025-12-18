@@ -27,11 +27,7 @@ class TestContent:
             pytest.skip("No content data in mock file")
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(
-                status_code=200,
-                message="OK",
-                data=content_data
-            )
+            mock_get.return_value = Result(status_code=200, message="OK", data=content_data)
 
             result: Content = await client.get_content()
 
@@ -58,11 +54,7 @@ class TestContent:
             pytest.skip("No content data in mock file")
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(
-                status_code=200,
-                message="OK",
-                data=content_data
-            )
+            mock_get.return_value = Result(status_code=200, message="OK", data=content_data)
 
             result: Content = await client.get_content()
 

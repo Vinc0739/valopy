@@ -88,10 +88,8 @@ class Adapter:
         return self
 
     async def __aexit__(
-        self, exc_type: type[BaseException] | None,
-        exc_val: BaseException | None,
-        exc_tb: types.TracebackType | None
-    )-> None:
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
+    ) -> None:
         """Async context manager exit.
 
         Parameters
@@ -178,23 +176,11 @@ class Adapter:
             _log.debug("HTTP %d response received", response.status)
 
         except aiohttp.ClientResponseError as e:
-            _log.error(
-                "HTTP error %d on %s request to endpoint %s",
-                e.status,
-                method.value,
-                endpoint,
-                exc_info=True
-            )
+            _log.error("HTTP error %d on %s request to endpoint %s", e.status, method.value, endpoint, exc_info=True)
             raise from_client_response_error(error=e, redacted=self.redact_header) from e
 
         except aiohttp.ClientError as e:
-            _log.error(
-                "Client error on %s request to %s: %s",
-                method.value,
-                url,
-                str(e),
-                exc_info=True
-            )
+            _log.error("Client error on %s request to %s: %s", method.value, url, str(e), exc_info=True)
             raise
 
         # Parse response data

@@ -26,15 +26,10 @@ class TestAccountV1:
         account_data = dict_to_dataclass(account_v1["data"], AccountV1)
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(
-                status_code=account_v1["status"],
-                message="OK",
-                data=account_data
-            )
+            mock_get.return_value = Result(status_code=account_v1["status"], message="OK", data=account_data)
 
             result: AccountV1 = await client.get_account_v1(
-                name=account_v1["data"]["name"],
-                tag=account_v1["data"]["tag"]
+                name=account_v1["data"]["name"], tag=account_v1["data"]["tag"]
             )
 
             # Verify AccountV1 attributes
@@ -69,11 +64,7 @@ class TestAccountV1:
         account_data = dict_to_dataclass(account_v1["data"], AccountV1)
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(
-                status_code=200,
-                message="OK",
-                data=account_data
-            )
+            mock_get.return_value = Result(status_code=200, message="OK", data=account_data)
 
             result: AccountV1 = await client.get_account_v1("example", "1234")
 
@@ -111,15 +102,10 @@ class TestAccountV2:
         account_data = dict_to_dataclass(account_v2["data"], AccountV2)
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(
-                status_code=account_v2["status"],
-                message="OK",
-                data=account_data
-            )
+            mock_get.return_value = Result(status_code=account_v2["status"], message="OK", data=account_data)
 
             result: AccountV2 = await client.get_account_v2(
-                name=account_v2["data"]["name"],
-                tag=account_v2["data"]["tag"]
+                name=account_v2["data"]["name"], tag=account_v2["data"]["tag"]
             )
 
             # Verify AccountV2 attributes
@@ -149,11 +135,7 @@ class TestAccountV2:
         account_data = dict_to_dataclass(account_v2["data"], AccountV2)
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(
-                status_code=200,
-                message="OK",
-                data=account_data
-            )
+            mock_get.return_value = Result(status_code=200, message="OK", data=account_data)
 
             result: AccountV2 = await client.get_account_v2("example", "1234")
 

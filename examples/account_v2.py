@@ -16,4 +16,6 @@ async def get_account_v2_info():
         print(f"Card ID: {account.card}")
         print(f"Platforms: {', '.join(account.platforms)}")
         print(f"Updated At: {account.updated_at}")
+
+
 asyncio.run(get_account_v2_info())

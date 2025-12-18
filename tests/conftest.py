@@ -31,8 +31,10 @@ def mock_adapter_get_result():
 
     Returns a function that creates Result objects with specified data.
     """
+
     def _create_result(data: Dict[str, Any]) -> Result:
         return Result(status_code=200, message="OK", data=data)
+
     return _create_result
 
 

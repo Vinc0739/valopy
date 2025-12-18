@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional, Type
 
 # ======================================== Result ========================================
 
+
 @dataclass
 class Result:
     """HTTP request result wrapper.
@@ -23,6 +24,7 @@ class Result:
 
 
 # ======================================== Card Data ========================================
+
 
 @dataclass
 class CardData:
@@ -46,8 +48,8 @@ class CardData:
     id: str
 
 
-
 # ======================================== Account ========================================
+
 
 @dataclass
 class AccountV1:
@@ -121,6 +123,7 @@ class AccountV2:
 
 
 # ======================================== Content ========================================
+
 
 @dataclass
 class ContentCharacter:
@@ -301,9 +304,11 @@ class Content:
 
 # ======================================== Leaderboard ========================================
 
+
 @dataclass
 class LeaderboardPlayer:
     """Leaderboard player structure"""
+
     PlayerCardID: str
     TitleID: str
     IsBanned: bool
@@ -320,6 +325,7 @@ class LeaderboardPlayer:
 @dataclass
 class LeaderboardData:
     """Leaderboard data structure"""
+
     last_update: int = 0
     next_update: int = 0
     total_players: int = 0
@@ -331,16 +337,18 @@ class LeaderboardData:
 @dataclass
 class LeaderboardResponse:
     """Leaderboard response"""
+
     status: int
     data: LeaderboardData = field(default_factory=lambda: LeaderboardData())
 
 
-
 # ======================================== Match History ========================================
+
 
 @dataclass
 class MatchMap:
     """Match map info"""
+
     id: str
     name: str
 
@@ -348,6 +356,7 @@ class MatchMap:
 @dataclass
 class MatchSeason:
     """Match season info"""
+
     id: str
     short: str
 
@@ -355,6 +364,7 @@ class MatchSeason:
 @dataclass
 class MatchMeta:
     """Match metadata"""
+
     id: str
     map: MatchMap
     version: str
@@ -368,6 +378,7 @@ class MatchMeta:
 @dataclass
 class MatchCharacter:
     """Match character info"""
+
     id: str
     name: str
 
@@ -375,6 +386,7 @@ class MatchCharacter:
 @dataclass
 class MatchShots:
     """Match shots statistics"""
+
     head: int
     body: int
     leg: int
@@ -383,6 +395,7 @@ class MatchShots:
 @dataclass
 class MatchDamage:
     """Match damage statistics"""
+
     dealt: int
     received: int
 
@@ -390,6 +403,7 @@ class MatchDamage:
 @dataclass
 class MatchStats:
     """Match player statistics"""
+
     puuid: str
     team: str
     level: int
@@ -406,6 +420,7 @@ class MatchStats:
 @dataclass
 class MatchTeams:
     """Match teams scores"""
+
     red: int
     blue: int
 
@@ -413,6 +428,7 @@ class MatchTeams:
 @dataclass
 class MatchHistoryEntry:
     """Match history entry structure"""
+
     meta: MatchMeta
     stats: MatchStats
     teams: MatchTeams
@@ -421,6 +437,7 @@ class MatchHistoryEntry:
 @dataclass
 class MatchHistoryData:
     """Match history data structure"""
+
     name: str = ""
     tag: str = ""
     results: List[MatchHistoryEntry] = field(default_factory=list)
@@ -429,15 +446,18 @@ class MatchHistoryData:
 @dataclass
 class MatchHistoryResponse:
     """Match history response"""
+
     status: int
     data: MatchHistoryData = field(default_factory=lambda: MatchHistoryData())
 
 
 # ======================================== Match Details ========================================
 
+
 @dataclass
 class PremierInfo:
     """Premier match info"""
+
     tournament_id: str
     matchup_id: str
 
@@ -445,6 +465,7 @@ class PremierInfo:
 @dataclass
 class MatchMetadata:
     """Match metadata structure"""
+
     map: str
     game_version: str
     game_length: int
@@ -465,6 +486,7 @@ class MatchMetadata:
 @dataclass
 class SessionPlaytime:
     """Session playtime structure"""
+
     minutes: int
     seconds: int
     milliseconds: int
@@ -473,6 +495,7 @@ class SessionPlaytime:
 @dataclass
 class CardAssets:
     """Card assets structure"""
+
     small: str
     large: str
     wide: str
@@ -481,6 +504,7 @@ class CardAssets:
 @dataclass
 class AgentAssets:
     """Agent assets structure"""
+
     small: str
     bust: str
     full: str
@@ -490,6 +514,7 @@ class AgentAssets:
 @dataclass
 class PlayerAssets:
     """Player assets structure"""
+
     card: CardAssets
     agent: AgentAssets
 
@@ -497,6 +522,7 @@ class PlayerAssets:
 @dataclass
 class FriendlyFire:
     """Friendly fire statistics"""
+
     incoming: int
     outgoing: int
 
@@ -504,6 +530,7 @@ class FriendlyFire:
 @dataclass
 class PlayerBehaviour:
     """Player behaviour statistics"""
+
     afk_rounds: int
     friendly_fire: FriendlyFire
     rounds_in_spawn: int
@@ -512,6 +539,7 @@ class PlayerBehaviour:
 @dataclass
 class PlatformOS:
     """Platform OS info"""
+
     name: str
     version: str
 
@@ -519,6 +547,7 @@ class PlatformOS:
 @dataclass
 class PlayerPlatform:
     """Player platform info"""
+
     type: str
     os: PlatformOS
 
@@ -526,6 +555,7 @@ class PlayerPlatform:
 @dataclass
 class AbilityCasts:
     """Ability casts statistics"""
+
     c_cast: int
     q_cast: int
     e_cast: int
@@ -535,6 +565,7 @@ class AbilityCasts:
 @dataclass
 class PlayerStats:
     """Player statistics"""
+
     score: int
     kills: int
     deaths: int
@@ -549,6 +580,7 @@ class PlayerStats:
 @dataclass
 class EconomySpent:
     """Economy spent statistics"""
+
     overall: int
     average: int
 
@@ -556,6 +588,7 @@ class EconomySpent:
 @dataclass
 class EconomyLoadout:
     """Economy loadout value"""
+
     overall: int
     average: int
 
@@ -563,6 +596,7 @@ class EconomyLoadout:
 @dataclass
 class PlayerEconomy:
     """Player economy statistics"""
+
     spent: EconomySpent
     loadout_value: EconomyLoadout
 
@@ -570,6 +604,7 @@ class PlayerEconomy:
 @dataclass
 class MatchPlayer:
     """Match player structure"""
+
     puuid: str
     name: str
     tag: str
@@ -593,6 +628,7 @@ class MatchPlayer:
 @dataclass
 class TeamCustomization:
     """Team customization structure"""
+
     icon: str = ""
     image: str = ""
     primary_color: str = ""
@@ -603,6 +639,7 @@ class TeamCustomization:
 @dataclass
 class TeamRoster:
     """Team roster structure"""
+
     members: List[str] = field(default_factory=list)
     name: str = ""
     tag: str = ""
@@ -612,6 +649,7 @@ class TeamRoster:
 @dataclass
 class MatchTeam:
     """Match team structure"""
+
     has_won: bool = False
     rounds_won: int = 0
     rounds_lost: int = 0
@@ -621,6 +659,7 @@ class MatchTeam:
 @dataclass
 class Location:
     """Location coordinates"""
+
     x: int
     y: int
 
@@ -628,6 +667,7 @@ class Location:
 @dataclass
 class PlayerInfo:
     """Player info structure"""
+
     puuid: str
     display_name: str
     team: str
@@ -636,6 +676,7 @@ class PlayerInfo:
 @dataclass
 class PlantEvents:
     """Plant events structure"""
+
     plant_location: Location
     planted_by: PlayerInfo
     plant_site: str
@@ -646,6 +687,7 @@ class PlantEvents:
 @dataclass
 class DefuseEvents:
     """Defuse events structure"""
+
     defuse_location: Location
     defused_by: PlayerInfo
     defuse_time_in_round: int
@@ -655,6 +697,7 @@ class DefuseEvents:
 @dataclass
 class WeaponAssets:
     """Weapon assets structure"""
+
     display_icon: str
     killfeed_icon: str
 
@@ -662,6 +705,7 @@ class WeaponAssets:
 @dataclass
 class RoundWeapon:
     """Round weapon structure"""
+
     id: str
     name: str
     assets: WeaponAssets
@@ -670,12 +714,14 @@ class RoundWeapon:
 @dataclass
 class ArmorAssets:
     """Armor assets structure"""
+
     display_icon: str
 
 
 @dataclass
 class RoundArmor:
     """Round armor structure"""
+
     id: str
     name: str
     assets: ArmorAssets
@@ -684,6 +730,7 @@ class RoundArmor:
 @dataclass
 class RoundEconomy:
     """Round economy structure"""
+
     loadout_value: int = 0
     weapon: RoundWeapon = field(default_factory=lambda: RoundWeapon(id="", name="", assets=WeaponAssets("", "")))
     armor: RoundArmor = field(default_factory=lambda: RoundArmor(id="", name="", assets=ArmorAssets("")))
@@ -694,6 +741,7 @@ class RoundEconomy:
 @dataclass
 class RoundAbilityCasts:
     """Round ability casts structure"""
+
     c_casts: int = 0
     q_casts: int = 0
     e_casts: int = 0
@@ -703,6 +751,7 @@ class RoundAbilityCasts:
 @dataclass
 class RoundPlayerStats:
     """Round player statistics"""
+
     player_puuid: str
     player_display_name: str
     player_team: str
@@ -718,6 +767,7 @@ class RoundPlayerStats:
 @dataclass
 class Round:
     """Round structure"""
+
     winning_team: str
     end_type: str
     bomb_planted: bool
@@ -730,6 +780,7 @@ class Round:
 @dataclass
 class Assistant:
     """Kill assistant structure"""
+
     assistant_puuid: str
     assistant_display_name: str
     assistant_team: str
@@ -738,6 +789,7 @@ class Assistant:
 @dataclass
 class Kill:
     """Kill structure"""
+
     kill_time_in_round: int
     kill_time_in_match: int
     killer_puuid: str
@@ -758,6 +810,7 @@ class Kill:
 @dataclass
 class MatchPlayers:
     """Match players structure"""
+
     all_players: List[MatchPlayer] = field(default_factory=list)
     red: List[MatchPlayer] = field(default_factory=list)
     blue: List[MatchPlayer] = field(default_factory=list)
@@ -766,6 +819,7 @@ class MatchPlayers:
 @dataclass
 class MatchTeamsData:
     """Match teams data structure"""
+
     red: MatchTeam = field(default_factory=lambda: MatchTeam())
     blue: MatchTeam = field(default_factory=lambda: MatchTeam())
 
@@ -773,6 +827,7 @@ class MatchTeamsData:
 @dataclass
 class MatchData:
     """Match data structure"""
+
     metadata: MatchMetadata = field(
         default_factory=lambda: MatchMetadata(
             map="",
@@ -798,15 +853,18 @@ class MatchData:
 @dataclass
 class MatchResponse:
     """Match response"""
+
     status: int
     data: MatchData = field(default_factory=lambda: MatchData())
 
 
 # ======================================== MMR History ========================================
 
+
 @dataclass
 class MMRImages:
     """MMR tier images"""
+
     small: str
     large: str
     triangle_down: str
@@ -816,6 +874,7 @@ class MMRImages:
 @dataclass
 class MMRHistoryEntry:
     """MMR history entry structure"""
+
     currenttier: int
     currenttierpatched: str
     images: MMRImages
@@ -829,6 +888,7 @@ class MMRHistoryEntry:
 @dataclass
 class MMRHistoryData:
     """MMR history data structure"""
+
     name: str = ""
     tag: str = ""
     data: List[MMRHistoryEntry] = field(default_factory=list)
@@ -837,15 +897,18 @@ class MMRHistoryData:
 @dataclass
 class MMRHistoryResponse:
     """MMR history response"""
+
     status: int
     data: MMRHistoryData = field(default_factory=lambda: MMRHistoryData())
 
 
 # ======================================== Current MMR ========================================
 
+
 @dataclass
 class CurrentMMRData:
     """Current MMR data structure"""
+
     currenttier: int
     currenttierpatched: str
     images: MMRImages
@@ -859,6 +922,7 @@ class CurrentMMRData:
 @dataclass
 class HighestRank:
     """Highest rank structure"""
+
     old: bool
     tier: int
     patched_tier: str
@@ -868,6 +932,7 @@ class HighestRank:
 @dataclass
 class ActRankWin:
     """Act rank win structure"""
+
     patched_tier: str
     tier: int
 
@@ -875,6 +940,7 @@ class ActRankWin:
 @dataclass
 class SeasonData:
     """Season data structure"""
+
     error: Optional[str] = None
     wins: int = 0
     number_of_games: int = 0
@@ -887,6 +953,7 @@ class SeasonData:
 @dataclass
 class MMRData:
     """MMR data structure"""
+
     name: str = ""
     tag: str = ""
     current_data: CurrentMMRData = field(
@@ -915,15 +982,18 @@ class MMRData:
 @dataclass
 class MMRResponse:
     """MMR response"""
+
     status: int
     data: MMRData = field(default_factory=lambda: MMRData())
 
 
 # ======================================== Premier ========================================
 
+
 @dataclass
 class PremierStats:
     """Premier team stats"""
+
     wins: int
     losses: int
     matches: int
@@ -934,6 +1004,7 @@ class PremierStats:
 @dataclass
 class PremierPlacement:
     """Premier team placement"""
+
     points: int
     conference: str
     division: int
@@ -943,6 +1014,7 @@ class PremierPlacement:
 @dataclass
 class PremierMember:
     """Premier team member"""
+
     puuid: str
     name: str
     tag: str
@@ -951,6 +1023,7 @@ class PremierMember:
 @dataclass
 class PremierTeamData:
     """Premier team data structure"""
+
     id: str = ""
     name: str = ""
     tag: str = ""
@@ -971,30 +1044,36 @@ class PremierTeamData:
 @dataclass
 class PremierTeamResponse:
     """Premier team response"""
+
     status: int
     data: PremierTeamData = field(default_factory=lambda: PremierTeamData())
 
 
 # ======================================== Queue Status ========================================
 
+
 @dataclass
 class QueueStatusData:
     """Queue status data structure"""
+
     isDisabled: bool = False
 
 
 @dataclass
 class QueueStatusResponse:
     """Queue status response"""
+
     status: int
     data: QueueStatusData = field(default_factory=lambda: QueueStatusData())
 
 
 # ======================================== Status ========================================
 
+
 @dataclass
 class StatusTranslation:
     """Status translation structure"""
+
     content: str
     locale: str
 
@@ -1002,6 +1081,7 @@ class StatusTranslation:
 @dataclass
 class StatusUpdate:
     """Status update structure"""
+
     created_at: str
     updated_at: str
     publish: bool
@@ -1014,6 +1094,7 @@ class StatusUpdate:
 @dataclass
 class StatusIncident:
     """Status incident structure"""
+
     created_at: str
     archive_at: str
     updates: List[StatusUpdate] = field(default_factory=list)
@@ -1028,6 +1109,7 @@ class StatusIncident:
 @dataclass
 class StatusData:
     """Status data structure"""
+
     maintenances: List[StatusIncident] = field(default_factory=list)
     incidents: List[StatusIncident] = field(default_factory=list)
 
@@ -1035,6 +1117,7 @@ class StatusData:
 @dataclass
 class StatusResponse:
     """Status response"""
+
     status: int
     region: str
     data: StatusData = field(default_factory=StatusData)
@@ -1042,24 +1125,29 @@ class StatusResponse:
 
 # ======================================== Stored Matches ========================================
 
+
 @dataclass
 class StoredMatchesData:
     """Stored matches data structure"""
+
     results: List[MatchHistoryEntry] = field(default_factory=list)
 
 
 @dataclass
 class StoredMatchesResponse:
     """Stored matches response"""
+
     status: int
     data: StoredMatchesData = field(default_factory=StoredMatchesData)
 
 
 # ======================================== Store ========================================
 
+
 @dataclass
 class OfferReward:
     """Offer reward structure"""
+
     ItemTypeID: str
     ItemID: str
     Quantity: int
@@ -1068,6 +1156,7 @@ class OfferReward:
 @dataclass
 class StoreOfferV1Data:
     """Store offer V1 structure"""
+
     OfferID: str
     IsDirectPurchase: bool
     StartDate: str
@@ -1078,12 +1167,14 @@ class StoreOfferV1Data:
 @dataclass
 class StoreOfferV1:
     """Store offer V1 wrapper"""
+
     Offer: StoreOfferV1Data
 
 
 @dataclass
 class OfferType:
     """Offer type structure"""
+
     id: str
     name: str
 
@@ -1091,6 +1182,7 @@ class OfferType:
 @dataclass
 class ContentTier:
     """Content tier structure"""
+
     name: str
     dev_name: str
     icon: str
@@ -1099,6 +1191,7 @@ class ContentTier:
 @dataclass
 class StoreOfferV2:
     """Store offer V2 structure"""
+
     offer_id: str
     cost: Dict[str, int]
     name: str
@@ -1111,6 +1204,7 @@ class StoreOfferV2:
 @dataclass
 class StoreOffersV1Response:
     """Store offers V1 response"""
+
     status: int
     data: List[StoreOfferV1] = field(default_factory=list)
 
@@ -1118,15 +1212,18 @@ class StoreOffersV1Response:
 @dataclass
 class StoreOffersV2Response:
     """Store offers V2 response"""
+
     status: int
     data: List[StoreOfferV2] = field(default_factory=list)
 
 
 # ======================================== Version ========================================
 
+
 @dataclass
 class VersionData:
     """Version data structure"""
+
     manifestId: str = ""
     branch: str = ""
     version: str = ""
@@ -1140,15 +1237,18 @@ class VersionData:
 @dataclass
 class VersionResponse:
     """Version response"""
+
     status: int
     data: VersionData = field(default_factory=lambda: VersionData())
 
 
 # ======================================== Website ========================================
 
+
 @dataclass
 class WebsiteArticle:
     """Website article structure"""
+
     banner_url: str
     category: str
     date: str
@@ -1160,11 +1260,13 @@ class WebsiteArticle:
 @dataclass
 class WebsiteResponse:
     """Website response"""
+
     status: int
     data: List[WebsiteArticle] = field(default_factory=list)
 
 
 # ======================================== Endpoint Mapping ========================================
+
 
 def _get_endpoint_model_map() -> dict[str, Type[Any]]:
     """Get the mapping of API endpoints to their response model classes.

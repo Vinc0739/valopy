@@ -25,4 +25,5 @@ async def get_content():
             if act.isActive:
                 print(f"  - {act.name} (ID: {act.id})")
 
+
 asyncio.run(get_content())

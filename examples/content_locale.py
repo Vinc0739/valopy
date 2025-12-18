@@ -12,7 +12,7 @@ async def get_localized_content():
         for character in content.characters[:5]:  # First 5
             print(f"  - {character.name}")
             # Access localized names if available
-            if character.localizedNames and "es-ES" in character.localizedNames: # currently always None
+            if character.localizedNames and "es-ES" in character.localizedNames:  # currently always None
                 print(f"    Spanish: {character.localizedNames['es-ES']}")
 
         # Get content in Japanese
