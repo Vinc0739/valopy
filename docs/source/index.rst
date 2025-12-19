@@ -1,92 +1,44 @@
-Valopy Documentation
-====================
+valopy
+======
 
-Welcome to Valopy's documentation! Valopy is an async API wrapper for the unofficial Valorant API.
+An async Python wrapper for the unofficial Valorant API.
 
-.. image:: https://img.shields.io/badge/python-3.14+-blue.svg
-   :target: https://www.python.org/downloads/
-   :alt: Python Version
+.. note::
 
-Overview
---------
+   ValoPy is an unofficial wrapper. It is not affiliated with or endorsed by Riot Games.
+   Use at your own risk and ensure compliance with the unofficial Valorant API's terms of service.
 
-ValoPy provides a simple and intuitive async Python interface to interact with the unofficial Valorant API made by `Henrik-3 <https://github.com/Henrik-3>`_.
-It supports fetching account information, content data, and more.
+.. toctree::
+   :maxdepth: 3
+   :caption: User Guide
 
-Key Features
-~~~~~~~~~~~~
-
-* **Async/Await Support**: Built with asyncio for efficient asynchronous operations
-* **Type Hints**: Fully typed for better IDE support and type checking
-* **Comprehensive Models**: Well-structured data models for all API responses
-* **Error Handling**: Custom exceptions for different error scenarios
-* **Performance Optimized**: Session pooling and lazy logging for efficient operations
-* **Easy to Use**: Simple and intuitive API design
-
-Quick Start
------------
-
-Installation
-~~~~~~~~~~~~
-
-.. code-block:: bash
-
-   pip install valopy
-
-Basic Usage
-~~~~~~~~~~~
-
-.. code-block:: python
-
-   import asyncio
-   from valopy import Client
-
-   async def main():
-       async with Client(api_key="your-api-key") as client:
-           # Get account information (v1)
-           account = await client.get_account_v1("PlayerName", "TAG")
-           print(f"Account Level: {account.account_level}")
-           print(f"Region: {account.region}")
-
-   asyncio.run(main())
-
-Contents
---------
+   guide/getting_started
+   guide/features
+   examples
 
 .. toctree::
    :maxdepth: 2
-   :caption: API Reference:
+   :caption: API Reference
 
-   api/index
+   endpoints
    api/client
-   api/adapter
    api/models
-   api/exceptions
    api/enums
+   api/exceptions
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Examples:
+Links
+-----
 
-   examples/index
+**ValoPy**
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Tests:
+* `Documentation <https://valopy.readthedocs.io>`_
+* `PyPI Package <https://pypi.org/project/valopy>`_
+* `GitHub Repository <https://github.com/Vinc0739/valopy>`_
 
-   tests/index
+**Unofficial Valorant API**
 
-.. toctree::
-   :maxdepth: 2
-   :caption: More Information:
-
-   api_backend
-   faq
-   troubleshooting
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-
+* `API Repository <https://github.com/Henrik-3/unofficial-valorant-api>`_
+* `API Dashboard <https://api.henrikdev.xyz/dashboard>`_
+* `API Documentation <https://docs.henrikdev.xyz>`_
+* `API Status <https://status.henrikdev.xyz>`_
+* `Discord Server <https://discord.com/invite/X3GaVkX2YN>`_

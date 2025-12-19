@@ -1,6 +1,6 @@
 import asyncio
 
-from valopy import Client, ValoPyNotFoundError, ValoPyPermissionError, ValoPyRateLimitError, ValoPyHTTPError
+from valopy import Client, ValoPyHTTPError, ValoPyNotFoundError, ValoPyPermissionError, ValoPyRateLimitError
 
 
 async def safe_fetch_account():
