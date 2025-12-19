@@ -176,8 +176,6 @@ class Client:
         """
 
         _log.info("Fetching Version for region %s", region.value)
-        if region:
-            _log.debug("Region specified: %s", region.value)
 
         endpoint = Endpoint.VERSION_V1.value.format(region=region.value)
         result = await self.adapter.get(endpoint=endpoint)

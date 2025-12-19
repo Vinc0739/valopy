@@ -314,7 +314,7 @@ class Version:
     build_date: str
     build_ver: str
     last_checked: str
-    version: str
+    version: int
     version_for_api: str
 
 
