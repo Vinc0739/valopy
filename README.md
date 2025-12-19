@@ -2,7 +2,7 @@
     
 # Valopy
 
-![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)
+![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 [![Tests](https://github.com/Vinc0739/valopy/actions/workflows/jobs.yml/badge.svg?branch=main)](https://github.com/Vinc0739/valopy/actions/workflows/jobs.yml)
 
@@ -33,7 +33,7 @@ For help with the API itself, visit the **[Discord Server](https://discord.com/i
 
 ## Installation
 
-**ValoPy** is built with **Python 3.14** and should be compatible with **Python 3.10+**.
+**ValoPy** is compatible **Python 3.11+**.
 
 ```bash
 pip install valopy

@@ -10,7 +10,7 @@ name = "valopy"
 version = "0.1.1"
 description = "An async Python wrapper for the unofficial Valorant API."
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Vinc0739" }]
 maintainers = [{ name = "Vinc0739" }]

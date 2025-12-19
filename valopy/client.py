@@ -58,7 +58,7 @@ class Client:
         return self
 
     async def __aexit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
+        self, exc_type: "type[BaseException] | None", exc_val: "BaseException | None", exc_tb: "types.TracebackType | None"
     ) -> None:
         """Async context manager exit.
 
@@ -77,7 +77,7 @@ class Client:
         """
         await self.close()
 
-    async def get_account_v1(self, name: str, tag: str, force_update: bool = False) -> AccountV1:
+    async def get_account_v1(self, name: str, tag: str, force_update: bool = False) -> "AccountV1":
         """Get Account V1 information.
 
         Parameters
@@ -105,7 +105,7 @@ class Client:
         _log.info("Successfully retrieved Account V1 for %s#%s", name, tag)
         return result.data  # type: ignore
 
-    async def get_account_v2(self, name: str, tag: str, force_update: bool = False) -> AccountV2:
+    async def get_account_v2(self, name: str, tag: str, force_update: bool = False) -> "AccountV2":
         """Get Account V2 information.
 
         Parameters
@@ -133,7 +133,7 @@ class Client:
         _log.info("Successfully retrieved Account V2 for %s#%s", name, tag)
         return result.data  # type: ignore
 
-    async def get_content(self, locale: Optional[Locale] = None) -> Content:
+    async def get_content(self, locale: Optional[Locale] = None) -> "Content":
         """Get basic content data like season ids or skins.
 
         Parameters

@@ -68,7 +68,10 @@ class ValoPyPermissionError(ValoPyHTTPError):
     def __init__(
         self, status_code: int, url: Optional[str] = None, request_headers: dict = {}, redacted: bool = False
     ) -> None:
-        self.message = f"Permission Denied for KEY: {request_headers.get("Authorization", "[REDACTED]")}"
+
+        api_key = request_headers.get("Authorization", "[REDACTED]")
+
+        self.message = f"Permission Denied for KEY: {api_key}"
         self.status_code = status_code
         self.url = url
 
