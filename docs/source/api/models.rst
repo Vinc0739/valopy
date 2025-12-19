@@ -1,72 +1,53 @@
 Models
 ======
 
-Data models representing API responses and game entities.
+Data models returned by API methods. All models are dataclasses with full type hints.
 
-Result
-------
+Response
+--------
 
 .. autoclass:: valopy.models.Result
    :members:
-   :member-order: bysource
    :show-inheritance:
 
-Account Models
---------------
-
-AccountV1
-~~~~~~~~~
+Account
+-------
 
 .. autoclass:: valopy.models.AccountV1
    :members:
-   :member-order: bysource
    :show-inheritance:
-
-AccountV2
-~~~~~~~~~
 
 .. autoclass:: valopy.models.AccountV2
    :members:
-   :member-order: bysource
    :show-inheritance:
-
-Card
-~~~~
 
 .. autoclass:: valopy.models.CardData
    :members:
-   :member-order: bysource
    :show-inheritance:
 
-Content Models
---------------
-
 Content
-~~~~~~~
+-------
 
 .. autoclass:: valopy.models.Content
    :members:
-   :member-order: bysource
    :show-inheritance:
-
-ContentItem
-~~~~~~~~~~~
-
-.. warning::
-   Currently localized names are always None
 
 .. autoclass:: valopy.models.ContentItem
    :members:
-   :member-order: bysource
    :show-inheritance:
 
-Act
-~~~
+.. autoclass:: valopy.models.ContentCharacter
+   :members:
+   :show-inheritance:
 
-.. warning::
-   Currently localized names are always None
+.. autoclass:: valopy.models.ContentMap
+   :members:
+   :show-inheritance:
 
 .. autoclass:: valopy.models.ContentAct
    :members:
-   :member-order: bysource
+   :show-inheritance:
+
+.. autoclass:: valopy.models.ContentPlayerTitle
+   :members:
    :show-inheritance:

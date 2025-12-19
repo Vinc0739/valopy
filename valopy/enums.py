@@ -135,6 +135,7 @@ class Season(str, Enum):
         Episode 1 Act 2
     E1A3 : str
         Episode 1 Act 3
+
     (and more through E9A3)
     """
 
