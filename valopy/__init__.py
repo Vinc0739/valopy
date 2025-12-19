@@ -4,7 +4,7 @@ Unofficial Valorant API Wrapper
 
 An async API wrapper for the unofficial Valorant API.
 
-:copyright: (c) 2015-present Vinc0739
+:copyright: (c) 2025-present Vinc0739
 :license: MIT, see LICENSE for more details.
 
 """
@@ -12,7 +12,7 @@ An async API wrapper for the unofficial Valorant API.
 __title__ = "valopy"
 __author__ = "Vinc0739"
 __license__ = "MIT"
-__copyright__ = "Copyright 2015-present Vinc0739"
+__copyright__ = "Copyright 2025-present Vinc0739"
 __version__ = "0.1.0"
 
 import logging

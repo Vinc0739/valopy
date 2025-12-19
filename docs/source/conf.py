@@ -1,7 +1,7 @@
 # Configuration file for the Sphinx documentation builder.
 
 project = "valopy"
-copyright = "2024, Vinc0739"
+copyright = "2025-present Vinc0739"
 author = "Vinc0739"
 release = "0.1.1"
 
