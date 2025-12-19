@@ -336,9 +336,9 @@ Version
      - Endpoint
      - Method
      - Description
-   * - ❌
+   * - ✅
      - ``/v1/version/{region}``
-     - —
+     - :meth:`~valopy.client.Client.get_version`
      - Get game version info
 
 Website

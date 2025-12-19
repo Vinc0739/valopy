@@ -1,12 +1,9 @@
 {
-    "_comments": "Version endpoint - Client version information",
-    "version_response": {
-        "status": 200,
-        "data": {
-            "version": "04.00.00.655657",
-            "clientVersion": "release-04.00-shipping-20-655657",
-            "branch": "release-04.00",
-            "region": "EU"
-        }
-    }
+    "region": "eu", 
+    "branch": "release-11.11", 
+    "build_date": "Dec  4 2025", 
+    "build_ver": "11.11.00.4091853", 
+    "last_checked": "2025-12-19T12:42:34.026Z", 
+    "version": 10, 
+    "version_for_api": "release-11.11-shipping-10-4091853"
 }
