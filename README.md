@@ -10,11 +10,11 @@ An async Python wrapper for the unofficial Valorant API.
 
 [Documentation](https://valopy.readthedocs.io) • [PyPI](https://pypi.org/project/valopy) • [Issues](https://github.com/Vinc0739/valopy/issues) • [Discussions](https://github.com/Vinc0739/valopy/discussions)
 
+*Since the API changes frequently and this is a typed wrapper, it may not always work when the API updates. Currently compatible with **API v4.5.0**.*
+
 </div>
 
-> **Note:** ValoPy is an unofficial wrapper. It is not affiliated with or endorsed by Riot Games. Use at your own risk and ensure compliance with the unofficial Valorant API's terms of service.
-
-> **Warning:** Since the API changes frequently and this is a typed wrapper, it may not always work when the API updates. Currently compatible with **API v4.5.0**.
+---
 
 ## About
 
@@ -92,3 +92,7 @@ For additional examples and use cases, check out the:
 - [Documentation](https://docs.henrikdev.xyz)
 - [Status](https://status.henrikdev.xyz)
 - [Discord](https://discord.com/invite/X3GaVkX2YN)
+
+---
+
+> ValoPy is an unofficial wrapper. It is **not affiliated with or endorsed by Riot Games**. Use at your own risk and ensure compliance with the unofficial Valorant API's terms of service.
