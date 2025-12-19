@@ -1,10 +1,9 @@
-# currently localized names are always None, but this example shows how to access them
-
 import asyncio
 
 from valopy import Client, Locale
 
 
+# currently localized names are always None, but this example shows how to access them
 async def display_localized_names():
     async with Client(api_key="your-api-key") as client:
         content = await client.get_content(locale=Locale.EN_US)

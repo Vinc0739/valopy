@@ -3,6 +3,7 @@ import asyncio
 from valopy import Client, Locale
 
 
+# currently localized names are always None, but this example shows how to access them
 async def get_localized_content():
     async with Client(api_key="your-api-key") as client:
         # Get content in Spanish
