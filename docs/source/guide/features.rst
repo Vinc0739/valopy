@@ -90,6 +90,18 @@ Content Methods
    * - :meth:`~valopy.client.Client.get_content`
      - Get game content including characters, maps, skins, sprays, and acts
 
+Version Methods
+~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Method
+     - Description
+   * - :meth:`~valopy.client.Client.get_version`
+     - Get current game version information for a specific region
+
 Method Parameters
 ~~~~~~~~~~~~~~~~~
 
@@ -97,6 +109,23 @@ Most methods support these common parameters:
 
 * ``force_update`` (bool) - Force fresh data instead of cached (default: ``False``)
 * ``locale`` (:class:`~valopy.enums.Locale`) - Language/region for localized content
+* ``region`` (:class:`~valopy.enums.Region`) - Server region (EU, NA, LATAM, BR, AP, KR)
+
+**Example usage:**
+
+.. code-block:: python
+
+   from valopy import Client, Locale, Region
+
+   async with Client(api_key="your-api-key") as client:
+       # Get content in Spanish
+       content = await client.get_content(locale=Locale.ES_ES)
+       
+       # Get version for North America region
+       version = await client.get_version(region=Region.NA)
+       
+       # Force update account data
+       account = await client.get_account_v1("Name", "Tag", force_update=True)
 
 For a complete list of all API endpoints (implemented and planned), see :doc:`../endpoints`.
 

@@ -59,9 +59,12 @@ class Adapter:
 
         if self._session is None or self._session.closed:
             _log.info("Creating new aiohttp ClientSession")
+
             self._session = aiohttp.ClientSession()
+
         else:
             _log.debug("Reusing existing aiohttp ClientSession")
+
         return self._session
 
     async def close(self) -> None:
@@ -73,7 +76,9 @@ class Adapter:
         """
         if self._session and not self._session.closed:
             _log.info("Closing aiohttp ClientSession")
+
             await self._session.close()
+
         else:
             _log.debug("Session already closed or was never created")
 
@@ -108,6 +113,7 @@ class Adapter:
         -------
         None
         """
+
         await self.close()
 
     async def _do(self, method: AllowedMethods, endpoint: str, params: dict | None = None) -> Result:
@@ -143,6 +149,8 @@ class Adapter:
             If a 5xx Server Error occurs.
         ValoPyHTTPError
             For other HTTP errors.
+        aiohttp.ClientError
+            For other client errors.
         """
 
         # Construct the full URL and headers
@@ -180,10 +188,12 @@ class Adapter:
 
         except aiohttp.ClientResponseError as e:
             _log.error("HTTP error %d on %s request to endpoint %s", e.status, method.value, endpoint, exc_info=True)
+
             raise from_client_response_error(error=e, redacted=self.redact_header) from e
 
         except aiohttp.ClientError as e:
             _log.error("Client error on %s request to %s: %s", method.value, url, str(e), exc_info=True)
+
             raise
 
         # Parse response data
@@ -197,20 +207,24 @@ class Adapter:
 
         # Extract the actual data from the response
         response_data = data.get("data", {})
+
         _log.info("Received response data from %s (size: %d bytes)", endpoint, len(str(response_data)))
 
         # Convert to appropriate dataclass if mapping exists
         endpoint_model_map = get_endpoint_model_map()
         model_class = get_model_class_for_endpoint(endpoint, endpoint_model_map)
 
-        if model_class:
-            _log.info("Converting response to %s dataclass for endpoint %s", model_class.__name__, endpoint)
-            if isinstance(response_data, dict):
-                response_data = dict_to_dataclass(response_data, model_class)
-            else:
-                _log.warning("Response data is not a dict, cannot convert to dataclass")
-        else:
+        if not model_class:
             _log.debug("No model class found for endpoint %s, returning raw data", endpoint)
+
+        elif not isinstance(response_data, dict):
+            _log.warning("Response data is not a dict, cannot convert to dataclass")
+
+        else:
+            _log.info("Converting response to %s dataclass for endpoint %s", model_class.__name__, endpoint)
+
+            # Convert dict to dataclass
+            response_data = dict_to_dataclass(response_data, model_class)
 
         return Result(
             status_code=response.status,

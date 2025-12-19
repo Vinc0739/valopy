@@ -243,7 +243,7 @@ class HttpStatus(int, Enum):
 class Endpoint(str, Enum):
     """API endpoints.
 
-    Contains all available Valorant API endpoints organized by category.
+    Contains all available and implemented Valorant API endpoints organized by category.
     """
 
     # Account endpoints
@@ -255,63 +255,5 @@ class Endpoint(str, Enum):
     # Content endpoints
     CONTENT_V1 = "/v1/content"
 
-    # Crosshair endpoints
-    CROSSHAIR_V1 = "/v1/crosshair/generate"
-
-    # Esports endpoints
-    ESPORTS_SCHEDULE_V1 = "/v1/esports/schedule"
-
-    # Leaderboard endpoints
-    LEADERBOARD_V1 = "/v1/leaderboard/{affinity}"
-    LEADERBOARD_V2 = "/v2/leaderboard/{affinity}"
-    LEADERBOARD_V3 = "/v3/leaderboard/{affinity}"
-
-    # Matchlist endpoints
-    MATCHES_V3 = "/v3/matches/{region}/{name}/{tag}"
-    MATCHES_V4 = "/v4/matches/{region}/{platform}/{name}/{tag}"
-    MATCHES_BY_PUUID_V3 = "/v3/by-puuid/matches/{region}/{puuid}"
-    MATCHES_BY_PUUID_V4 = "/v4/by-puuid/matches/{region}/{platform}/{puuid}"
-
-    # Match endpoints
-    MATCH_V2 = "/v2/match/{matchid}"
-    MATCH_V4 = "/v4/match/{region}/{matchid}"
-
-    # MMR History endpoints
-    MMR_HISTORY_V1 = "/v1/mmr-history/{region}/{name}/{tag}"
-    MMR_HISTORY_BY_PUUID_V1 = "/v1/by-puuid/mmr-history/{region}/{puuid}"
-    MMR_HISTORY_BY_PUUID_V2 = "/v2/by-puuid/mmr-history/{region}/{platform}/{puuid}"
-
-    # MMR endpoints
-    MMR_V2 = "/v2/mmr/{region}/{name}/{tag}"
-    MMR_V3 = "/v3/mmr/{region}/{platform}/{name}/{tag}"
-    MMR_BY_PUUID_V2 = "/v2/by-puuid/mmr/{region}/{puuid}"
-    MMR_BY_PUUID_V3 = "/v3/by-puuid/mmr/{region}/{platform}/{puuid}"
-
-    # Premier endpoints
-    PREMIER_TEAM = "/v1/premier/{team_id}"
-    PREMIER_TEAM_HISTORY = "/v1/premier/{team_id}/history"
-    PREMIER_CONFERENCE_LEADERBOARD = "/v1/premier/conferences/{affinity}/{conference}"
-    PREMIER_SEARCH = "/v1/premier/search"
-
-    # Queue Status endpoints
-    QUEUE_STATUS_V1 = "/v1/queue-status/{affinity}"
-
-    # Raw endpoints
-    RAW_MATCH_V1 = "/v1/raw"
-
-    # Status endpoints
-    STATUS_V1 = "/v1/status/{region}"
-
-    # Stored Data endpoints
-    STORED_MATCHES_V1 = "/v1/stored-matches/{affinity}"
-    STORED_MMR_HISTORY_V1 = "/v1/stored-mmr-history/{affinity}"
-
-    # Store endpoints
-    STORE_OFFERS_V1 = "/v1/store-offers"
-    STORE_OFFERS_V2 = "/v2/store-offers"
-
     # Version endpoints
     VERSION_V1 = "/v1/version/{region}"
-
-    # Website endpoints
-    WEBSITE_V1 = "/v1/website/{countrycode}"

@@ -1,34 +1,40 @@
 from typing import Any, Dict
+from unittest.mock import AsyncMock, patch
 
 import pytest
+
+from valopy.client import Client
+from valopy.enums import Region
+from valopy.models import Result, Version
+from valopy.utils import dict_to_dataclass
 
 
 class TestVersion:
     """Test Version V1 endpoint."""
 
     @pytest.mark.asyncio
-    async def test_version_response_structure(self, version: Dict[str, Any]) -> None:
-        """Test that Version response has required structure.
+    async def test_get_version_parsing(self, version: Dict[str, Any]) -> None:
+        """Test that Version response is correctly parsed.
 
         Parameters
         ----------
         version : Dict[str, Any]
             Mock version response data.
         """
-        # Verify response structure
-        assert "status" in version
-        assert "data" in version
 
-    @pytest.mark.asyncio
-    async def test_version_has_version_info(self, version: Dict[str, Any]) -> None:
-        """Test that Version response includes version information.
+        client = Client(api_key="test-key")
 
-        Parameters
-        ----------
-        version : Dict[str, Any]
-            Mock version response data.
-        """
-        data = version.get("data", {})
+        version_data = dict_to_dataclass(version["data"], Version)
 
-        # Verify version info exists
-        assert "version" in data or "release_date" in data or len(data) > 0
+        with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
+            mock_get.return_value = Result(status_code=version["status"], message="OK", data=version_data)
+
+            result: Version = await client.get_version(region=Region.EU)
+
+            # Verify correct parsing
+            assert isinstance(result, Version)
+            assert result.region == version["data"]["region"]
+            assert result.branch == version["data"]["branch"]
+            assert result.build_ver == version["data"]["build_ver"]
+
+        await client.close()

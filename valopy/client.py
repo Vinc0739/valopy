@@ -3,12 +3,12 @@ import types
 from typing import TYPE_CHECKING, Optional
 
 from .adapter import Adapter
-from .enums import Endpoint, Locale
+from .enums import Endpoint, Locale, Region
 
 if TYPE_CHECKING:
     import types
 
-    from .models import AccountV1, AccountV2, Content
+    from .models import AccountV1, AccountV2, Content, Version
 
 _log = logging.getLogger(__name__)
 
@@ -158,5 +158,28 @@ class Client:
         result = await self.adapter.get(endpoint=Endpoint.CONTENT_V1.value, params=params)
 
         _log.info("Successfully retrieved content data")
+
+        return result.data  # type: ignore
+
+    async def get_version(self, region: Optional[Region] = Region.EU) -> "Version":
+        """Get the current API version for a specific region.
+
+        Parameters
+        ----------
+        region : Optional[Region], optional
+            The region to get the API version for, by default Region.EU
+
+        Returns
+        -------
+        Version
+            The version data retrieved from the API.
+        """
+
+        _log.info("Fetching Version for region %s", region.value)
+
+        endpoint = Endpoint.VERSION_V1.value.format(region=region.value)
+        result = await self.adapter.get(endpoint=endpoint)
+
+        _log.info("Successfully retrieved Version for region %s", region.value)
 
         return result.data  # type: ignore

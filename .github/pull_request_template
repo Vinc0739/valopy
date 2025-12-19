@@ -1,0 +1,11 @@
+## Description
+
+<!-- Describe the changes introduced by this PR. Reference any related issues. -->
+
+## Checks
+- [ ] All code modifications have been tested.
+    - [ ] I have updated the documentation accordingly.
+- [ ] This PR resolves an existing issue.
+- [ ] This PR introduces new functionality (new methods/parameters).
+- [ ] This PR contains breaking changes (removed or renamed methods/parameters)
+- [ ] This PR does **not** include code changes (documentation, README, dependencies)

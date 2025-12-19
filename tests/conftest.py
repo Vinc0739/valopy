@@ -90,13 +90,15 @@ class MockDataLoader:
 @pytest.fixture
 def account_v1() -> Dict[str, Any]:
     """Get Account V1 mock data."""
-    return MockDataLoader.get("account", "v1_by_name_tag")
+    data = MockDataLoader.get("account", "v1")
+    return {"status": 200, "data": data}
 
 
 @pytest.fixture
 def account_v2() -> Dict[str, Any]:
     """Get Account V2 mock data."""
-    return MockDataLoader.get("account", "v2_by_name_tag")
+    data = MockDataLoader.get("account", "v2")
+    return {"status": 200, "data": data}
 
 
 # Content fixtures
@@ -104,152 +106,12 @@ def account_v2() -> Dict[str, Any]:
 def content() -> Dict[str, Any]:
     """Get Content mock data."""
     data = MockDataLoader.load("content")
-    return data if data.get("status") else {"status": 200, "data": data}
-
-
-# Crosshair fixtures
-@pytest.fixture
-def crosshair() -> Dict[str, Any]:
-    """Get Crosshair mock data."""
-    data = MockDataLoader.load("crosshair")
-    return data if data.get("status") else {"status": 200, "data": data}
-
-
-# Esports fixtures
-@pytest.fixture
-def esports() -> Dict[str, Any]:
-    """Get Esports mock data."""
-    data = MockDataLoader.get("esports", "esports_schedule")
-    return data if data else MockDataLoader.load("esports")
-
-
-# Leaderboard fixtures
-@pytest.fixture
-def leaderboard() -> Dict[str, Any]:
-    """Get Leaderboard mock data."""
-    data = MockDataLoader.get("leaderboard", "v3_leaderboard")
-    return data if data else MockDataLoader.load("leaderboard")
-
-
-# Match fixtures
-@pytest.fixture
-def match_v2() -> Dict[str, Any]:
-    """Get Match V2 mock data."""
-    data = MockDataLoader.get("match", "v2_match_details")
-    return data if data else MockDataLoader.load("match")
-
-
-@pytest.fixture
-def match_v4() -> Dict[str, Any]:
-    """Get Match V4 mock data."""
-    data = MockDataLoader.get("match", "v4_match_details")
-    return data if data else MockDataLoader.load("match")
-
-
-# Matchlist fixtures
-@pytest.fixture
-def matchlist_v3() -> Dict[str, Any]:
-    """Get Matchlist V3 mock data."""
-    data = MockDataLoader.get("matchlist", "v3_matches")
-    return data if data else MockDataLoader.load("matchlist")
-
-
-@pytest.fixture
-def matchlist_v4() -> Dict[str, Any]:
-    """Get Matchlist V4 mock data."""
-    data = MockDataLoader.get("matchlist", "v4_matches")
-    return data if data else MockDataLoader.load("matchlist")
-
-
-# MMR fixtures
-@pytest.fixture
-def mmr_v2() -> Dict[str, Any]:
-    """Get MMR V2 mock data."""
-    data = MockDataLoader.get("mmr", "v2_mmr")
-    return data if data else MockDataLoader.load("mmr")
-
-
-@pytest.fixture
-def mmr_v3() -> Dict[str, Any]:
-    """Get MMR V3 mock data."""
-    data = MockDataLoader.get("mmr", "v3_mmr")
-    return data if data else MockDataLoader.load("mmr")
-
-
-# MMR History fixtures
-@pytest.fixture
-def mmr_history() -> Dict[str, Any]:
-    """Get MMR History mock data."""
-    data = MockDataLoader.load("mmr_history")
-    return data if data else {}
-
-
-# Premier fixtures
-@pytest.fixture
-def premier_team() -> Dict[str, Any]:
-    """Get Premier Team mock data."""
-    data = MockDataLoader.get("premier", "team_details")
-    return data if data else MockDataLoader.load("premier")
-
-
-@pytest.fixture
-def premier_search() -> Dict[str, Any]:
-    """Get Premier Search mock data."""
-    data = MockDataLoader.get("premier", "team_search")
-    return data if data else MockDataLoader.load("premier")
-
-
-# Queue Status fixtures
-@pytest.fixture
-def queue_status() -> Dict[str, Any]:
-    """Get Queue Status mock data."""
-    data = MockDataLoader.get("queue_status", "queue_status")
-    return data if data else MockDataLoader.load("queue_status")
-
-
-# Raw fixtures
-@pytest.fixture
-def raw() -> Dict[str, Any]:
-    """Get Raw match mock data."""
-    data = MockDataLoader.load("raw")
-    return data if data else {}
-
-
-# Status fixtures
-@pytest.fixture
-def status() -> Dict[str, Any]:
-    """Get Status mock data."""
-    data = MockDataLoader.get("status", "status_response")
-    return data if data else MockDataLoader.load("status")
-
-
-# Stored Data fixtures
-@pytest.fixture
-def stored_data() -> Dict[str, Any]:
-    """Get Stored Data mock data."""
-    data = MockDataLoader.load("stored_data")
-    return data if data else {}
-
-
-# Store fixtures
-@pytest.fixture
-def store() -> Dict[str, Any]:
-    """Get Store mock data."""
-    data = MockDataLoader.load("store")
-    return data if data else {}
+    return {"status": 200, "data": data}
 
 
 # Version fixtures
 @pytest.fixture
 def version() -> Dict[str, Any]:
     """Get Version mock data."""
-    data = MockDataLoader.get("version", "version_response")
-    return data if data else MockDataLoader.load("version")
-
-
-# Website fixtures
-@pytest.fixture
-def website() -> Dict[str, Any]:
-    """Get Website mock data."""
-    data = MockDataLoader.load("website")
-    return data if data else {}
+    data = MockDataLoader.load("version")
+    return {"status": 200, "data": data}
