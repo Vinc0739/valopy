@@ -31,7 +31,7 @@ async def main():
     async with Client(api_key="your-api-key") as client:
         try:
             account = await fetch_with_retry(client)
-            print(f"Success: {account.name}#{account.tag}")  # type: ignore
+            print(f"Success: {account.name}#{account.tag}")
         except Exception as e:
             print(f"Failed: {e}")
 

@@ -1,12 +1,16 @@
 # Valopy
 
+<<<<<<< Updated upstream
 <div align="center">
 
 ![Python Version](https://img.shields.io/badge/python-3.14+-blue.svg)
+=======
+![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)
+>>>>>>> Stashed changes
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Tests](https://img.shields.io/badge/tests-45%20passing-brightgreen.svg)
 
-An async Python wrapper for the **[unofficial Valorant API](https://github.com/Henrik-3/unofficial-valorant-api)** created by [Henrik-3](https://github.com/Henrik-3).
+An async Python wrapper for the unofficial Valorant API.
 
 [Documentation](https://valopy.readthedocs.io) • [PyPI](https://pypi.org/project/valopy) • [Issues](https://github.com/Vinc0739/valopy/issues) • [Discussions](https://github.com/Vinc0739/valopy/discussions)
 
@@ -16,78 +20,75 @@ An async Python wrapper for the **[unofficial Valorant API](https://github.com/H
 
 ## About
 
-ValoPy provides a simple, type-safe, and async-first interface to interact with the unofficial Valorant API. It abstracts away the complexity of HTTP requests and JSON parsing, allowing you to focus on building your application.
+ValoPy is an async Python wrapper designed specifically for the **[Unofficial Valorant API](https://github.com/Henrik-3/unofficial-valorant-api)** created by **[Henrik-3](https://github.com/Henrik-3)**.
 
-## Features
+Before using this wrapper, you'll need to:
+1. Create an API Key from the **[API Dashboard](https://api.henrikdev.xyz/dashboard)**
+2. Read the *Before using this API* from the API Github Repository
 
-- ✅ **Async/Await First**: Built with `asyncio` for efficient asynchronous operations
-- ✅ **Full Type Hints**: 100% typed for better IDE support and type checking with tools like Pylance
-- ✅ **Comprehensive Models**: Well-structured data models for all API responses with proper validation
-- ✅ **Error Handling**: Custom exception classes for different error scenarios
-- ✅ **Performance Optimized**: Session pooling and lazy logging for efficient operations
-- ✅ **Easy to Use**: Intuitive Pythonic interface following async best practices
-- ✅ **Well Documented**: Comprehensive documentation with 15+ examples and guides
-- ✅ **Fully Tested**: 45 integration tests covering all endpoints (100% passing)
+For help with the API itself, visit the **[Discord Server](https://discord.com/invite/X3GaVkX2YN)** or check the **[API Status](https://status.henrikdev.xyz)**.
 
-## Requirements
+## Key Features
 
-- **Python 3.14+** (uses modern Python features including type hints and async/await)
-- **aiohttp 3.13+** for async HTTP requests
+- 🚀 Simple async/await interface powered by asyncio
+- 📦 Automatic JSON parsing for all responses
+- 🔄 Built-in error handling and resilience
+- 📚 Full type hints for better IDE support
 
 ## Installation
 
-### From PyPI (recommended)
+**ValoPy** is built with **Python 3.14** and should be compatible with **Python 3.10+**.
 
 ```bash
 pip install valopy
 ```
 
-### From Source
+### Optional Dependencies
 
 ```bash
-git clone https://github.com/Vinc0739/valopy.git
-cd valopy
-pip install -e .
+# Development (testing, linting, type checking)
+pip install valopy[dev]
+
+# Documentation (Sphinx and related tools)
+pip install valopy[docs]
+
 ```
 
-## Quick Start
-
-### 1. Get an API Key
-
-First, you'll need an API key for the unofficial Valorant API:
-
-1. Join the [HenrikDev Discord Server](https://discord.gg/X3GaVkX2YN)
-2. Use the key generation commands to get a **Basic** or **Advanced** key
-3. For more information, see the [API Backend Documentation](docs/source/api_backend.rst)
-
-### 2. Use ValoPy
+# Quick Start
 
 ```python
 import asyncio
+
 from valopy import Client
 
-async def main():
-    async with Client(api_key="your-api-key") as client:
-        # Get account information
-        account = await client.get_account_v1("PlayerName", "TAG")
-        print(f"Account Level: {account.account_level}")
-        print(f"Region: {account.region}")
-        
-        # Get match history
-        matches = await client.get_match_history_v2("player-uuid", "NA")
-        print(f"Total Matches: {len(matches.history)}")
 
-asyncio.run(main())
+async def get_account_info():
+    async with Client(api_key="your-api-key") as client:
+        # Fetch account information
+        account = await client.get_account_v1("PlayerName", "TAG")
+
+        print(f"Player: {account.name}#{account.tag}")
+        print(f"PUUID: {account.puuid}")
+        print(f"Region: {account.region}")
+        print(f"Level: {account.account_level}")
+        print(f"Last Update: {account.last_update}")
+
+
+asyncio.run(get_account_info())
 ```
 
-## Documentation
 
-Full documentation is available at: **https://valopy.readthedocs.io**
+For additional examples and use cases, check out the:
+- **[/examples](/examples)** directory with complete examples
+- **[Documentation](https://valopy.readthedocs.io/en/latest/examples/index.html)** with more details
 
-### Local Documentation
+## Links
 
-To build and view documentation locally:
+### ValoPy
+- [Documentation](https://valopy.readthedocs.io)
+- [PyPI Package](https://pypi.org/project/valopy)
 
+<<<<<<< Updated upstream
 ```bash
 # Install documentation dependencies
 pip install -e ".[docs]"
@@ -402,3 +403,11 @@ Made with ❤️ by [Vinc0739](https://github.com/Vinc0739)
 </div>
 
 MIT
+=======
+### Unofficial Valorant API
+- [Repository](https://github.com/Henrik-3/unofficial-valorant-api)
+- [Dashboard](https://api.henrikdev.xyz/dashboard)
+- [Documentation](https://docs.henrikdev.xyz)
+- [Status](https://status.henrikdev.xyz)
+- [Discord](https://discord.com/invite/X3GaVkX2YN)
+>>>>>>> Stashed changes
