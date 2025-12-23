@@ -157,6 +157,11 @@ Localized Content
 
 Fetch content in different languages using the ``Locale`` enum:
 
+.. note::
+
+   The ``localizedNames`` property for content objects is currently always ``None``, but see 
+   this as a placeholder example which shows how you would access them once the API provides this data.
+
 .. code-block:: python
 
    import asyncio
@@ -179,6 +184,37 @@ Fetch content in different languages using the ``Locale`` enum:
                print(f"  - {character.name}")
 
    asyncio.run(get_localized_content())
+
+Localized Names
+~~~~~~~~~~~~~~~
+
+Access localized names for content:
+
+.. note::
+
+   The ``localizedNames`` property for content objects is currently always ``None``, but see 
+   this as a placeholder example which shows how you would access them once the API provides this data.
+
+.. code-block:: python
+
+   import asyncio
+   from valopy import Client, Locale
+
+   async def display_localized_names():
+       async with Client(api_key="your-api-key") as client:
+           content = await client.get_content(locale=Locale.EN_US)
+
+           # Display character with localized names
+           for character in content.characters[:3]:
+               print(f"\nCharacter: {character.name}")
+               if character.localizedNames:
+                   print("  Localized names:")
+                   # Show a few locales
+                   for locale in ["en-US", "es-ES", "ja-JP"]:
+                       if locale in character.localizedNames:
+                           print(f"    {locale}: {character.localizedNames[locale]}")
+
+   asyncio.run(display_localized_names())
 
 Error Handling
 --------------
