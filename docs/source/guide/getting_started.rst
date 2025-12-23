@@ -3,6 +3,11 @@ Getting Started
 
 This guide will help you get up and running with ValoPy.
 
+.. note::
+
+   ValoPy is an unofficial wrapper. It is not affiliated with or endorsed by Riot Games.
+   Use at your own risk and ensure compliance with the unofficial Valorant API's terms of service.
+
 Installation
 ------------
 
@@ -20,10 +25,15 @@ Or with uv:
 
    uv add valopy
 
+.. note::
+
+   Since the API changes frequently and this is a typed wrapper, it may not always work when the API updates.
+   Currently compatible with **API v4.5.0**.
+
 What is the Unofficial Valorant API?
 ------------------------------------
 
-ValoPy is a wrapper for the **`Unofficial Valorant API <https://github.com/Henrik-3/unofficial-valorant-api>`_** created by `Henrik-3 <https://github.com/Henrik-3>`_.
+ValoPy is a wrapper for the `Unofficial Valorant API <https://github.com/Henrik-3/unofficial-valorant-api>`_ created by `Henrik-3 <https://github.com/Henrik-3>`_.
 
 The Unofficial Valorant API provides access to Valorant game data that isn't available through official channels. 
 It aggregates data from various sources to provide information about:
@@ -34,11 +44,6 @@ It aggregates data from various sources to provide information about:
 * **Game content** - Characters (agents), maps, skins, sprays, and more
 * **Esports** - Tournament schedules and results
 * **Store** - Current store offers and rotations
-
-.. warning::
-
-   This is an **unofficial** API. It is not affiliated with or endorsed by Riot Games.
-   Always ensure compliance with the API's usage guidelines.
 
 For more information about the API itself:
 

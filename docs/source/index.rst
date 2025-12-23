@@ -1,17 +1,7 @@
 valopy
 ======
 
-An async Python wrapper for the unofficial Valorant API.
-
-.. note::
-
-   ValoPy is an unofficial wrapper. It is not affiliated with or endorsed by Riot Games.
-   Use at your own risk and ensure compliance with the unofficial Valorant API's terms of service.
-
-.. warning::
-
-   Since the API changes frequently and this is a typed wrapper, it may not always work when the API updates.
-   Currently compatible with **API v4.5.0**.
+An async Python wrapper for the unofficial Valorant API. 
 
 .. toctree::
    :maxdepth: 3
