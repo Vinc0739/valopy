@@ -1,7 +1,7 @@
 valopy
 ======
 
-An async Python wrapper for the unofficial Valorant API. 
+An async Python wrapper for the unofficial Valorant API.
 
 .. toctree::
    :maxdepth: 3

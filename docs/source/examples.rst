@@ -160,7 +160,7 @@ Fetch content in different languages using the ``Locale`` enum:
 .. note::
 
    The ``localizedNames`` property for content objects is currently always ``None``, but see 
-   this as a placeholder example wich shows how you would access them once the API provides this data.
+   this as a placeholder example which shows how you would access them once the API provides this data.
 
 .. code-block:: python
 
@@ -193,7 +193,7 @@ Access localized names for content:
 .. note::
 
    The ``localizedNames`` property for content objects is currently always ``None``, but see 
-   this as a placeholder example wich shows how you would access them once the API provides this data.
+   this as a placeholder example which shows how you would access them once the API provides this data.
 
 .. code-block:: python
 
