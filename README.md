@@ -1,16 +1,24 @@
 <div align="center">
     
-# Valopy
+  # Valopy
+  An async Python wrapper for the unofficial Valorant API.
+  
+  <!-- Markdown Badges -->
+  <img src="https://m3-markdown-badges.vercel.app/stars/8/2/Vinc0739/valopy">
+  <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/LicenceMIT/licencemit3.svg">
+  <img src="https://m3-markdown-badges.vercel.app/issues/1/1/Vinc0739/valopy">
+  <p></p>
 
-![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-[![Tests](https://github.com/Vinc0739/valopy/actions/workflows/jobs.yml/badge.svg?branch=main)](https://github.com/Vinc0739/valopy/actions/workflows/jobs.yml)
+  <!-- Library Badges -->
+  <!-- Python Version -->
+  <img src="https://img.shields.io/badge/python-3.11--3.14-blue.svg?style=for-the-badge&logo=python&color=FFD43B&logoColor=FFFFFF">
+  <!-- PyPi Version -->
+  <img src="https://img.shields.io/pypi/v/valopy?style=for-the-badge&logo=pypi&color=4B8BBE&logoColor=FFFFFF">
+  <!-- PyPi Downloads -->
+  <img src="https://img.shields.io/pypi/dm/valopy?style=for-the-badge&logo=pypi&color=FFD43B&logoColor=FFFFFF">
 
-An async Python wrapper for the unofficial Valorant API.
-
-[Documentation](https://valopy.readthedocs.io) • [PyPI](https://pypi.org/project/valopy) • [Issues](https://github.com/Vinc0739/valopy/issues) • [Discussions](https://github.com/Vinc0739/valopy/discussions)
-
-*Since the API changes frequently and this is a typed wrapper, it may not always work when the API updates. Currently compatible with **API v4.5.0**.*
+  <!-- Tests -->
+  <img src="https://img.shields.io/github/actions/workflow/status/Vinc0739/valopy/jobs.yml?label=Tests&style=for-the-badge&logo=github&color=4B8BBE&logoColor=FFFFFF">
 
 </div>
 
@@ -36,6 +44,8 @@ For help with the API itself, visit the **[Discord Server](https://discord.com/i
 ## Installation
 
 **ValoPy** is compatible **Python 3.11+**.
+
+*This library is in active development and is currently in beta. **Breaking changes will occur** until version 1.0.0 is released. Please pin your dependency to a specific version to avoid unexpected breaking changes.*
 
 ```bash
 pip install valopy
@@ -84,7 +94,9 @@ For additional examples and use cases, check out the:
 
 ### ValoPy
 - [Documentation](https://valopy.readthedocs.io)
-- [PyPI Package](https://pypi.org/project/valopy)
+- [PyPI](https://pypi.org/project/valopy)
+- [Issues](https://github.com/Vinc0739/valopy/issues)
+- [Discussions](https://github.com/Vinc0739/valopy/discussions)
 
 ### Unofficial Valorant API
 - [Repository](https://github.com/Henrik-3/unofficial-valorant-api)
