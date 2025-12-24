@@ -1,6 +1,6 @@
 from enum import Enum
 
-from valopy.models import AccountV1, AccountV2, Content, ValoPyModel, Version
+from .models import AccountV1, AccountV2, Content, ValoPyModel, Version
 
 
 class AllowedMethods(Enum):

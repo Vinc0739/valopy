@@ -242,10 +242,10 @@ class Adapter:
         ----------
         endpoint : str
             The formatted API endpoint path to call.
-        params : dict | None, optional
-            Query parameters to include in the request, by default None
         model_class : Type[ValoPyModel]
             The dataclass type to deserialize the response into
+        params : dict | None, optional
+            Query parameters to include in the request, by default None
 
         Returns
         -------
@@ -264,10 +264,10 @@ class Adapter:
         ----------
         endpoint : str
             The formatted API endpoint path to call.
+        model_class : Type[ValoPyModel]
+            The dataclass type to deserialize the response into
         params : dict | None, optional
             Query parameters to include in the request, by default None
-        model_class : Type[ValoPyModel]
-            The dataclass type to deserialize the response into, by default None
 
         Returns
         -------

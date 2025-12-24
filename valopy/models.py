@@ -18,7 +18,7 @@ class Result:
 
     status_code: int
     message: str = "None"
-    data: Any = field(default_factory=dict)  # ether dict or deserialized dataclass of type ValoPyModel
+    data: Any = field(default_factory=dict)  # either dict or deserialized dataclass of type ValoPyModel
 
 
 # ======================================== Card Data ========================================
