@@ -256,49 +256,36 @@ Handle common API errors:
 
    asyncio.run(safe_fetch_account())
 
-Retry with Exponential Backoff
+Rate Limit Handling
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Implement retry logic for rate limits:
+A very basic example of handling rate limit errors by catching the exception and printing the rate limit parameters.
 
 .. code-block:: python
 
    import asyncio
-   from valopy import Client, ValoPyHTTPError, ValoPyRateLimitError
 
-   async def fetch_with_retry(client, max_retries=3):
-       """Fetch account with retry logic."""
-       retry_count = 0
-       base_delay = 1
+   from valopy import Client, ValoPyRateLimitError
 
-       while retry_count < max_retries:
-           try:
-               account = await client.get_account_v1("PlayerName", "TAG")
-               return account
-
-           except ValoPyRateLimitError:
-               retry_count += 1
-               if retry_count >= max_retries:
-                   print("Max retries reached")
-                   raise
-
-               delay = base_delay * (2 ** retry_count)
-               print(f"Rate limited. Retrying in {delay}s...")
-               await asyncio.sleep(delay)
-
-           except ValoPyHTTPError as e:
-               print(f"HTTP Error: {e.status_code} - {e.message}")
-               raise
 
    async def main():
        async with Client(api_key="your-api-key") as client:
            try:
-               account = await fetch_with_retry(client)
-               print(f"Success: {account.name}#{account.tag}")
-           except Exception as e:
-               print(f"Failed: {e}")
+               # make rapid requests to demonstrate rate limiting
+               for i in range(50):
+                   await client.get_account_v1(name="PlayerName", tag="TAG")
+                   print(f"Request {i+1}")
 
-   asyncio.run(main())
+           except ValoPyRateLimitError as e:
+               # show the rate limit parameters
+               print("Rate Limited!")
+               print(f"   Limit: {e.rate_limit} requests")
+               print(f"   Remaining: {e.rate_remain}")
+               print(f"   Reset in: {e.rate_reset} seconds")
+
+               if e.rate_reset:
+                   # in a real application, you would wait and retry, but for this example, we'll just print a message
+                   print(f"You need to wait {e.rate_reset} seconds before retrying")
 
 Concurrent Requests
 -------------------
