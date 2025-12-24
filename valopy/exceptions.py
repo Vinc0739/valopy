@@ -75,8 +75,6 @@ class ValoPyPermissionError(ValoPyHTTPError):
         self.status_code = status_code
         self.url = url
 
-        self.request_headers = request_headers
-
         super().__init__(message=self.message, status_code=status_code, url=url)
 
 
@@ -133,6 +131,12 @@ class ValoPyRateLimitError(ValoPyHTTPError):
         HTTP status code (429).
     url : Optional[str]
         The URL that exceeded the rate limit.
+    rate_limit : Optional[str]
+        The rate limit value from response headers.
+    rate_remain : Optional[str]
+        The remaining requests value from response headers.
+    rate_reset : Optional[str]
+        The rate limit reset time from response headers.
     """
 
     def __init__(self, status_code: int, url: Optional[str] = None, response_headers: dict = {}) -> None:
@@ -148,8 +152,6 @@ class ValoPyRateLimitError(ValoPyHTTPError):
 
         self.status_code = status_code
         self.url = url
-
-        self.response_headers = response_headers
 
         super().__init__(message=self.message, status_code=status_code, url=url)
 

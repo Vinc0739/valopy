@@ -1,5 +1,7 @@
 from enum import Enum
 
+from .models import AccountV1, AccountV2, Content, ValoPyModel, Version
+
 
 class AllowedMethods(Enum):
     """Allowed HTTP methods.
@@ -240,20 +242,25 @@ class HttpStatus(int, Enum):
     SERVICE_UNAVAILABLE = 503
 
 
-class Endpoint(str, Enum):
-    """API endpoints.
+class Endpoint(Enum):
+    """API endpoints with associated response models.
 
-    Contains all available and implemented Valorant API endpoints organized by category.
+    Contains all available and implemented Valorant API endpoints organized by category,
+    with references to their corresponding dataclass models for automatic deserialization.
     """
 
+    def __init__(self, url: str, model_class: type[ValoPyModel]) -> None:
+        self.url = url
+        self.model = model_class
+
     # Account endpoints
-    ACCOUNT_BY_NAME_V1 = "/v1/account/{name}/{tag}"
-    ACCOUNT_BY_NAME_V2 = "/v2/account/{name}/{tag}"
-    ACCOUNT_BY_PUUID_V1 = "/v1/by-puuid/account/{puuid}"
-    ACCOUNT_BY_PUUID_V2 = "/v2/by-puuid/account/{puuid}"
+    ACCOUNT_BY_NAME_V1 = ("/v1/account/{name}/{tag}", AccountV1)
+    ACCOUNT_BY_NAME_V2 = ("/v2/account/{name}/{tag}", AccountV2)
+    ACCOUNT_BY_PUUID_V1 = ("/v1/by-puuid/account/{puuid}", AccountV1)
+    ACCOUNT_BY_PUUID_V2 = ("/v2/by-puuid/account/{puuid}", AccountV2)
 
     # Content endpoints
-    CONTENT_V1 = "/v1/content"
+    CONTENT_V1 = ("/v1/content", Content)
 
     # Version endpoints
-    VERSION_V1 = "/v1/version/{region}"
+    VERSION_V1 = ("/v1/version/{region}", Version)

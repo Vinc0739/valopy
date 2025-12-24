@@ -1,0 +1,39 @@
+v0.3.0
+======
+
+**Release Date:** 24 December 2025
+
+Overview
+--------
+
+Version 0.3.0 is a major internal refactoring focusing on architecture improvements, type safety, and performance optimization.
+
+New
+--------
+
+- Endpoint enum now embeds model class references directly
+    - Removes the need for separate mapping functions
+- New TypeVar constrained to valid API response types
+    - Provides type safety and prevents accidental use of wrong model classes
+
+Changes
+-------
+
+- Client now handles URL formatting and model extraction
+    - simplifies adapter methods
+- Methods now accept pre-formatted endpoint paths
+    - Automatic response deserialization based on model_class parameter
+- Improved ``dict_to_dataclass()`` utility function
+    - Proper handling of nested dataclasses and lists
+    - Constrained to ``Type[ValoPyModel]`` parameter
+- Updated documentation
+    - Added beta/development disclaimer
+    - Added a changelog
+    - Restructured documentation with better navigation
+    - Replaced `advanced_error_handling.py` example with rate limiting example
+- Removed ``get_endpoint_model_map()`` and ``get_model_class_for_endpoint()`` utilities
+
+Bug Fixes
+---------
+
+- Fixed documentation typos and broken links

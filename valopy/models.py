@@ -1,7 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Type
-
-# ======================================== Result ========================================
+from typing import Any, Dict, List, TypeVar
 
 
 @dataclass
@@ -14,13 +12,13 @@ class Result:
         The HTTP status code of the response.
     message : str
         The HTTP status message.
-    data : dict
-        The response data.
+    data : Any
+        The response data (dict or deserialized dataclass).
     """
 
     status_code: int
     message: str = "None"
-    data: dict = field(default_factory=dict)
+    data: Any = field(default_factory=dict)  # either dict or deserialized dataclass of type ValoPyModel
 
 
 # ======================================== Card Data ========================================
@@ -318,44 +316,6 @@ class Version:
     version_for_api: str
 
 
-# ======================================== Endpoint Mapping ========================================
+# ======================================== TypeVar ========================================
 
-
-def _get_endpoint_model_map() -> dict[str, Type[Any]]:
-    """Get the mapping of API endpoints to their response model classes.
-
-    Returns
-    -------
-    dict[str, Type[Any]]
-        Dictionary mapping endpoint paths to model classes for automatic deserialization.
-    """
-    # Import here to avoid circular imports
-    from .enums import Endpoint
-
-    return {
-        # Account endpoints
-        Endpoint.ACCOUNT_BY_NAME_V1.value: AccountV1,
-        Endpoint.ACCOUNT_BY_NAME_V2.value: AccountV2,
-        # Content endpoints
-        Endpoint.CONTENT_V1.value: Content,
-        # Version endpoints
-        Endpoint.VERSION_V1.value: Version,
-    }
-
-
-# Cached endpoint model map
-_ENDPOINT_MODEL_MAP: dict[str, Type[Any]] | None = None
-
-
-def get_endpoint_model_map() -> dict[str, Type[Any]]:
-    """Get the cached endpoint model map, creating it if necessary.
-
-    Returns
-    -------
-    dict[str, Type[Any]]
-        Dictionary mapping endpoint paths to model classes.
-    """
-    global _ENDPOINT_MODEL_MAP
-    if _ENDPOINT_MODEL_MAP is None:
-        _ENDPOINT_MODEL_MAP = _get_endpoint_model_map()
-    return _ENDPOINT_MODEL_MAP
+ValoPyModel = TypeVar("ValoPyModel", AccountV1, AccountV2, Content, Version)

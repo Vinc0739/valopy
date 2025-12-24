@@ -24,6 +24,7 @@ Features
    guide/getting_started
    guide/features
    examples
+   changelogs/index
 
 .. toctree::
    :caption: API Reference
