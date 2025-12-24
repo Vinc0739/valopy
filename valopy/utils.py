@@ -68,6 +68,7 @@ def dict_to_dataclass(data: dict, dataclass_type: Type["ValoPyModel"]) -> "ValoP
                     kwargs[field_name] = value
             else:
                 kwargs[field_name] = value
+        # Handle all other cases (primitives, non-dataclass objects, etc.)
         else:
             kwargs[field_name] = value
 

@@ -240,7 +240,7 @@ class Adapter:
 
         Parameters
         ----------
-        endpoint : str
+        endpoint_path : str
             The formatted API endpoint path to call.
         model_class : Type[ValoPyModel]
             The dataclass type to deserialize the response into
@@ -262,7 +262,7 @@ class Adapter:
 
         Parameters
         ----------
-        endpoint : str
+        endpoint_path : str
             The formatted API endpoint path to call.
         model_class : Type[ValoPyModel]
             The dataclass type to deserialize the response into
