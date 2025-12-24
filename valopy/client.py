@@ -102,8 +102,13 @@ class Client:
         if force_update:
             _log.debug("Force update enabled for account %s#%s", name, tag)
 
-        endpoint = Endpoint.ACCOUNT_BY_NAME_V1.value.format(name=name, tag=tag)
-        result = await self.adapter.get(endpoint=endpoint, params={"force": str(force_update).lower()})
+        endpoint_path = Endpoint.ACCOUNT_BY_NAME_V1.url.format(name=name, tag=tag)
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            params={"force": str(force_update).lower()},
+            model_class=Endpoint.ACCOUNT_BY_NAME_V1.model,
+        )
 
         _log.info("Successfully retrieved Account V1 for %s#%s", name, tag)
         return result.data  # type: ignore
@@ -130,8 +135,13 @@ class Client:
         if force_update:
             _log.debug("Force update enabled for account %s#%s", name, tag)
 
-        endpoint = Endpoint.ACCOUNT_BY_NAME_V2.value.format(name=name, tag=tag)
-        result = await self.adapter.get(endpoint=endpoint, params={"force": str(force_update).lower()})
+        endpoint_path = Endpoint.ACCOUNT_BY_NAME_V2.url.format(name=name, tag=tag)
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            params={"force": str(force_update).lower()},
+            model_class=Endpoint.ACCOUNT_BY_NAME_V2.model,
+        )
 
         _log.info("Successfully retrieved Account V2 for %s#%s", name, tag)
         return result.data  # type: ignore
@@ -151,11 +161,14 @@ class Client:
         """
 
         _log.info("Fetching content data (locale=%s)", locale or "default")
-        _log.debug("Using endpoint: %s", Endpoint.CONTENT_V1.value)
 
         params = {"locale": locale.value} if locale else {}
 
-        result = await self.adapter.get(endpoint=Endpoint.CONTENT_V1.value, params=params)
+        result = await self.adapter.get(
+            endpoint_path=Endpoint.CONTENT_V1.url,
+            params=params,
+            model_class=Endpoint.CONTENT_V1.model,
+        )
 
         _log.info("Successfully retrieved content data")
 
@@ -177,8 +190,12 @@ class Client:
 
         _log.info("Fetching Version for region %s", region.value)
 
-        endpoint = Endpoint.VERSION_V1.value.format(region=region.value)
-        result = await self.adapter.get(endpoint=endpoint)
+        endpoint_path = Endpoint.VERSION_V1.url.format(region=region.value)
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            model_class=Endpoint.VERSION_V1.model,
+        )
 
         _log.info("Successfully retrieved Version for region %s", region.value)
 

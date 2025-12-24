@@ -1,6 +1,6 @@
 <div align="center">
     
-  # Valopy
+  # ValoPy
   An async Python wrapper for the unofficial Valorant API.
   
   <!-- Markdown Badges -->

@@ -1,12 +1,12 @@
 import logging
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Type
 
 import aiohttp
 
 from .enums import AllowedMethods
 from .exceptions import from_client_response_error
-from .models import Result, get_endpoint_model_map
-from .utils import dict_to_dataclass, get_model_class_for_endpoint
+from .models import Result, ValoPyModel
+from .utils import dict_to_dataclass
 
 if TYPE_CHECKING:
     import types
@@ -116,17 +116,25 @@ class Adapter:
 
         await self.close()
 
-    async def _do(self, method: AllowedMethods, endpoint: str, params: dict | None = None) -> Result:
+    async def _do(
+        self,
+        method: AllowedMethods,
+        endpoint_path: str,
+        model_class: Type[ValoPyModel],
+        params: dict | None = None,
+    ) -> Result:
         """Make an HTTP request to the Valorant API.
 
         Parameters
         ----------
         method : AllowedMethods
             The HTTP method to use for the request.
-        endpoint : str
-            The API endpoint to call.
+        endpoint_path : str
+            The formatted API endpoint path to call.
+        model_class : Type[APIModel]
+            The dataclass type to deserialize the response into
         params : dict | None, optional
-            Parameters to include in the request, by default None
+            Query parameters to include in the request, by default None
 
         Returns
         -------
@@ -154,7 +162,7 @@ class Adapter:
         """
 
         # Construct the full URL and headers
-        url = f"{self.api_url}{endpoint}"
+        url = f"{self.api_url}{endpoint_path}"
         headers = {"accept": "application/json", "Authorization": self._api_key}
 
         # Get the session
@@ -165,7 +173,7 @@ class Adapter:
             _log.info(
                 "Starting %s request to endpoint: %s",
                 method.value,
-                endpoint,
+                endpoint_path,
             )
             _log.debug(
                 "API Key: %s Full URL: %s (params=%s)",
@@ -187,7 +195,9 @@ class Adapter:
             _log.debug("HTTP %d response received", response.status)
 
         except aiohttp.ClientResponseError as e:
-            _log.error("HTTP error %d on %s request to endpoint %s", e.status, method.value, endpoint, exc_info=True)
+            _log.error(
+                "HTTP error %d on %s request to endpoint %s", e.status, method.value, endpoint_path, exc_info=True
+            )
 
             raise from_client_response_error(error=e, redacted=self.redact_header) from e
 
@@ -208,23 +218,16 @@ class Adapter:
         # Extract the actual data from the response
         response_data = data.get("data", {})
 
-        _log.info("Received response data from %s (size: %d bytes)", endpoint, len(str(response_data)))
+        _log.info("Received response data from %s (size: %d bytes)", endpoint_path, len(str(response_data)))
 
-        # Convert to appropriate dataclass if mapping exists
-        endpoint_model_map = get_endpoint_model_map()
-        model_class = get_model_class_for_endpoint(endpoint, endpoint_model_map)
-
-        if not model_class:
-            _log.debug("No model class found for endpoint %s, returning raw data", endpoint)
-
-        elif not isinstance(response_data, dict):
+        if not isinstance(response_data, dict):
             _log.warning("Response data is not a dict, cannot convert to dataclass")
 
         else:
-            _log.info("Converting response to %s dataclass for endpoint %s", model_class.__name__, endpoint)
+            _log.info("Converting response to %s dataclass for endpoint %s", model_class.__name__, endpoint_path)
 
             # Convert dict to dataclass
-            response_data = dict_to_dataclass(response_data, model_class)
+            response_data = dict_to_dataclass(data=response_data, dataclass_type=model_class)
 
         return Result(
             status_code=response.status,
@@ -232,15 +235,17 @@ class Adapter:
             data=response_data,
         )
 
-    async def get(self, endpoint: str, params: dict | None = None) -> Result:
+    async def get(self, endpoint_path: str, model_class: Type[ValoPyModel], params: dict | None = None) -> Result:
         """Make a GET request to the Valorant API.
 
         Parameters
         ----------
         endpoint : str
-            The API endpoint to call.
+            The formatted API endpoint path to call.
         params : dict | None, optional
-            Parameters to include in the request, by default None
+            Query parameters to include in the request, by default None
+        model_class : Type[ValoPyModel]
+            The dataclass type to deserialize the response into
 
         Returns
         -------
@@ -248,17 +253,21 @@ class Adapter:
             The result of the GET request.
         """
 
-        return await self._do(method=AllowedMethods.GET, endpoint=endpoint, params=params)
+        return await self._do(
+            method=AllowedMethods.GET, endpoint_path=endpoint_path, params=params, model_class=model_class
+        )
 
-    async def post(self, endpoint: str, params: dict | None = None) -> Result:
+    async def post(self, endpoint_path: str, model_class: Type[ValoPyModel], params: dict | None = None) -> Result:
         """Make a POST request to the Valorant API.
 
         Parameters
         ----------
         endpoint : str
-            The API endpoint to call.
+            The formatted API endpoint path to call.
         params : dict | None, optional
-            Parameters to include in the request, by default None
+            Query parameters to include in the request, by default None
+        model_class : Type[ValoPyModel]
+            The dataclass type to deserialize the response into, by default None
 
         Returns
         -------
@@ -266,4 +275,6 @@ class Adapter:
             The result of the POST request.
         """
 
-        return await self._do(method=AllowedMethods.POST, endpoint=endpoint, params=params)
+        return await self._do(
+            method=AllowedMethods.POST, endpoint_path=endpoint_path, params=params, model_class=model_class
+        )
