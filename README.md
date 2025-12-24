@@ -37,6 +37,8 @@ For help with the API itself, visit the **[Discord Server](https://discord.com/i
 
 **ValoPy** is compatible **Python 3.11+**.
 
+*This library is in active development and is currently in beta. **Breaking changes will occur** until version 1.0.0 is released. Please pin your dependency to a specific version to avoid unexpected breaking changes.*
+
 ```bash
 pip install valopy
 ```
