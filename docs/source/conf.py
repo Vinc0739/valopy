@@ -3,7 +3,7 @@
 project = "valopy"
 copyright = "2025-present Vinc0739"
 author = "Vinc0739"
-release = "0.3.0"
+release = "0.4.0"
 
 extensions = [
     "sphinx.ext.autodoc",

@@ -63,6 +63,35 @@ The V2 endpoint provides additional information like title and platforms:
 
    asyncio.run(get_account_v2_info())
 
+Lookup by PUUID
+~~~~~~~~~~~~~~~
+
+You can also fetch account information using a player's PUUID (Player Universal Unique IDentifier):
+
+.. code-block:: python
+
+   import asyncio
+   from valopy import Client
+
+   async def get_account_by_puuid():
+       async with Client(api_key="your-api-key") as client:
+           # V1 endpoint - includes card images
+           account_v1 = await client.get_account_v1_by_puuid("player-puuid-here")
+           
+           print(f"Player: {account_v1.name}#{account_v1.tag}")
+           print(f"Level: {account_v1.account_level}")
+           print(f"Card (Large): {account_v1.card.large}")
+
+           # V2 endpoint - includes platforms and title
+           account_v2 = await client.get_account_v2_by_puuid("player-puuid-here")
+           
+           print(f"Player: {account_v2.name}#{account_v2.tag}")
+           print(f"Level: {account_v2.account_level}")
+           print(f"Title: {account_v2.title}")
+           print(f"Platforms: {', '.join(account_v2.platforms)}")
+
+   asyncio.run(get_account_by_puuid())
+
 Force Update
 ~~~~~~~~~~~~
 

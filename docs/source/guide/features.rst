@@ -75,8 +75,12 @@ Account Methods
      - Description
    * - :meth:`~valopy.client.Client.get_account_v1`
      - Get account information by name and tag (V1)
+   * - :meth:`~valopy.client.Client.get_account_v1_by_puuid`
+     - Get account information by PUUID (V1)
    * - :meth:`~valopy.client.Client.get_account_v2`
      - Get account information by name and tag (V2) with additional fields like title and platforms
+   * - :meth:`~valopy.client.Client.get_account_v2_by_puuid`
+     - Get account information by PUUID (V2) with additional fields like title and platforms
 
 Content Methods
 ~~~~~~~~~~~~~~~

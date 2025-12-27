@@ -113,6 +113,37 @@ class Client:
         _log.info("Successfully retrieved Account V1 for %s#%s", name, tag)
         return result.data  # type: ignore
 
+    async def get_account_v1_by_puuid(self, puuid: str, force_update: bool = False) -> "AccountV1":
+        """Get Account V1 information by PUUID.
+
+        Parameters
+        ----------
+        puuid : str
+            The player's unique identifier (PUUID).
+        force_update : bool, optional
+            Whether to force update the account information, by default False
+
+        Returns
+        -------
+        AccountV1
+            The Account V1 information.
+        """
+
+        _log.info("Fetching Account V1 by PUUID %s", puuid)
+        if force_update:
+            _log.debug("Force update enabled for account PUUID %s", puuid)
+
+        endpoint_path = Endpoint.ACCOUNT_BY_PUUID_V1.url.format(puuid=puuid)
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            params={"force": str(force_update).lower()},
+            model_class=Endpoint.ACCOUNT_BY_PUUID_V1.model,
+        )
+
+        _log.info("Successfully retrieved Account V1 for PUUID %s", puuid)
+        return result.data  # type: ignore
+
     async def get_account_v2(self, name: str, tag: str, force_update: bool = False) -> "AccountV2":
         """Get Account V2 information.
 
@@ -144,6 +175,37 @@ class Client:
         )
 
         _log.info("Successfully retrieved Account V2 for %s#%s", name, tag)
+        return result.data  # type: ignore
+
+    async def get_account_v2_by_puuid(self, puuid: str, force_update: bool = False) -> "AccountV2":
+        """Get Account V2 information by PUUID.
+
+        Parameters
+        ----------
+        puuid : str
+            The player's unique identifier (PUUID).
+        force_update : bool, optional
+            Whether to force update the account information, by default False
+
+        Returns
+        -------
+        AccountV2
+            The Account V2 information.
+        """
+
+        _log.info("Fetching Account V2 by PUUID %s", puuid)
+        if force_update:
+            _log.debug("Force update enabled for account PUUID %s", puuid)
+
+        endpoint_path = Endpoint.ACCOUNT_BY_PUUID_V2.url.format(puuid=puuid)
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            params={"force": str(force_update).lower()},
+            model_class=Endpoint.ACCOUNT_BY_PUUID_V2.model,
+        )
+
+        _log.info("Successfully retrieved Account V2 for PUUID %s", puuid)
         return result.data  # type: ignore
 
     async def get_content(self, locale: Optional[Locale] = None) -> "Content":

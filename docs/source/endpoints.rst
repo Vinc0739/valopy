@@ -28,13 +28,13 @@ Account
      - ``/v2/account/{name}/{tag}``
      - :meth:`~valopy.client.Client.get_account_v2`
      - Get account by name and tag (V2)
-   * - ❌
+   * - ✅
      - ``/v1/by-puuid/account/{puuid}``
-     - —
+     - :meth:`~valopy.client.Client.get_account_v1_by_puuid`
      - Get account by PUUID (V1)
-   * - ❌
+   * - ✅
      - ``/v2/by-puuid/account/{puuid}``
-     - —
+     - :meth:`~valopy.client.Client.get_account_v2_by_puuid`
      - Get account by PUUID (V2)
 
 Content

@@ -245,8 +245,12 @@ class HttpStatus(int, Enum):
 class Endpoint(Enum):
     """API endpoints with associated response models.
 
-    Contains all available and implemented Valorant API endpoints organized by category,
-    with references to their corresponding dataclass models for automatic deserialization.
+    Attributes
+    ----------
+    url : str
+        The URL path of the endpoint with placeholders for formatting.
+    model_class : type[ValoPyModel]
+        The dataclass model associated with the endpoint for response deserialization.
     """
 
     def __init__(self, url: str, model_class: type[ValoPyModel]) -> None:

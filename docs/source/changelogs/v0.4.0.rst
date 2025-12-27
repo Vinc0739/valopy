@@ -1,0 +1,46 @@
+v0.4.0
+======
+
+**Release Date:** TBD
+
+Overview
+--------
+
+Version 0.4.0 adds support for account lookup by PUUID, enabling users to fetch account information using a player's unique identifier.
+
+New Features
+------------
+
+Account Lookup by PUUID
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_account_v1_by_puuid` method
+    - Fetch account information using PUUID
+    - Returns ``AccountV1`` model with card images
+    - Supports force update parameter
+    
+- Added :meth:`~valopy.client.Client.get_account_v2_by_puuid` method
+    - Fetch account information using PUUID (V2 endpoint)
+    - Returns ``AccountV2`` model with platforms and title
+    - Supports force update parameter
+
+- Added ``ACCOUNT_BY_PUUID_V1`` and ``ACCOUNT_BY_PUUID_V2`` endpoints to enum
+    - V1 endpoint maps to ``AccountV1`` model
+    - V2 endpoint maps to ``AccountV2`` model
+
+Bug Fixes
+---------
+
+Documentation
+-------------
+
+- Updated endpoint documentation to reflect new PUUID lookup methods
+- Updated feature guide to include PUUID account methods
+- Added examples for account lookup by PUUID
+- Expanded test coverage for PUUID endpoints
+
+Miscellaneous
+-------------
+
+- Enhanced test fixtures to support PUUID-based account lookups
+- Improved code documentation and type hints
