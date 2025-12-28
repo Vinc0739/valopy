@@ -8,7 +8,7 @@ from .enums import CountryCode, Endpoint, Locale, Region
 if TYPE_CHECKING:
     import types
 
-    from .models import AccountV1, AccountV2, Content, Version, WebsiteContent
+    from .models import AccountV1, AccountV2, Content, Status, Version, WebsiteContent
 
 _log = logging.getLogger(__name__)
 
@@ -285,5 +285,32 @@ class Client:
             endpoint_path=endpoint_path,
             model_class=Endpoint.WEBSITE.model,
         )
+
+        return result.data  # type: ignore
+
+    async def get_status(self, region: Region) -> "Status":
+        """Get the current VALORANT server status for a region.
+
+        Parameters
+        ----------
+        region : Region
+            The region to get server status for.
+
+        Returns
+        -------
+        Status
+            The server status including maintenances and incidents.
+        """
+
+        _log.info("Fetching server status for region %s", region.value)
+
+        endpoint_path = Endpoint.STATUS.url.format(region=region.value)
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            model_class=Endpoint.STATUS.model,
+        )
+
+        _log.info("Successfully retrieved server status for region %s", region.value)
 
         return result.data  # type: ignore

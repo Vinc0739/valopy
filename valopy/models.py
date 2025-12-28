@@ -371,6 +371,125 @@ class WebsiteContent:
     external_link: str = ""
 
 
+# ======================================== Status ========================================
+
+
+@dataclass
+class StatusTranslation:
+    """Translation content for status updates.
+
+    Attributes
+    ----------
+    content : str
+        The translated content message.
+    locale : str
+        The locale code (e.g., 'en_US').
+    """
+
+    content: str
+    locale: str
+
+
+@dataclass
+class StatusTitle:
+    """Title content for status entries.
+
+    Attributes
+    ----------
+    content : str
+        The title text.
+    locale : str
+        The locale code (e.g., 'en_US').
+    """
+
+    content: str
+    locale: str
+
+
+@dataclass
+class StatusUpdate:
+    """Individual status update entry.
+
+    Attributes
+    ----------
+    created_at : str
+        When the update was created.
+    updated_at : str
+        When the update was last modified.
+    publish : bool
+        Whether the update is published.
+    id : int
+        Unique identifier for the update.
+    translations : List[StatusTranslation]
+        Translated content messages.
+    publish_locations : List[str]
+        Where the update is published (e.g., 'riotclient').
+    author : str
+        Author of the update.
+    """
+
+    created_at: str
+    updated_at: str
+    publish: bool
+    id: int
+    translations: List[StatusTranslation] = field(default_factory=list)
+    publish_locations: List[str] = field(default_factory=list)
+    author: str = ""
+
+
+@dataclass
+class StatusEntry:
+    """Status entry for maintenance or incident.
+
+    Attributes
+    ----------
+    created_at : str
+        When the entry was created.
+    archive_at : str
+        When the entry will be archived.
+    updates : List[StatusUpdate]
+        List of status updates.
+    platforms : List[str]
+        Affected platforms (e.g., 'windows').
+    updated_at : str
+        When the entry was last modified.
+    id : int
+        Unique identifier for the entry.
+    titles : List[StatusTitle]
+        Titles for the entry.
+    maintenance_status : str
+        Current maintenance status (e.g., 'in_progress').
+    incident_severity : str
+        Severity level (e.g., 'warning').
+    """
+
+    created_at: str
+    archive_at: str
+    updates: List[StatusUpdate] = field(default_factory=list)
+    platforms: List[str] = field(default_factory=list)
+    updated_at: str = ""
+    id: int = 0
+    titles: List[StatusTitle] = field(default_factory=list)
+    maintenance_status: str = ""
+    incident_severity: str = ""
+
+
+@dataclass
+class Status:
+    """Server status response.
+
+    Attributes
+    ----------
+    maintenances : List[StatusEntry]
+        List of current maintenance announcements.
+    incidents : List[StatusEntry]
+        List of current incidents.
+    """
+
+    maintenances: List[StatusEntry] = field(default_factory=list)
+    incidents: List[StatusEntry] = field(default_factory=list)
+
+
 # ======================================== TypeVar ========================================
 
-ValoPyModel = TypeVar("ValoPyModel", AccountV1, AccountV2, Content, Version, WebsiteContent)
+ValoPyModel = TypeVar("ValoPyModel", AccountV1, AccountV2, Content, Version, WebsiteContent, Status)

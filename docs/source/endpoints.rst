@@ -280,9 +280,9 @@ Server Status
      - Endpoint
      - Method
      - Description
-   * - ❌
+   * - ✅
      - ``/v1/status/{region}``
-     - —
+     - :meth:`~valopy.client.Client.get_status`
      - Get server status
 
 Store

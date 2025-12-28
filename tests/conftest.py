@@ -123,3 +123,11 @@ def website() -> Dict[str, Any]:
     """Get Website mock data."""
     data = MockDataLoader.get("website", "contents")
     return {"status": 200, "data": data}
+
+
+# Status fixtures
+@pytest.fixture
+def status() -> Dict[str, Any]:
+    """Get Status mock data."""
+    data = MockDataLoader.load("status")
+    return {"status": 200, "data": data}

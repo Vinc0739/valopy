@@ -118,6 +118,18 @@ Website Methods
    * - :meth:`~valopy.client.Client.get_website`
      - Get website news articles for a specific country code
 
+Status Methods
+~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Method
+     - Description
+   * - :meth:`~valopy.client.Client.get_status`
+     - Get server status including maintenances and incidents for a region
+
 Method Parameters
 ~~~~~~~~~~~~~~~~~
 

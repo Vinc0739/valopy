@@ -46,6 +46,24 @@ Website News
 - Adapter now supports list responses for endpoints returning arrays
     - Automatically deserializes list items to their respective models
 
+Server Status
+~~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_status` method
+    - Fetch server status for a specific region
+    - Returns ``Status`` model with maintenances and incidents
+    - Supports all regions via ``Region`` enum
+
+- Added status models
+    - ``Status``: Main response with maintenances and incidents lists
+    - ``StatusEntry``: Individual maintenance/incident entry
+    - ``StatusUpdate``: Update information with translations
+    - ``StatusTranslation``: Translated content messages
+    - ``StatusTitle``: Entry titles
+
+- Added ``STATUS`` endpoint to enum
+    - Maps to ``Status`` model for response deserialization
+
 Bug Fixes
 ---------
 - Added custom CSS to fix dark mode visibility issues in documentation
@@ -56,8 +74,8 @@ Documentation
 -------------
 
 - Updated endpoint documentation to reflect new PUUID lookup methods
-- Updated feature guide to include PUUID account methods and website method
-- Added examples for account lookup by PUUID and website news
+- Updated feature guide to include PUUID account methods, website method, and status method
+- Added examples for account lookup by PUUID, website news, and server status
 - Simplified examples documentation for better readability
 
 Miscellaneous

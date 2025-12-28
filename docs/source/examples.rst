@@ -61,9 +61,6 @@ Fetch account information using a player's PUUID:
 Game Content
 ------------
 
-Fetching Content
-~~~~~~~~~~~~~~~~
-
 Get game content like characters, maps, and skins:
 
 .. code-block:: python
@@ -88,9 +85,6 @@ Get game content like characters, maps, and skins:
 Website News
 ------------
 
-Fetching News Articles
-~~~~~~~~~~~~~~~~~~~~~~
-
 Get website news for a specific country:
 
 .. code-block:: python
@@ -110,6 +104,40 @@ Get website news for a specific country:
                print()
 
    asyncio.run(get_news())
+
+Server Status
+-------------
+
+Get current server status and maintenance announcements:
+
+.. code-block:: python
+
+   import asyncio
+   from valopy import Client, Region
+
+   async def get_server_status():
+       async with Client(api_key="your-api-key") as client:
+           status = await client.get_status(region=Region.EU)
+
+           # Check if there are any maintenances or incidents
+           if not status.maintenances and not status.incidents:
+               print("No maintenances or incidents reported!")
+               return
+
+           # Show latest maintenance if any
+           if status.maintenances:
+               maintenance = status.maintenances[0]
+               print(f"Maintenance: {maintenance.maintenance_status}")
+               if maintenance.titles:
+                   print(f"  Title: {maintenance.titles[0].content}")
+
+           # Show latest incident if any
+           if status.incidents:
+               incident = status.incidents[0]
+               if incident.updates and incident.updates[0].translations:
+                   print(f"Incident: {incident.updates[0].translations[0].content}")
+
+   asyncio.run(get_server_status())
 
 Error Handling
 --------------
