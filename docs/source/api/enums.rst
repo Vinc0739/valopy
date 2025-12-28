@@ -7,3 +7,4 @@ Enumeration types used throughout the library.
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:

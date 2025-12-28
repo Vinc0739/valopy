@@ -115,3 +115,11 @@ def version() -> Dict[str, Any]:
     """Get Version mock data."""
     data = MockDataLoader.load("version")
     return {"status": 200, "data": data}
+
+
+# Website fixtures
+@pytest.fixture
+def website() -> Dict[str, Any]:
+    """Get Website mock data."""
+    data = MockDataLoader.get("website", "contents")
+    return {"status": 200, "data": data}

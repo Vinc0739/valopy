@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Optional, Type
 
 import aiohttp
 
-from .enums import AllowedMethods
+from .enums import AllowedMethod
 from .exceptions import from_client_response_error
 from .models import Result, ValoPyModel
 from .utils import dict_to_dataclass
@@ -118,7 +118,7 @@ class Adapter:
 
     async def _do(
         self,
-        method: AllowedMethods,
+        method: AllowedMethod,
         endpoint_path: str,
         model_class: Type[ValoPyModel],
         params: dict | None = None,
@@ -220,14 +220,24 @@ class Adapter:
 
         _log.info("Received response data from %s (size: %d bytes)", endpoint_path, len(str(response_data)))
 
-        if not isinstance(response_data, dict):
-            _log.warning("Response data is not a dict, cannot convert to dataclass")
+        if isinstance(response_data, list):
+            _log.info("Converting list response to %s dataclass for endpoint %s", model_class.__name__, endpoint_path)
 
-        else:
+            # Convert list of dicts to list of dataclasses
+            response_data = [
+                dict_to_dataclass(data=item, dataclass_type=model_class)
+                for item in response_data
+                if isinstance(item, dict)
+            ]
+
+        elif isinstance(response_data, dict):
             _log.info("Converting response to %s dataclass for endpoint %s", model_class.__name__, endpoint_path)
 
             # Convert dict to dataclass
             response_data = dict_to_dataclass(data=response_data, dataclass_type=model_class)
+
+        else:
+            _log.warning("Response data is not a dict or list, cannot convert to dataclass")
 
         return Result(
             status_code=response.status,
@@ -254,7 +264,7 @@ class Adapter:
         """
 
         return await self._do(
-            method=AllowedMethods.GET, endpoint_path=endpoint_path, params=params, model_class=model_class
+            method=AllowedMethod.GET, endpoint_path=endpoint_path, params=params, model_class=model_class
         )
 
     async def post(self, endpoint_path: str, model_class: Type[ValoPyModel], params: dict | None = None) -> Result:
@@ -276,5 +286,5 @@ class Adapter:
         """
 
         return await self._do(
-            method=AllowedMethods.POST, endpoint_path=endpoint_path, params=params, model_class=model_class
+            method=AllowedMethod.POST, endpoint_path=endpoint_path, params=params, model_class=model_class
         )

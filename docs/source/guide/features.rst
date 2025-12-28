@@ -106,6 +106,18 @@ Version Methods
    * - :meth:`~valopy.client.Client.get_version`
      - Get current game version information for a specific region
 
+Website Methods
+~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Method
+     - Description
+   * - :meth:`~valopy.client.Client.get_website`
+     - Get website news articles for a specific country code
+
 Method Parameters
 ~~~~~~~~~~~~~~~~~
 

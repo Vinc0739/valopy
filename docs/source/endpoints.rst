@@ -352,7 +352,7 @@ Website
      - Endpoint
      - Method
      - Description
-   * - ❌
+   * - ✅
      - ``/v1/website/{countrycode}``
-     - —
-     - Get website news
+     - :meth:`~valopy.client.Client.get_website`
+     - Get website content (news articles)

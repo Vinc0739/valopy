@@ -1,9 +1,9 @@
 from enum import Enum
 
-from .models import AccountV1, AccountV2, Content, ValoPyModel, Version
+from .models import AccountV1, AccountV2, Content, ValoPyModel, Version, WebsiteContent
 
 
-class AllowedMethods(Enum):
+class AllowedMethod(Enum):
     """Allowed HTTP methods.
 
     Members
@@ -209,37 +209,52 @@ class GameMode(str, Enum):
     PREMIER = "premier"
 
 
-class HttpStatus(int, Enum):
-    """HTTP status codes.
+class CountryCode(str, Enum):
+    """Country codes for content localization.
 
-    Members
-    -------
-    OK : int
-        200 OK
-    BAD_REQUEST : int
-        400 Bad Request
-    FORBIDDEN : int
-        403 Forbidden
-    NOT_FOUND : int
-        404 Not Found
-    REQUEST_TIMEOUT : int
-        408 Request Timeout
-    TOO_MANY_REQUESTS : int
-        429 Too Many Requests
-    NOT_IMPLEMENTED : int
-        501 Not Implemented
-    SERVICE_UNAVAILABLE : int
-        503 Service Unavailable
+    Attributes
+    ----------
+    EN_US : str
+        English (United States)
+    EN_GB : str
+        English (Great Britain)
+    DE_DE : str
+        German (Germany)
+    ES_ES : str
+        Spanish (Spain)
+    ES_MX : str
+        Spanish (Mexico)
+    FR_FR : str
+        French (France)
+    IT_IT : str
+        Italian (Italy)
+    JA_JP : str
+        Japanese (Japan)
+    KO_KR : str
+        Korean (South Korea)
+    PT_BR : str
+        Portuguese (Brazil)
+    RU_RU : str
+        Russian (Russia)
+    TR_TR : str
+        Turkish (Turkey)
+    VI_VN : str
+        Vietnamese (Vietnam)
     """
 
-    OK = 200
-    BAD_REQUEST = 400
-    FORBIDDEN = 403
-    NOT_FOUND = 404
-    REQUEST_TIMEOUT = 408
-    TOO_MANY_REQUESTS = 429
-    NOT_IMPLEMENTED = 501
-    SERVICE_UNAVAILABLE = 503
+    EN_US = "en-us"
+    EN_GB = "en-gb"
+    DE_DE = "de-de"
+    ES_ES = "es-es"
+    ES_MX = "es-mx"
+    FR_FR = "fr-fr"
+    IT_IT = "it-it"
+    JA_JP = "ja-jp"
+    KO_KR = "ko-kr"
+    PT_BR = "pt-br"
+    RU_RU = "ru-ru"
+    TR_TR = "tr-tr"
+    VI_VN = "vi-vn"
 
 
 class Endpoint(Enum):
@@ -263,8 +278,11 @@ class Endpoint(Enum):
     ACCOUNT_BY_PUUID_V1 = ("/v1/by-puuid/account/{puuid}", AccountV1)
     ACCOUNT_BY_PUUID_V2 = ("/v2/by-puuid/account/{puuid}", AccountV2)
 
-    # Content endpoints
+    # Content endpoint
     CONTENT_V1 = ("/v1/content", Content)
 
-    # Version endpoints
+    # Version endpoint
     VERSION_V1 = ("/v1/version/{region}", Version)
+
+    # Website endpoint
+    WEBSITE = ("/v1/website/{countrycode}", WebsiteContent)

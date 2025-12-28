@@ -1,0 +1,12 @@
+/* Fix dark mode: text visibility and dark background */
+html[data-theme="dark"] .sig-prename.descclassname {
+    color: #4ec9b0 !important;
+}
+
+html[data-theme="dark"] .sig-name.descname {
+    color: #dcdcaa !important;
+}
+
+html[data-theme="dark"] .rst-content dl:not(.docutils) dt {
+    background: #0a0a0a !important;
+}

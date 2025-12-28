@@ -3,12 +3,12 @@ import types
 from typing import TYPE_CHECKING, Optional
 
 from .adapter import Adapter
-from .enums import Endpoint, Locale, Region
+from .enums import CountryCode, Endpoint, Locale, Region
 
 if TYPE_CHECKING:
     import types
 
-    from .models import AccountV1, AccountV2, Content, Version
+    from .models import AccountV1, AccountV2, Content, Version, WebsiteContent
 
 _log = logging.getLogger(__name__)
 
@@ -260,5 +260,30 @@ class Client:
         )
 
         _log.info("Successfully retrieved Version for region %s", region.value)
+
+        return result.data  # type: ignore
+
+    async def get_website(self, countrycode: CountryCode) -> list["WebsiteContent"]:
+        """Get website information for a specific country code.
+
+        Parameters
+        ----------
+        countrycode : CountryCodes
+            The country code to get the website information for.
+
+        Returns
+        -------
+        Website
+            The website information.
+        """
+
+        _log.info("Fetching Website for country code %s", countrycode.value)
+
+        endpoint_path = Endpoint.WEBSITE.url.format(countrycode=countrycode.value)
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            model_class=Endpoint.WEBSITE.model,
+        )
 
         return result.data  # type: ignore

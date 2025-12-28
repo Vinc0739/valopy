@@ -6,7 +6,7 @@ v0.4.0
 Overview
 --------
 
-Version 0.4.0 adds support for account lookup by PUUID, enabling users to fetch account information using a player's unique identifier.
+Version 0.4.0 adds support for account lookup by PUUID and website news content, enabling users to fetch account information using a player's unique identifier and retrieve Valorant news articles.
 
 New Features
 ------------
@@ -28,19 +28,41 @@ Account Lookup by PUUID
     - V1 endpoint maps to ``AccountV1`` model
     - V2 endpoint maps to ``AccountV2`` model
 
+Website News
+~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_website` method
+    - Fetch news articles for a specific country
+    - Returns ``List[WebsiteContent]`` with article details
+    - Supports all country codes via ``CountryCode`` enum
+
+- Added ``WebsiteContent`` model
+    - Contains article metadata: title, description, category, date, URLs
+    - Includes banner image URL and external links
+
+- Added ``WEBSITE`` endpoint to enum
+    - Maps to ``WebsiteContent`` model for list deserialization
+
+- Adapter now supports list responses for endpoints returning arrays
+    - Automatically deserializes list items to their respective models
+
 Bug Fixes
 ---------
+- Added custom CSS to fix dark mode visibility issues in documentation
+    - Fixed text colors for signature prefixes and names
+    - Fixed background color for API reference blocks
 
 Documentation
 -------------
 
 - Updated endpoint documentation to reflect new PUUID lookup methods
-- Updated feature guide to include PUUID account methods
-- Added examples for account lookup by PUUID
-- Expanded test coverage for PUUID endpoints
+- Updated feature guide to include PUUID account methods and website method
+- Added examples for account lookup by PUUID and website news
+- Simplified examples documentation for better readability
 
 Miscellaneous
 -------------
 
-- Enhanced test fixtures to support PUUID-based account lookups
 - Improved code documentation and type hints
+- Added contribute.md for new contributors
+- Refactored `dict_to_dataclass` utility for better performance and readability

@@ -305,7 +305,25 @@ class Content:
 
 @dataclass
 class Version:
-    """Version response"""
+    """Version response
+
+    Attributes
+    ----------
+    region : str
+        The region of the version data.
+    branch : str
+        The branch of the version data.
+    build_date : str
+        The build date of the version.
+    build_ver : str
+        The build version.
+    last_checked : str
+        The last checked timestamp.
+    version : int
+        The version number.
+    version_for_api : str
+        The version string for API usage.
+    """
 
     region: str
     branch: str
@@ -316,6 +334,43 @@ class Version:
     version_for_api: str
 
 
+# ======================================== Website ========================================
+
+
+@dataclass
+class WebsiteContent:
+    """Website content structure.
+
+    Attributes
+    ----------
+    id : str
+        The unique identifier for the website content.
+    banner_url : str
+        The URL of the banner image.
+    category : str
+        The category of the website content.
+    date : str
+        Release date of the content.
+    title : str
+        Title of the content.
+    url : str
+        The URL of the content.
+    description : str
+        Description of the content.
+    external_link : str
+        External link related to the content.
+    """
+
+    id: str
+    banner_url: str
+    category: str
+    date: str
+    title: str
+    url: str
+    description: str = ""
+    external_link: str = ""
+
+
 # ======================================== TypeVar ========================================
 
-ValoPyModel = TypeVar("ValoPyModel", AccountV1, AccountV2, Content, Version)
+ValoPyModel = TypeVar("ValoPyModel", AccountV1, AccountV2, Content, Version, WebsiteContent)
