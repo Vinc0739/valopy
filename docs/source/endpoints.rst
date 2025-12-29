@@ -248,10 +248,10 @@ Queue Status
      - Endpoint
      - Method
      - Description
-   * - ❌
-     - ``/v1/queue-status/{affinity}``
-     - —
-     - Get queue status
+   * - ✅
+     - ``/v1/queue-status/{region}``
+     - :meth:`~valopy.client.Client.get_queue_status`
+     - Get queue status and configurations
 
 Raw
 ---

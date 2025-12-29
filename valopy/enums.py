@@ -1,6 +1,6 @@
 from enum import Enum
 
-from .models import AccountV1, AccountV2, Content, Status, ValoPyModel, Version, WebsiteContent
+from .models import AccountV1, AccountV2, Content, QueueData, Status, ValoPyModel, Version, WebsiteContent
 
 
 class AllowedMethod(Enum):
@@ -289,3 +289,6 @@ class Endpoint(Enum):
 
     # Status endpoint
     STATUS = ("/v1/status/{region}", Status)
+
+    # Queue endpoint
+    QUEUE_STATUS = ("/v1/queue-status/{region}", QueueData)

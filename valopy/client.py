@@ -8,7 +8,7 @@ from .enums import CountryCode, Endpoint, Locale, Region
 if TYPE_CHECKING:
     import types
 
-    from .models import AccountV1, AccountV2, Content, Status, Version, WebsiteContent
+    from .models import AccountV1, AccountV2, Content, QueueData, Status, Version, WebsiteContent
 
 _log = logging.getLogger(__name__)
 
@@ -312,5 +312,32 @@ class Client:
         )
 
         _log.info("Successfully retrieved server status for region %s", region.value)
+
+        return result.data  # type: ignore
+
+    async def get_queue_status(self, region: Region) -> list["QueueData"]:
+        """Get the current queue status for a region.
+
+        Parameters
+        ----------
+        region : Region
+            The region to get queue status for.
+
+        Returns
+        -------
+        list[QueueData]
+            List of queue configurations for all available game modes.
+        """
+
+        _log.info("Fetching queue status for region %s", region.value)
+
+        endpoint_path = Endpoint.QUEUE_STATUS.url.format(region=region.value)
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            model_class=Endpoint.QUEUE_STATUS.model,
+        )
+
+        _log.info("Successfully retrieved queue status for region %s", region.value)
 
         return result.data  # type: ignore

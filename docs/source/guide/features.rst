@@ -130,6 +130,18 @@ Status Methods
    * - :meth:`~valopy.client.Client.get_status`
      - Get server status including maintenances and incidents for a region
 
+Queue Methods
+~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Method
+     - Description
+   * - :meth:`~valopy.client.Client.get_queue_status`
+     - Get queue status and configurations for all game modes in a region
+
 Method Parameters
 ~~~~~~~~~~~~~~~~~
 

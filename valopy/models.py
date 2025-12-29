@@ -490,6 +490,203 @@ class Status:
     incidents: List[StatusEntry] = field(default_factory=list)
 
 
+# ======================================== Queue ========================================
+
+
+@dataclass
+class QueuePartySize:
+    """Party size constraints for a queue.
+
+    Attributes
+    ----------
+    max : int
+        Maximum party size allowed.
+    min : int
+        Minimum party size allowed.
+    invalid : List[int]
+        Party sizes that are not allowed.
+    full_party_bypass : bool
+        Whether full parties bypass certain restrictions.
+    """
+
+    max: int
+    min: int
+    invalid: List[int] = field(default_factory=list)
+    full_party_bypass: bool = False
+
+
+@dataclass
+class QueueHighSkill:
+    """High skill tier restrictions for a queue.
+
+    Attributes
+    ----------
+    max_party_size : int
+        Maximum party size for high skill players.
+    min_tier : int
+        Minimum tier affected by high skill restrictions.
+    max_tier : int
+        Maximum tier affected by high skill restrictions.
+    """
+
+    max_party_size: int
+    min_tier: int
+    max_tier: int
+
+
+@dataclass
+class QueueSkillDisparityTier:
+    """Tier information for skill disparity.
+
+    Attributes
+    ----------
+    id : int
+        Tier identifier.
+    name : str
+        Tier name.
+    """
+
+    id: int
+    name: str
+
+
+@dataclass
+class QueueSkillDisparity:
+    """Skill disparity restrictions for a queue.
+
+    Attributes
+    ----------
+    tier : int
+        The tier identifier.
+    name : str
+        Tier name.
+    max_tier : QueueSkillDisparityTier
+        Maximum tier allowed to queue with this tier.
+    """
+
+    tier: int
+    name: str
+    max_tier: QueueSkillDisparityTier
+
+
+@dataclass
+class QueueGameRules:
+    """Game rules configuration for a queue.
+
+    Attributes
+    ----------
+    overtime_win_by_two : bool
+        Whether overtime requires winning by two.
+    allow_lenient_surrender : bool
+        Whether lenient surrender is allowed.
+    allow_drop_out : bool
+        Whether dropping out is allowed.
+    assign_random_agents : bool
+        Whether agents are randomly assigned.
+    skip_pregame : bool
+        Whether pregame is skipped.
+    allow_overtime_draw_vote : bool
+        Whether overtime draw voting is allowed.
+    overtime_win_by_two_capped : bool
+        Whether overtime win by two is capped.
+    premier_mode : bool
+        Whether this is premier mode.
+    """
+
+    overtime_win_by_two: bool = False
+    allow_lenient_surrender: bool = False
+    allow_drop_out: bool = False
+    assign_random_agents: bool = False
+    skip_pregame: bool = False
+    allow_overtime_draw_vote: bool = False
+    overtime_win_by_two_capped: bool = False
+    premier_mode: bool = False
+
+
+@dataclass
+class QueueMapInfo:
+    """Map identifier and name.
+
+    Attributes
+    ----------
+    id : str
+        Map UUID.
+    name : str
+        Map display name.
+    """
+
+    id: str
+    name: str
+
+
+@dataclass
+class QueueMap:
+    """Map configuration for a queue.
+
+    Attributes
+    ----------
+    map : QueueMapInfo
+        Map information.
+    enabled : bool
+        Whether the map is enabled in this queue.
+    """
+
+    map: QueueMapInfo
+    enabled: bool
+
+
+@dataclass
+class QueueData:
+    """Individual queue configuration.
+
+    Attributes
+    ----------
+    mode : str
+        Queue mode name (e.g., "Competitive").
+    mode_id : str
+        Queue mode identifier (e.g., "competitive").
+    enabled : bool
+        Whether the queue is currently enabled.
+    team_size : int
+        Number of players per team.
+    number_of_teams : int
+        Number of teams in a match.
+    party_size : QueuePartySize
+        Party size constraints.
+    high_skill : QueueHighSkill
+        High skill tier restrictions.
+    ranked : bool
+        Whether this is a ranked queue.
+    tournament : bool
+        Whether this is a tournament queue.
+    skill_disparity : List[QueueSkillDisparity]
+        Skill disparity restrictions by tier.
+    required_account_level : int
+        Minimum account level required.
+    game_rules : QueueGameRules
+        Game rules configuration.
+    platforms : List[str]
+        Available platforms (e.g., ["pc"]).
+    maps : List[QueueMap]
+        Available maps in this queue.
+    """
+
+    mode: str
+    mode_id: str
+    enabled: bool
+    team_size: int
+    number_of_teams: int
+    party_size: QueuePartySize
+    high_skill: QueueHighSkill
+    ranked: bool
+    tournament: bool
+    skill_disparity: List[QueueSkillDisparity]
+    required_account_level: int
+    game_rules: QueueGameRules
+    platforms: List[str] = field(default_factory=list)
+    maps: List[QueueMap] = field(default_factory=list)
+
+
 # ======================================== TypeVar ========================================
 
-ValoPyModel = TypeVar("ValoPyModel", AccountV1, AccountV2, Content, Version, WebsiteContent, Status)
+ValoPyModel = TypeVar("ValoPyModel", AccountV1, AccountV2, Content, Version, WebsiteContent, Status, QueueData)

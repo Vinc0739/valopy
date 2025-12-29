@@ -64,6 +64,27 @@ Server Status
 - Added ``STATUS`` endpoint to enum
     - Maps to ``Status`` model for response deserialization
 
+Queue Status
+~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_queue_status` method
+    - Fetch queue status for a specific region
+    - Returns ``List[QueueData]`` with game mode configurations
+    - Supports all regions via ``Region`` enum
+
+- Added queue models
+    - ``QueueData``: Individual queue configuration
+    - ``QueuePartySize``: Party size constraints
+    - ``QueueHighSkill``: High skill tier restrictions
+    - ``QueueSkillDisparity``: Skill disparity restrictions
+    - ``QueueSkillDisparityTier``: Tier information
+    - ``QueueGameRules``: Game rules configuration
+    - ``QueueMapInfo``: Map identifier and name
+    - ``QueueMap``: Map configuration for queues
+
+- Added ``QUEUE_STATUS`` endpoint to enum
+    - Maps to ``QueueData`` model for list response deserialization
+
 Bug Fixes
 ---------
 - Added custom CSS to fix dark mode visibility issues in documentation
