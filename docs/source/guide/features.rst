@@ -178,7 +178,6 @@ ValoPy provides specific exception classes for different error scenarios:
 
    from valopy import (
        Client,
-       ValoPyHTTPError,
        ValoPyNotFoundError,
        ValoPyPermissionError,
        ValoPyRateLimitError,
@@ -193,7 +192,5 @@ ValoPy provides specific exception classes for different error scenarios:
            print("Invalid API key")
        except ValoPyRateLimitError as e:
            print(f"Rate limited, retry after {e.rate_reset}s")
-       except ValoPyHTTPError as e:
-           print(f"HTTP error: {e.status_code}")
 
 See :doc:`../api/exceptions` for the complete exception hierarchy.

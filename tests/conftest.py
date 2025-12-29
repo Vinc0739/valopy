@@ -131,3 +131,11 @@ def status() -> Dict[str, Any]:
     """Get Status mock data."""
     data = MockDataLoader.load("status")
     return {"status": 200, "data": data}
+
+
+# Queue fixtures
+@pytest.fixture
+def queue() -> Dict[str, Any]:
+    """Get Queue Status mock data."""
+    data = MockDataLoader.get("queue", "queues")
+    return {"status": 200, "data": data}

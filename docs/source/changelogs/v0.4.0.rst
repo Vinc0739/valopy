@@ -95,9 +95,9 @@ Documentation
 -------------
 
 - Updated endpoint documentation to reflect new PUUID lookup methods
-- Updated feature guide to include PUUID account methods, website method, and status method
-- Added examples for account lookup by PUUID, website news, and server status
-- Simplified examples documentation for better readability
+- Updated feature guide to include PUUID account methods, website method, status method, and queue status method
+- Added examples for account lookup by PUUID, website news, server status, and queue status
+- Simplified all Examples and removed unnecessary
 
 Miscellaneous
 -------------

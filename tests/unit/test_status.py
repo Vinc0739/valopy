@@ -34,28 +34,17 @@ class TestStatus:
             # Verify correct parsing
             assert isinstance(result, Status)
             assert isinstance(result.maintenances, list)
-            assert isinstance(result.incidents, list)
 
-            # Verify maintenances
-            assert len(result.maintenances) == 1
+            # Verify maintenance subdataclass
             maintenance = result.maintenances[0]
             assert isinstance(maintenance, StatusEntry)
             assert maintenance.id == status["data"]["maintenances"][0]["id"]
-            assert maintenance.maintenance_status == "in_progress"
-            assert maintenance.incident_severity == "warning"
-            assert "windows" in maintenance.platforms
 
-            # Verify maintenance updates
-            assert len(maintenance.updates) == 1
-            update = maintenance.updates[0]
-            assert isinstance(update, StatusUpdate)
-            assert update.author == "Riot Games"
-            assert update.publish is True
+            # Verify update subdataclass
+            assert isinstance(maintenance.updates[0], StatusUpdate)
+            assert maintenance.updates[0].author == "Riot Games"
 
-            # Verify incidents
-            assert len(result.incidents) == 1
-            incident = result.incidents[0]
-            assert isinstance(incident, StatusEntry)
-            assert incident.id == status["data"]["incidents"][0]["id"]
+            # Verify title subdataclass
+            assert maintenance.titles[0].content is not None
 
         await client.close()

@@ -1,148 +1,156 @@
 Examples
 ========
 
-This page contains practical examples for common use cases.
+This page contains simple examples for every implemented endpoint.
 
-.. contents:: On this page
-   :local:
-   :depth: 2
+Account
+-------
 
-Account Information
--------------------
-
-Basic Account Lookup
-~~~~~~~~~~~~~~~~~~~~
-
-Fetch account information using the V1 or V2 endpoints:
+Get account information (v2) by name and tag:
 
 .. code-block:: python
 
    import asyncio
    from valopy import Client
 
-   async def get_account_info():
+   async def main():
        async with Client(api_key="your-api-key") as client:
-           # V1 endpoint - includes card images
-           account = await client.get_account_v1("PlayerName", "TAG")
+           account = await client.get_account_v2(name="PlayerName", tag="TAG")
 
            print(f"Player: {account.name}#{account.tag}")
            print(f"PUUID: {account.puuid}")
            print(f"Region: {account.region}")
            print(f"Level: {account.account_level}")
-           print(f"Card (Large): {account.card.large}")
 
-           # V2 endpoint - includes title and platforms
-           account_v2 = await client.get_account_v2("PlayerName", "TAG")
+   asyncio.run(main())
 
-           print(f"Title: {account_v2.title}")
-           print(f"Platforms: {', '.join(account_v2.platforms)}")
-
-   asyncio.run(get_account_info())
-
-Lookup by PUUID
-~~~~~~~~~~~~~~~
-
-Fetch account information using a player's PUUID:
-
-.. code-block:: python
-
-   import asyncio
-   from valopy import Client
-
-   async def get_account_by_puuid():
-       async with Client(api_key="your-api-key") as client:
-           account = await client.get_account_v1_by_puuid("player-puuid-here")
-           
-           print(f"Player: {account.name}#{account.tag}")
-           print(f"Level: {account.account_level}")
-
-   asyncio.run(get_account_by_puuid())
-
-Game Content
-------------
+Content
+-------
 
 Get game content like characters, maps, and skins:
 
 .. code-block:: python
 
    import asyncio
-   from valopy import Client
+   from valopy import Client, Locale
 
-   async def get_content():
+   async def main():
        async with Client(api_key="your-api-key") as client:
-           content = await client.get_content()
+           content = await client.get_content(locale=Locale.EN_US)
 
            print(f"Version: {content.version}")
-           print(f"Characters: {len(content.characters)}")
-           print(f"Maps: {len(content.maps)}")
+           print(f"Characters ({len(content.characters)}):")
+           for char in content.characters[:5]:
+               print(f"  - {char.name}")
 
-           # List all characters
-           for character in content.characters:
-               print(f"  - {character.name}")
+           print(f"Maps ({len(content.maps)}):")
+           for map_item in content.maps[:5]:
+               print(f"  - {map_item.name}")
 
-   asyncio.run(get_content())
+   asyncio.run(main())
 
-Website News
-------------
+Version
+-------
 
-Get website news for a specific country:
-
-.. code-block:: python
-
-   import asyncio
-   from valopy import Client, CountryCode
-
-   async def get_news():
-       async with Client(api_key="your-api-key") as client:
-           articles = await client.get_website(countrycode=CountryCode.EN_US)
-
-           for article in articles[:5]:  # Show first 5 articles
-               print(f"Title: {article.title}")
-               print(f"Category: {article.category}")
-               print(f"Date: {article.date}")
-               print(f"URL: {article.url}")
-               print()
-
-   asyncio.run(get_news())
-
-Server Status
--------------
-
-Get current server status and maintenance announcements:
+Get current game version information:
 
 .. code-block:: python
 
    import asyncio
    from valopy import Client, Region
 
-   async def get_server_status():
+   async def main():
+       async with Client(api_key="your-api-key") as client:
+           version = await client.get_version(region=Region.EU)
+
+           print(f"Version: {version.version_for_api}")
+           print(f"Branch: {version.branch}")
+           print(f"Build: {version.build_ver}")
+           print(f"Released: {version.build_date}")
+
+   asyncio.run(main())
+
+Website
+-------
+
+Get website news articles:
+
+.. code-block:: python
+
+   import asyncio
+   from valopy import Client, CountryCode
+
+   async def main():
+       async with Client(api_key="your-api-key") as client:
+           articles = await client.get_website(countrycode=CountryCode.EN_US)
+
+           print(f"Latest {min(5, len(articles))} articles:\\n")
+           for article in articles[:5]:
+               print(f"{article.title}")
+               print(f"  {article.category} | {article.date}")
+               print(f"  {article.url}\\n")
+
+   asyncio.run(main())
+
+Server Status
+-------------
+
+Get current server status:
+
+.. code-block:: python
+
+   import asyncio
+   from valopy import Client, Region
+
+   async def main():
        async with Client(api_key="your-api-key") as client:
            status = await client.get_status(region=Region.EU)
 
-           # Check if there are any maintenances or incidents
            if not status.maintenances and not status.incidents:
-               print("No maintenances or incidents reported!")
+               print("All systems operational")
                return
 
-           # Show latest maintenance if any
            if status.maintenances:
-               maintenance = status.maintenances[0]
-               print(f"Maintenance: {maintenance.maintenance_status}")
-               if maintenance.titles:
-                   print(f"  Title: {maintenance.titles[0].content}")
+               print("Maintenances:")
+               for m in status.maintenances:
+                   if m.titles:
+                       print(f"  - {m.titles[0].content}")
 
-           # Show latest incident if any
            if status.incidents:
-               incident = status.incidents[0]
-               if incident.updates and incident.updates[0].translations:
-                   print(f"Incident: {incident.updates[0].translations[0].content}")
+               print("\\nIncidents:")
+               for i in status.incidents:
+                   if i.titles:
+                       print(f"  - {i.titles[0].content}")
 
-   asyncio.run(get_server_status())
+   asyncio.run(main())
+
+Queue Status
+------------
+
+Get queue status and configurations:
+
+.. code-block:: python
+
+   import asyncio
+   from valopy import Client, Region
+
+   async def main():
+       async with Client(api_key="your-api-key") as client:
+           queues = await client.get_queue_status(region=Region.EU)
+
+           for queue in queues:
+               if queue.mode in ["Unrated", "Competitive"]:
+                   print(f"\\n{queue.mode}")
+                   print(f"  Team Size: {queue.team_size}v{queue.team_size}")
+                   print(f"  Party: {queue.party_size.min}-{queue.party_size.max}")
+                   print(f"  Required Level: {queue.required_account_level}")
+
+   asyncio.run(main())
 
 Error Handling
 --------------
 
-Handle common API errors:
+Handle common API errors gracefully:
 
 .. code-block:: python
 
@@ -152,40 +160,40 @@ Handle common API errors:
        ValoPyNotFoundError,
        ValoPyPermissionError,
        ValoPyRateLimitError,
-       ValoPyHTTPError,
+       ValoPyRequestError,
    )
 
-   async def safe_fetch_account():
+   async def main():
        async with Client(api_key="your-api-key") as client:
            try:
-               account = await client.get_account_v1("PlayerName", "TAG")
+               account = await client.get_account_v2_by_puuid(puuid="some-puuid-string")
                print(f"Found: {account.name}#{account.tag}")
 
+           except ValoPyRequestError as e:
+               print(f"Request error: {e.message}")
+
            except ValoPyNotFoundError:
-               print("Account not found!")
+               print("Account not found")
 
            except ValoPyPermissionError:
-               print("Invalid API key or insufficient permissions")
+               print("Invalid API key")
 
            except ValoPyRateLimitError as e:
-               print(f"Rate limit exceeded. Retry after: {e.rate_reset} seconds")
+               print(f"Rate limited. Retry after {e.rate_reset}s")
 
-           except ValoPyHTTPError as e:
-               print(f"HTTP Error {e.status_code}: {e.message}")
-
-   asyncio.run(safe_fetch_account())
+   asyncio.run(main())
 
 Concurrent Requests
 -------------------
 
-Fetch multiple accounts concurrently using ``asyncio.gather``:
+Fetch multiple accounts concurrently:
 
 .. code-block:: python
 
    import asyncio
    from valopy import Client
 
-   async def fetch_multiple_accounts():
+   async def main():
        players = [
            ("Player1", "TAG1"),
            ("Player2", "TAG2"),
@@ -193,18 +201,13 @@ Fetch multiple accounts concurrently using ``asyncio.gather``:
        ]
 
        async with Client(api_key="your-api-key") as client:
-           tasks = [client.get_account_v1(name, tag) for name, tag in players]
+           tasks = [client.get_account_v2(name=name, tag=tag) for name, tag in players]
            accounts = await asyncio.gather(*tasks, return_exceptions=True)
 
            for (name, tag), result in zip(players, accounts):
-               if isinstance(result, Exception):
+               if isinstance(result, BaseException):
                    print(f"{name}#{tag}: Error - {result}")
                else:
                    print(f"{name}#{tag}: Level {result.account_level}")
 
-   asyncio.run(fetch_multiple_accounts())
-
-.. note::
-
-   When using ``return_exceptions=True``, failed requests return exception objects
-   instead of raising them, allowing you to handle errors per-request.
+   asyncio.run(main())

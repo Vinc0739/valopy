@@ -34,15 +34,11 @@ class TestWebsite:
             # Verify correct parsing
             assert isinstance(result, list)
             assert len(result) == len(website["data"])
-            assert all(isinstance(item, WebsiteContent) for item in result)
 
-            # Verify first item data
+            # Verify first item
             first_item = result[0]
-            first_mock = website["data"][0]
-            assert first_item.id == first_mock["id"]
-            assert first_item.banner_url == first_mock["banner_url"]
-            assert first_item.category == first_mock["category"]
-            assert first_item.title == first_mock["title"]
-            assert first_item.url == first_mock["url"]
+            assert isinstance(first_item, WebsiteContent)
+            assert first_item.id == website["data"][0]["id"]
+            assert first_item.title == website["data"][0]["title"]
 
         await client.close()

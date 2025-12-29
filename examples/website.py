@@ -3,21 +3,17 @@ import asyncio
 from valopy import Client, CountryCode
 
 
-async def get_website_info():
+async def main() -> None:
     async with Client(api_key="your-api-key") as client:
-        # Get all website content information
-        website = await client.get_website(countrycode=CountryCode.DE_DE)
+        # Get website content (news articles)
+        articles = await client.get_website(countrycode=CountryCode.EN_US)
 
-        # Get the first content item (newest to oldest)
-        content = website[0]
-        print(f"Content ID: {content.id}")
-        print(f"Banner URL: {content.banner_url}")
-        print(f"Description: {content.description}")
-        print(f"Category: {content.category}")
-        print(f"Date: {content.date}")
-        print(f"External Link: {content.external_link}")
-        print(f"Title: {content.title}")
-        print(f"URL: {content.url}")
+        print(f"Latest {min(5, len(articles))} articles:\n")
+        for article in articles[:5]:
+            print(f"{article.title}")
+            print(f"  {article.category} | {article.date}")
+            print(f"  {article.url}\n")
 
 
-asyncio.run(get_website_info())
+if __name__ == "__main__":
+    asyncio.run(main())
