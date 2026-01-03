@@ -99,6 +99,20 @@ class ValoPyNotFoundError(ValoPyHTTPError):
         super().__init__(message=self.message, status_code=status_code, url=url)
 
 
+class ValoPyValidationError(ValoPyError):
+    """Validation error for invalid parameter combinations.
+
+    Attributes
+    ----------
+    message : str
+        The error message describing the validation error.
+    """
+
+    def __init__(self, message: str) -> None:
+        self.message = message
+        super().__init__(message)
+
+
 class ValoPyTimeoutError(ValoPyHTTPError):
     """Request timeout (408).
 

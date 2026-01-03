@@ -3,12 +3,23 @@ import types
 from typing import TYPE_CHECKING, Optional
 
 from .adapter import Adapter
-from .enums import CountryCode, Endpoint, EsportsRegion, League, Locale, Region
+from .enums import CountryCode, Endpoint, EsportsRegion, League, Locale, Platform, Region, Season
+from .exceptions import ValoPyValidationError
 
 if TYPE_CHECKING:
     import types
 
-    from .models import AccountV1, AccountV2, Content, EsportsEvent, QueueData, Status, Version, WebsiteContent
+    from .models import (
+        AccountV1,
+        AccountV2,
+        Content,
+        EsportsEvent,
+        Leaderboard,
+        QueueData,
+        Status,
+        Version,
+        WebsiteContent,
+    )
 
 _log = logging.getLogger(__name__)
 
@@ -377,5 +388,89 @@ class Client:
         )
 
         _log.info("Successfully retrieved esports schedule")
+
+        return result.data  # type: ignore
+
+    async def get_leaderboard(
+        self,
+        region: Region,
+        platform: Platform,
+        season: Optional[Season] = None,
+        puuid: Optional[str] = None,
+        name: Optional[str] = None,
+        tag: Optional[str] = None,
+        size: Optional[int] = None,
+        start_index: Optional[int] = None,
+    ) -> "Leaderboard":
+        """Get leaderboard for a specific region and platform.
+
+        Parameters
+        ----------
+        region : Region
+            The region to get leaderboard for.
+        platform : Platform
+            The platform (PC or Console).
+        season : Season, optional
+            The season to filter by (e.g., Season.E9A3).
+        puuid : str, optional
+            Filter by player PUUID. Mutually exclusive with name and tag.
+        name : str, optional
+            Filter by player name. Must be used with tag.
+        tag : str, optional
+            Filter by player tag. Must be used with name.
+        size : int, optional
+            Number of players to return.
+        start_index : int, optional
+            Starting index for pagination.
+
+        Returns
+        -------
+        Leaderboard
+            Leaderboard data with players and pagination info.
+
+        Raises
+        ------
+        ValoPyValidationError
+            If both puuid and name/tag are provided, or if name is provided without tag (or vice versa).
+        """
+
+        # Validation: check that only puuid or name+tag is provided
+        if puuid and (name or tag):
+            raise ValoPyValidationError(
+                "Cannot filter by both puuid and name/tag. Use only one of: puuid OR (name and tag)"
+            )
+
+        if (name and not tag) or (tag and not name):
+            raise ValoPyValidationError("Name and tag must both be provided together or both omitted")
+
+        _log.info(
+            "Fetching leaderboard for region=%s, platform=%s, season=%s",
+            region.value,
+            platform.value,
+            season,
+        )
+
+        endpoint_path = Endpoint.LEADERBOARD_V3.url.format(region=region.value, platform=platform.value)
+
+        params = {}
+        if season:
+            params["season_short"] = season.value
+        if puuid:
+            params["puuid"] = puuid
+        if name and tag:
+            params["name"] = name
+            params["tag"] = tag
+        if size is not None:
+            params["size"] = size
+        if start_index is not None:
+            params["start_index"] = start_index
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            params=params,
+            model_class=Endpoint.LEADERBOARD_V3.model,
+        )
+
+        _log.info("Successfully retrieved leaderboard")
 
         return result.data  # type: ignore

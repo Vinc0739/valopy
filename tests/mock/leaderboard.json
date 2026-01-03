@@ -1,0 +1,73 @@
+{
+    "updated_at": "2026-01-03T13:51:52.779Z",
+    "thresholds": [
+        {
+            "tier": {
+                "id": 24,
+                "name": "Immortal 1"
+            },
+            "start_index": 7524,
+            "threshold": 0
+        },
+        {
+            "tier": {
+                "id": 25,
+                "name": "Immortal 2"
+            },
+            "start_index": 3589,
+            "threshold": 100
+        },
+        {
+            "tier": {
+                "id": 26,
+                "name": "Immortal 3"
+            },
+            "start_index": 501,
+            "threshold": 200
+        },
+        {
+            "tier": {
+                "id": 27,
+                "name": "Radiant"
+            },
+            "start_index": 1,
+            "threshold": 550
+        }
+    ],
+    "players": [
+        {
+            "card": "02096add-4c34-b916-af22-50b3791da2f4",
+            "title": "d13e579c-435e-44d4-cec2-6eae5a3c5ed4",
+            "is_banned": false,
+            "is_anonymized": false,
+            "puuid": "5c12779f-3d2b-5fa6-ac96-f7b7ba41487d",
+            "name": "the chosen one",
+            "tag": "mØØda",
+            "leaderboard_rank": 1,
+            "tier": 27,
+            "rr": 1093,
+            "wins": 121,
+            "updated_at": "2026-01-03T13:51:46.493Z"
+        },
+        {
+            "card": "771c867f-4c0f-e19b-8a96-8faa10d7ba72",
+            "title": "bd7d7561-45e2-8f5d-2fce-d59dd78658bb",
+            "is_banned": false,
+            "is_anonymized": false,
+            "puuid": "38a7da52-09e0-5c0e-a9bb-f231dcc297c1",
+            "name": "verity",
+            "tag": "mary",
+            "leaderboard_rank": 2,
+            "tier": 27,
+            "rr": 1074,
+            "wins": 119,
+            "updated_at": "2026-01-03T13:51:46.494Z"
+        }
+    ],
+    "results": {
+        "total": 15000,
+        "returned": 10,
+        "before": 0,
+        "after": 14990
+    }
+}

@@ -215,6 +215,9 @@ class Adapter:
             response.status,
         )
 
+        # Extract results metadata if present
+        results_metadata = data.get("results")
+
         # Extract the actual data from the response
         response_data = data.get("data", {})
 
@@ -231,9 +234,14 @@ class Adapter:
             ]
 
         elif isinstance(response_data, dict):
+            # Inject results metadata into response dict before deserialization if present
+            if results_metadata:
+                response_data["results"] = results_metadata
+                _log.debug("Added results metadata to response data")
+
             _log.info("Converting response to %s dataclass for endpoint %s", model_class.__name__, endpoint_path)
 
-            # Convert dict to dataclass
+            # Convert dict to dataclass (results will be deserialized if present)
             response_data = dict_to_dataclass(data=response_data, dataclass_type=model_class)
 
         else:

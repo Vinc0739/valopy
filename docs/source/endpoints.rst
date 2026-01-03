@@ -96,18 +96,15 @@ Leaderboard
      - Endpoint
      - Method
      - Description
-   * - ❌
-     - ``/v1/leaderboard/{affinity}``
-     - —
-     - Get leaderboard (V1)
-   * - ❌
-     - ``/v2/leaderboard/{affinity}``
-     - —
-     - Get leaderboard (V2)
-   * - ❌
-     - ``/v3/leaderboard/{affinity}``
-     - —
-     - Get leaderboard (V3)
+   * - ✅
+     - ``/v3/leaderboard/{region}/{platform}``
+     - :meth:`~valopy.client.Client.get_leaderboard`
+     - Get leaderboard by region and platform
+
+.. note::
+
+   V1 and V2 leaderboard endpoints are not implemented as they are deprecated.
+   Use the V3 endpoint via :meth:`~valopy.client.Client.get_leaderboard` instead.
 
 Match
 -----

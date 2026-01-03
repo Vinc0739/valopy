@@ -154,6 +154,18 @@ Esports Method
    * - :meth:`~valopy.client.Client.get_esports_schedule`
      - Get esports schedule with optional filtering by region and league
 
+Leaderboard Method
+~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Method
+     - Description
+   * - :meth:`~valopy.client.Client.get_leaderboard`
+     - Get leaderboard for a region and platform with optional filtering and pagination
+
 Method Parameters
 ~~~~~~~~~~~~~~~~~
 

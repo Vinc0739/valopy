@@ -21,6 +21,28 @@ class Result:
     data: Any = field(default_factory=dict)  # either dict or deserialized dataclass of type ValoPyModel
 
 
+@dataclass
+class ResultMetadata:
+    """Pagination and results metadata.
+
+    Attributes
+    ----------
+    total : int
+        Total number of results available.
+    returned : int
+        Number of results returned in this response.
+    before : int
+        Number of results before this page.
+    after : int
+        Number of results after this page.
+    """
+
+    total: int
+    returned: int
+    before: int
+    after: int
+
+
 # ======================================== Card Data ========================================
 
 
@@ -838,8 +860,124 @@ class EsportsEvent:
     match: EsportsMatch
 
 
+# ======================================== Leaderboard ========================================
+
+
+@dataclass
+class LeaderboardTier:
+    """Leaderboard tier information.
+
+    Attributes
+    ----------
+    id : int
+        Tier ID.
+    name : str
+        Tier name (e.g., "Immortal 1", "Radiant").
+    """
+
+    id: int
+    name: str
+
+
+@dataclass
+class LeaderboardThreshold:
+    """Leaderboard tier threshold.
+
+    Attributes
+    ----------
+    tier : LeaderboardTier
+        Tier information.
+    start_index : int
+        Starting index for this tier.
+    threshold : int
+        RR threshold to reach this tier.
+    """
+
+    tier: LeaderboardTier
+    start_index: int
+    threshold: int
+
+
+@dataclass
+class LeaderboardPlayer:
+    """Leaderboard player entry.
+
+    Attributes
+    ----------
+    puuid : str
+        Player's unique identifier.
+    name : str
+        Player's game name.
+    tag : str
+        Player's tag.
+    card : str
+        Player card ID.
+    title : str
+        Player title ID.
+    is_banned : bool
+        Whether the player is banned.
+    is_anonymized : bool
+        Whether the player is anonymized.
+    leaderboard_rank : int
+        Current leaderboard rank.
+    tier : int
+        Current rank tier.
+    rr : int
+        Ranking rating points.
+    wins : int
+        Number of wins.
+    updated_at : str
+        Last update timestamp.
+    """
+
+    puuid: str
+    name: str
+    tag: str
+    card: str
+    title: str
+    is_banned: bool
+    is_anonymized: bool
+    leaderboard_rank: int
+    tier: int
+    rr: int
+    wins: int
+    updated_at: str
+
+
+@dataclass
+class Leaderboard:
+    """Leaderboard response.
+
+    Attributes
+    ----------
+    results : ResultMetadata
+        Pagination metadata (total, returned, before, after).
+    updated_at : str
+        When the leaderboard was last updated.
+    thresholds : List[LeaderboardThreshold]
+        Tier threshold information.
+    players : List[LeaderboardPlayer]
+        List of leaderboard players.
+    """
+
+    results: ResultMetadata
+    updated_at: str = ""
+    thresholds: List[LeaderboardThreshold] = field(default_factory=list)
+    players: List[LeaderboardPlayer] = field(default_factory=list)
+
+
 # ======================================== TypeVar ========================================
 
 ValoPyModel = TypeVar(
-    "ValoPyModel", AccountV1, AccountV2, Content, Version, WebsiteContent, Status, QueueData, EsportsEvent
+    "ValoPyModel",
+    AccountV1,
+    AccountV2,
+    Content,
+    Version,
+    WebsiteContent,
+    Status,
+    QueueData,
+    EsportsEvent,
+    Leaderboard,
+    ResultMetadata,
 )

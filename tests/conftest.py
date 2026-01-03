@@ -147,3 +147,11 @@ def esports() -> Dict[str, Any]:
     """Get Esports Schedule mock data."""
     data = MockDataLoader.get("esports", "esports_events")
     return {"status": 200, "data": data}
+
+
+# Leaderboard fixtures
+@pytest.fixture
+def leaderboard() -> Dict[str, Any]:
+    """Get Leaderboard mock data."""
+    data = MockDataLoader.load("leaderboard")
+    return {"status": 200, "data": data}

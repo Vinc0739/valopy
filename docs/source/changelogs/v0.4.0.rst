@@ -114,6 +114,35 @@ Esports Schedule
 - Added ``ESPORTS_SCHEDULE`` endpoint to enum
     - Maps to ``EsportsEvent`` model for list response deserialization
 
+Leaderboard
+~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_leaderboard` method
+    - Fetch leaderboard for a specific region and platform
+    - Supports filtering by season, PUUID, or player name and tag
+    - Optional pagination with size and start_index parameters
+    - Returns ``Leaderboard`` model with pagination metadata
+
+- Added leaderboard models
+    - ``Leaderboard``: Main response with players, tier thresholds, and pagination metadata
+    - ``LeaderboardPlayer``: Individual player with rank, RR, wins, and account info
+    - ``LeaderboardThreshold``: Tier threshold information with RR requirements
+    - ``LeaderboardTier``: Tier classification (e.g., Immortal 1, Radiant)
+    - ``ResultMetadata``: Pagination metadata (total, returned, before, after)
+
+- Added ``Platform`` enum
+    - Supports PC and Console platforms
+
+- Added ``Season`` enum
+    - Supports 45 seasons covering Episodes 1-15, Acts 1-3
+
+- Added ``LEADERBOARD_V3`` endpoint to enum
+    - Maps to ``Leaderboard`` model for response deserialization
+
+- Enhanced Adapter deserialization
+    - Automatically injects results metadata into models that support pagination
+    - Enables extensible pattern for future endpoints with metadata
+
 Bug Fixes
 ---------
 - Added custom CSS to fix dark mode visibility issues in documentation
