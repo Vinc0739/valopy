@@ -215,7 +215,7 @@ Any field that represents a timestamp in the API response is automatically parse
 .. code-block:: python
 
    from valopy import Client
-   from datetime import datetime
+   from datetime import datetime, timezone
 
    async with Client(api_key="your-api-key") as client:
        leaderboard = await client.get_leaderboard(region=Region.NA, platform=Platform.PC)
@@ -225,7 +225,7 @@ Any field that represents a timestamp in the API response is automatically parse
        
        # You can use all datetime methods directly
        print(f"Updated: {leaderboard.updated_at.isoformat()}")
-       print(f"Days ago: {(datetime.now(leaderboard.updated_at.tzinfo) - leaderboard.updated_at).days}")
+       print(f"Days ago: {(datetime.now(timezone.utc) - leaderboard.updated_at).days}")
        
        # Player updates are also parsed
        for player in leaderboard.players:

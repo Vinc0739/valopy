@@ -42,16 +42,18 @@ def _parse_datetime_string(value: str) -> datetime | None:
         parsed = datetime.fromisoformat(value)
         return parsed.replace(tzinfo=None)
     except (ValueError, AttributeError):
+        # Not a valid ISO 8601 format, try next format
         pass
 
     # Try "Dec 4 2025" format for version build_date response field
     try:
         return datetime.strptime(value, "%b %d %Y")
     except ValueError:
+        # Not in "Dec 4 2025" format, try next format
         pass
 
     # Try relative time format like "3 minutes ago" or "2 hours ago" for account v1 last_update field
-    match = re.match(r"(\d+)\s+(minute|hour|day|week|month|year)s?\s+ago", value.lower())
+    match = re.match(r"(\d+)\s+(minute|hour)s?\s+ago", value.lower())
     if match:
         amount = int(match.group(1))
         unit = match.group(2)
@@ -61,16 +63,9 @@ def _parse_datetime_string(value: str) -> datetime | None:
                     return datetime.now(timezone.utc) - timedelta(minutes=amount)
                 case "hour":
                     return datetime.now(timezone.utc) - timedelta(hours=amount)
-                case "day":
-                    return datetime.now(timezone.utc) - timedelta(days=amount)
-                case "week":
-                    return datetime.now(timezone.utc) - timedelta(weeks=amount)
-                case "month":
-                    return datetime.now(timezone.utc) - timedelta(days=amount * 30)
-                case "year":
-                    return datetime.now(timezone.utc) - timedelta(days=amount * 365)
 
         except (ValueError, OverflowError):
+            # If relative time parsing fails, fall through to return None
             pass
 
     _log.debug("Could not parse datetime string: %s", value)
@@ -139,51 +134,3 @@ def dict_to_dataclass(data: dict[str, Any], dataclass_type: Type["ValoPyModel"])
             kwargs[field.name] = value
 
     return dataclass_type(**kwargs)  # type: ignore
-
-
-def parse_datetimes(obj: Any) -> Any:
-    """Recursively parse ISO 8601 datetime strings to datetime objects.
-
-    Traverses dataclass instances and converts string fields that match ISO 8601
-    format to datetime objects. Handles nested dataclasses and lists.
-
-    Parameters
-    ----------
-    obj : Any
-        A dataclass instance, list, or value to parse.
-
-    Returns
-    -------
-    Any
-        The object with datetime strings converted to datetime objects.
-    """
-
-    if isinstance(obj, str):
-        # Try to parse ISO 8601 datetime strings
-        try:
-            # Handle both with and without microseconds/timezone
-            if "T" in obj and ("Z" in obj or "+" in obj or obj.count(":") >= 2):
-                return datetime.fromisoformat(obj.replace("Z", "+00:00"))
-        except (ValueError, AttributeError):
-            pass
-        return obj
-
-    if is_dataclass(obj) and not isinstance(obj, type):
-        # Recursively parse fields in dataclass
-        for field in fields(obj):
-            value = getattr(obj, field.name, None)
-            if value is not None:
-                parsed = parse_datetimes(value)
-                if parsed is not value:
-                    setattr(obj, field.name, parsed)
-        return obj
-
-    if isinstance(obj, list):
-        # Recursively parse items in list
-        return [parse_datetimes(item) for item in obj]
-
-    if isinstance(obj, dict):
-        # Recursively parse values in dict
-        return {key: parse_datetimes(value) for key, value in obj.items()}
-
-    return obj

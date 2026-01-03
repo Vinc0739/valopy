@@ -279,13 +279,13 @@ class Client:
 
         Parameters
         ----------
-        countrycode : CountryCodes
+        countrycode : CountryCode
             The country code to get the website information for.
 
         Returns
         -------
-        Website
-            The website information.
+        list[WebsiteContent]
+            A list of website content data.
         """
 
         _log.info("Fetching Website for country code %s", countrycode.value)

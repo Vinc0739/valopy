@@ -140,7 +140,7 @@ class Platform(str, Enum):
 class Season(str, Enum):
     """Valorant competitive seasons.
 
-    Season 10 is separated into 6 acts for 2025. This will likely continue for future seasons.
+    Episode 10 (Season 2025) is separated into 6 acts for 2025. This will likely continue for future seasons.
 
     Members
     -------

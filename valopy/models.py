@@ -91,7 +91,8 @@ class AccountV1:
     card : CardData
         The player's card data with image URLs.
     last_update : datetime
-        Last update timestamp.
+        Last update timestamp. Note: This is an approximation calculated from relative time strings
+        (e.g., "3 minutes ago") returned by the API, so accuracy may vary by seconds/minutes.
     last_update_raw : int
         Last update timestamp (raw).
     """
@@ -490,7 +491,7 @@ class StatusEntry:
     archive_at: datetime
     updates: List[StatusUpdate] = field(default_factory=list)
     platforms: List[str] = field(default_factory=list)
-    updated_at: datetime = field(default_factory=lambda: datetime.fromisoformat("1970-01-01T00:00:00+00:00"))
+    updated_at: datetime = datetime.fromisoformat("1970-01-01T00:00:00+00:00")
     id: int = 0
     titles: List[StatusTitle] = field(default_factory=list)
     maintenance_status: str = ""
@@ -962,7 +963,7 @@ class Leaderboard:
     """
 
     results: ResultMetadata
-    updated_at: datetime = field(default_factory=lambda: datetime.fromisoformat("1970-01-01T00:00:00+00:00"))
+    updated_at: datetime = datetime.fromisoformat("1970-01-01T00:00:00+00:00")
     thresholds: List[LeaderboardThreshold] = field(default_factory=list)
     players: List[LeaderboardPlayer] = field(default_factory=list)
 
