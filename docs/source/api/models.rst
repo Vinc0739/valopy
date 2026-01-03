@@ -10,6 +10,10 @@ Response
    :members:
    :show-inheritance:
 
+.. autoclass:: valopy.models.ResultMetadata
+   :members:
+   :show-inheritance:
+
 Account
 -------
 
@@ -49,5 +53,127 @@ Content
    :show-inheritance:
 
 .. autoclass:: valopy.models.ContentPlayerTitle
+   :members:
+   :show-inheritance:
+
+Version
+-------
+
+.. autoclass:: valopy.models.Version
+   :members:
+   :show-inheritance:
+
+Website
+-------
+
+.. autoclass:: valopy.models.WebsiteContent
+   :members:
+   :show-inheritance:
+
+Status
+------
+
+.. autoclass:: valopy.models.Status
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.StatusEntry
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.StatusUpdate
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.StatusTitle
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.StatusTranslation
+   :members:
+   :show-inheritance:
+
+Queue
+-----
+
+.. autoclass:: valopy.models.QueueData
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.QueuePartySize
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.QueueHighSkill
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.QueueSkillDisparity
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.QueueSkillDisparityTier
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.QueueGameRules
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.QueueMap
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.QueueMapInfo
+   :members:
+   :show-inheritance:
+
+Esports
+-------
+
+.. autoclass:: valopy.models.EsportsEvent
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.EsportsMatch
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.EsportsTeam
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.EsportsTeamRecord
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.EsportsGameType
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.EsportsTournament
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.EsportsLeague
+   :members:
+   :show-inheritance:
+
+Leaderboard
+-----------
+
+.. autoclass:: valopy.models.Leaderboard
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.LeaderboardPlayer
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.LeaderboardThreshold
+   :members:
+   :show-inheritance:
+
+.. autoclass:: valopy.models.LeaderboardTier
    :members:
    :show-inheritance:
