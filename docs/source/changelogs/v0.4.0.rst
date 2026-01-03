@@ -6,7 +6,10 @@ v0.4.0
 Overview
 --------
 
-Version 0.4.0 adds support for account lookup by PUUID and website news content, enabling users to fetch account information using a player's unique identifier and retrieve Valorant news articles.
+Version 0.4.0 adds comprehensive support for account lookup by PUUID, website news content, 
+server status monitoring, queue information, and esports schedule tracking. Users can now 
+fetch account information using a player's unique identifier, retrieve Valorant news articles, 
+check server health and queue configurations, and access esports event schedules with filtering capabilities.
 
 New Features
 ------------
@@ -85,6 +88,32 @@ Queue Status
 - Added ``QUEUE_STATUS`` endpoint to enum
     - Maps to ``QueueData`` model for list response deserialization
 
+Esports Schedule
+~~~~~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_esports_schedule` method
+    - Fetch esports schedule with optional filtering
+    - Supports filtering by ``EsportsRegion`` and ``League`` enums
+    - Returns ``List[EsportsEvent]`` with detailed event information
+
+- Added esports models
+    - ``EsportsEvent``: Main event data with date, state, type, league, tournament, and match info
+    - ``EsportsLeague``: League information with name, identifier, icon, and region
+    - ``EsportsTournament``: Tournament data with name and season
+    - ``EsportsMatch``: Match information with game type and teams
+    - ``EsportsTeam``: Team details including name, code, icon, record, and game wins
+    - ``EsportsGameType``: Game configuration with type and count
+    - ``EsportsTeamRecord``: Team win/loss records
+
+- Added ``EsportsRegion`` enum
+    - Supports 12 esports regions: international, north_america, emea, brazil, japan, korea, latin_america, latin_america_south, latin_america_north, southeast_asia, vietnam, oceania
+
+- Added ``League`` enum
+    - Supports 45 esports leagues including VCT, Challengers, Game Changers, Masters, Champions, and regional VRL leagues
+
+- Added ``ESPORTS_SCHEDULE`` endpoint to enum
+    - Maps to ``EsportsEvent`` model for list response deserialization
+
 Bug Fixes
 ---------
 - Added custom CSS to fix dark mode visibility issues in documentation
@@ -94,9 +123,8 @@ Bug Fixes
 Documentation
 -------------
 
-- Updated endpoint documentation to reflect new PUUID lookup methods
-- Updated feature guide to include PUUID account methods, website method, status method, and queue status method
-- Added examples for account lookup by PUUID, website news, server status, and queue status
+- Updated feature guide to include PUUID account methods, website method, status method, queue status method and esports schedule method
+- Added examples for account lookup by PUUID, website news, server status, queue status and esports schedule
 - Simplified all Examples and removed unnecessary
 
 Miscellaneous

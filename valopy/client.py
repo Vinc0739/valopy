@@ -3,12 +3,12 @@ import types
 from typing import TYPE_CHECKING, Optional
 
 from .adapter import Adapter
-from .enums import CountryCode, Endpoint, Locale, Region
+from .enums import CountryCode, Endpoint, EsportsRegion, League, Locale, Region
 
 if TYPE_CHECKING:
     import types
 
-    from .models import AccountV1, AccountV2, Content, QueueData, Status, Version, WebsiteContent
+    from .models import AccountV1, AccountV2, Content, EsportsEvent, QueueData, Status, Version, WebsiteContent
 
 _log = logging.getLogger(__name__)
 
@@ -339,5 +339,43 @@ class Client:
         )
 
         _log.info("Successfully retrieved queue status for region %s", region.value)
+
+        return result.data  # type: ignore
+
+    async def get_esports_schedule(
+        self, region: Optional[EsportsRegion] = None, league: Optional[League] = None
+    ) -> list["EsportsEvent"]:
+        """Get the esports schedule.
+
+        Parameters
+        ----------
+        region : EsportsRegion, optional
+            Filter by esports region.
+        league : League, optional
+            Filter by esports league.
+
+        Returns
+        -------
+        list[EsportsEvent]
+            List of esports events.
+        """
+
+        _log.info("Fetching esports schedule (region=%s, league=%s)", region, league)
+
+        endpoint_path = Endpoint.ESPORTS_SCHEDULE.url
+
+        params = {}
+        if region:
+            params["region"] = region.value
+        if league:
+            params["league"] = league.value
+
+        result = await self.adapter.get(
+            endpoint_path=endpoint_path,
+            params=params,
+            model_class=Endpoint.ESPORTS_SCHEDULE.model,
+        )
+
+        _log.info("Successfully retrieved esports schedule")
 
         return result.data  # type: ignore

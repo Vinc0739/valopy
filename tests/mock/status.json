@@ -15,11 +15,15 @@
                             "locale": "en_US"
                         }
                     ],
-                    "publish_locations": ["riotclient"],
+                    "publish_locations": [
+                        "riotclient"
+                    ],
                     "author": "Riot Games"
                 }
             ],
-            "platforms": ["windows"],
+            "platforms": [
+                "windows"
+            ],
             "updated_at": "2022-01-12T23:00:00.000000+00:00",
             "id": 4175,
             "titles": [
@@ -48,11 +52,15 @@
                             "locale": "en_US"
                         }
                     ],
-                    "publish_locations": ["riotclient"],
+                    "publish_locations": [
+                        "riotclient"
+                    ],
                     "author": "Riot Games"
                 }
             ],
-            "platforms": ["windows"],
+            "platforms": [
+                "windows"
+            ],
             "updated_at": "2022-01-12T23:00:00.000000+00:00",
             "id": 4176,
             "titles": [

@@ -117,12 +117,45 @@ Get current server status:
                        print(f"  - {m.titles[0].content}")
 
            if status.incidents:
-               print("\\nIncidents:")
+               print("\nIncidents:")
                for i in status.incidents:
                    if i.titles:
                        print(f"  - {i.titles[0].content}")
 
    asyncio.run(main())
+
+Esports Schedule
+----------------
+
+Get esports schedule with optional filtering:
+
+.. code-block:: python
+
+   import asyncio
+   from valopy import Client, League
+
+   async def main():
+       async with Client(api_key="your-api-key") as client:
+           # Get esports schedule
+           events = await client.get_esports_schedule()
+
+           print(f"Total events: {len(events)}")
+
+           if events:
+               event = events[0]
+               print(f"Event: {event.league.name}")
+               print(f"State: {event.state}")
+               print(f"Tournament: {event.tournament.name}")
+               if event.match.teams:
+                   for team in event.match.teams:
+                       print(f"  - {team.name}: {team.game_wins} wins")
+
+           # Filter by league
+           vct_events = await client.get_esports_schedule(league=League.VCT_AMERICAS)
+           print(f"\nVCT Americas events: {len(vct_events)}")
+
+   asyncio.run(main())
+
 
 Queue Status
 ------------

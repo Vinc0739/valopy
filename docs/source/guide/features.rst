@@ -82,7 +82,7 @@ Account Methods
    * - :meth:`~valopy.client.Client.get_account_v2_by_puuid`
      - Get account information by PUUID (V2) with additional fields like title and platforms
 
-Content Methods
+Content Method
 ~~~~~~~~~~~~~~~
 
 .. list-table::
@@ -94,7 +94,7 @@ Content Methods
    * - :meth:`~valopy.client.Client.get_content`
      - Get game content including characters, maps, skins, sprays, and acts
 
-Version Methods
+Version Method
 ~~~~~~~~~~~~~~~
 
 .. list-table::
@@ -106,7 +106,7 @@ Version Methods
    * - :meth:`~valopy.client.Client.get_version`
      - Get current game version information for a specific region
 
-Website Methods
+Website Method
 ~~~~~~~~~~~~~~~
 
 .. list-table::
@@ -130,7 +130,7 @@ Status Methods
    * - :meth:`~valopy.client.Client.get_status`
      - Get server status including maintenances and incidents for a region
 
-Queue Methods
+Queue Method
 ~~~~~~~~~~~~~
 
 .. list-table::
@@ -142,6 +142,18 @@ Queue Methods
    * - :meth:`~valopy.client.Client.get_queue_status`
      - Get queue status and configurations for all game modes in a region
 
+Esports Method
+~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Method
+     - Description
+   * - :meth:`~valopy.client.Client.get_esports_schedule`
+     - Get esports schedule with optional filtering by region and league
+
 Method Parameters
 ~~~~~~~~~~~~~~~~~
 
@@ -150,6 +162,8 @@ Most methods support these common parameters:
 * ``force_update`` (bool) - Force fresh data instead of cached (default: ``False``)
 * ``locale`` (:class:`~valopy.enums.Locale`) - Language/region for localized content
 * ``region`` (:class:`~valopy.enums.Region`) - Server region (EU, NA, LATAM, BR, AP, KR)
+* ``esports_region`` (:class:`~valopy.enums.EsportsRegion`) - Esports region for filtering events
+* ``league`` (:class:`~valopy.enums.League`) - Esports league for filtering events
 
 **Example usage:**
 

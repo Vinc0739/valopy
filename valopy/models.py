@@ -687,6 +687,159 @@ class QueueData:
     maps: List[QueueMap] = field(default_factory=list)
 
 
+# ======================================== Esports ========================================
+
+
+@dataclass
+class EsportsLeague:
+    """Esports league information.
+
+    Attributes
+    ----------
+    name : str
+        League name.
+    identifier : str
+        League identifier.
+    icon : str
+        League icon URL.
+    region : str
+        League region.
+    """
+
+    name: str
+    identifier: str
+    icon: str
+    region: str
+
+
+@dataclass
+class EsportsTournament:
+    """Esports tournament information.
+
+    Attributes
+    ----------
+    name : str
+        Tournament name.
+    season : str
+        Tournament season.
+    """
+
+    name: str
+    season: str
+
+
+@dataclass
+class EsportsGameType:
+    """Esports game type configuration.
+
+    Attributes
+    ----------
+    type : str
+        Game type (e.g., "playAll", "bestOf").
+    count : int
+        Number of games.
+    """
+
+    type: str
+    count: int
+
+
+@dataclass
+class EsportsTeamRecord:
+    """Esports team record.
+
+    Attributes
+    ----------
+    wins : int
+        Number of wins.
+    losses : int
+        Number of losses.
+    """
+
+    wins: int
+    losses: int
+
+
+@dataclass
+class EsportsTeam:
+    """Esports team information.
+
+    Attributes
+    ----------
+    name : str
+        Team name.
+    code : str
+        Team code.
+    icon : str
+        Team icon URL.
+    has_won : bool
+        Whether the team has won.
+    game_wins : int
+        Number of games won.
+    record : EsportsTeamRecord
+        Team's win/loss record.
+    """
+
+    name: str
+    code: str
+    icon: str
+    has_won: bool
+    game_wins: int
+    record: EsportsTeamRecord
+
+
+@dataclass
+class EsportsMatch:
+    """Esports match information.
+
+    Attributes
+    ----------
+    id : str
+        Match ID.
+    game_type : EsportsGameType
+        Game type configuration.
+    teams : List[EsportsTeam]
+        List of teams in the match.
+    """
+
+    id: str
+    game_type: EsportsGameType
+    teams: List[EsportsTeam]
+
+
+@dataclass
+class EsportsEvent:
+    """Esports event data.
+
+    Attributes
+    ----------
+    date : str
+        Event date (ISO 8601 format).
+    state : str
+        Event state (e.g., "completed", "upcoming").
+    type : str
+        Event type (e.g., "match").
+    vod : str
+        Video on demand URL.
+    league : EsportsLeague
+        League information.
+    tournament : EsportsTournament
+        Tournament information.
+    match : EsportsMatch
+        Match information.
+    """
+
+    date: str
+    state: str
+    type: str
+    vod: str
+    league: EsportsLeague
+    tournament: EsportsTournament
+    match: EsportsMatch
+
+
 # ======================================== TypeVar ========================================
 
-ValoPyModel = TypeVar("ValoPyModel", AccountV1, AccountV2, Content, Version, WebsiteContent, Status, QueueData)
+ValoPyModel = TypeVar(
+    "ValoPyModel", AccountV1, AccountV2, Content, Version, WebsiteContent, Status, QueueData, EsportsEvent
+)

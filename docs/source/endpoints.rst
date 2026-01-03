@@ -80,9 +80,9 @@ Esports
      - Endpoint
      - Method
      - Description
-   * - ❌
+   * - ✅
      - ``/v1/esports/schedule``
-     - —
+     - :meth:`~valopy.client.Client.get_esports_schedule`
      - Get esports schedule
 
 Leaderboard
