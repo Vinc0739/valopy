@@ -494,7 +494,7 @@ class Endpoint(Enum):
     ----------
     url : str
         The URL path of the endpoint with placeholders for formatting.
-    model_class : type[ValoPyModel]
+    model : ValoPyModel
         The dataclass model associated with the endpoint for response deserialization.
     """
 
