@@ -45,7 +45,11 @@ class Adapter:
         self._api_key = api_key
         self._session: Optional[aiohttp.ClientSession] = None
 
-        _log.info("Adapter initialized with API URL: %s (redact_header=%s)", self.api_url, redact_header)
+        _log.info(
+            "Adapter initialized with API URL: %s (redact_header=%s)",
+            self.api_url,
+            redact_header,
+        )
         _log.debug("Adapter ready for making requests")
 
     async def _get_session(self) -> aiohttp.ClientSession:
@@ -253,7 +257,12 @@ class Adapter:
             data=response_data,
         )
 
-    async def get(self, endpoint_path: str, model_class: Type[ValoPyModel], params: dict | None = None) -> Result:
+    async def get(
+        self,
+        endpoint_path: str,
+        model_class: Type[ValoPyModel],
+        params: dict | None = None,
+    ) -> Result:
         """Make a GET request to the Valorant API.
 
         Parameters
@@ -272,10 +281,18 @@ class Adapter:
         """
 
         return await self._do(
-            method=AllowedMethod.GET, endpoint_path=endpoint_path, params=params, model_class=model_class
+            method=AllowedMethod.GET,
+            endpoint_path=endpoint_path,
+            params=params,
+            model_class=model_class,
         )
 
-    async def post(self, endpoint_path: str, model_class: Type[ValoPyModel], params: dict | None = None) -> Result:
+    async def post(
+        self,
+        endpoint_path: str,
+        model_class: Type[ValoPyModel],
+        params: dict | None = None,
+    ) -> Result:
         """Make a POST request to the Valorant API.
 
         Parameters
@@ -294,5 +311,8 @@ class Adapter:
         """
 
         return await self._do(
-            method=AllowedMethod.POST, endpoint_path=endpoint_path, params=params, model_class=model_class
+            method=AllowedMethod.POST,
+            endpoint_path=endpoint_path,
+            params=params,
+            model_class=model_class,
         )

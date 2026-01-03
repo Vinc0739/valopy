@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any, Dict, List
 from unittest.mock import AsyncMock, patch
 
@@ -45,7 +46,7 @@ class TestEsports:
             first_event = result[0]
             first_mock = esports["data"][0]
             assert isinstance(first_event, EsportsEvent)
-            assert first_event.date == first_mock["date"]
+            assert type(first_event.date) is datetime
 
             # Verify league subdataclass
             assert isinstance(first_event.league, EsportsLeague)

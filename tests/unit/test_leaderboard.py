@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any, Dict
 from unittest.mock import AsyncMock, patch
 
@@ -34,7 +35,7 @@ class TestLeaderboard:
 
             # Verify main data
             assert isinstance(result, Leaderboard)
-            assert result.updated_at == leaderboard["data"]["updated_at"]
+            assert type(result.updated_at) is datetime
             assert len(result.players) > 0
             assert len(result.thresholds) > 0
 

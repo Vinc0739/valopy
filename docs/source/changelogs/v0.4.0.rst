@@ -143,6 +143,28 @@ Leaderboard
     - Automatically injects results metadata into models that support pagination
     - Enables extensible pattern for future endpoints with metadata
 
+Automatic DateTime Parsing
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Supports multiple datetime formats:
+    - ISO 8601 with timezone: ``2025-12-04T12:34:56Z``, ``2025-12-04T12:34:56+00:00``
+    - Date-only: ``2025-12-04``
+    - Common format: ``Dec 4 2025`` (used by some API responses)
+    - Relative times: ``3 minutes ago``, ``2 hours ago``, ``1 day ago``, etc.
+
+- Updated all timestamp fields to use ``datetime`` type:
+    - Account: ``last_update``, ``updated_at``
+    - Version: ``build_date``, ``last_checked``
+    - Status: ``created_at``, ``updated_at``, ``archive_at``
+    - Website: ``date``
+    - Esports: ``date``
+    - Leaderboard: ``updated_at`` (both Leaderboard and LeaderboardPlayer)
+
+- Implemented automatic parsing in ``dict_to_dataclass()`` utility
+    - Detects ``datetime`` type annotations
+    - Parses multiple datetime formats with graceful fallback
+    - Relative time format support for API responses using time deltas
+
 Bug Fixes
 ---------
 - Added custom CSS to fix dark mode visibility issues in documentation

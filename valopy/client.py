@@ -380,7 +380,6 @@ class Client:
             params["region"] = region.value
         if league:
             params["league"] = league.value
-
         result = await self.adapter.get(
             endpoint_path=endpoint_path,
             params=params,

@@ -8,6 +8,7 @@ Key Features
 
 * 🚀 **Async/Await** - Built on asyncio for non-blocking operations
 * 📦 **Auto-parsing** - Automatic JSON parsing into typed dataclass models
+* ⏰ **DateTime Parsing** - ISO 8601 datetime strings automatically converted to Python datetime objects
 * 🔄 **Error Handling** - Built-in exception classes for API errors
 * 📚 **Type Hints** - Full type annotations for IDE support and static analysis
 
@@ -194,6 +195,53 @@ Most methods support these common parameters:
        account = await client.get_account_v1("Name", "Tag", force_update=True)
 
 For a complete list of all API endpoints (implemented and planned), see :doc:`../endpoints`.
+
+Automatic DateTime Parsing
+---------------------------
+
+ValoPy automatically converts datetime strings from the API into Python :class:`datetime.datetime` 
+objects. This happens transparently during deserialization, so you get native datetime objects in your models 
+without any extra work.
+
+The parser supports multiple datetime formats:
+
+* **ISO 8601** - ``2025-12-04T12:34:56Z`` or ``2025-12-04T12:34:56+00:00``
+* **Date-only** - ``2025-12-04``
+* **Common format** - ``Dec 4 2025`` (used by some API responses)
+* **Relative times** - ``3 minutes ago``, ``2 hours ago``, ``1 day ago``, etc.
+
+Any field that represents a timestamp in the API response is automatically parsed:
+
+.. code-block:: python
+
+   from valopy import Client
+   from datetime import datetime
+
+   async with Client(api_key="your-api-key") as client:
+       leaderboard = await client.get_leaderboard(region=Region.NA, platform=Platform.PC)
+       
+       # updated_at is automatically a datetime object, not a string
+       assert isinstance(leaderboard.updated_at, datetime)
+       
+       # You can use all datetime methods directly
+       print(f"Updated: {leaderboard.updated_at.isoformat()}")
+       print(f"Days ago: {(datetime.now(leaderboard.updated_at.tzinfo) - leaderboard.updated_at).days}")
+       
+       # Player updates are also parsed
+       for player in leaderboard.players:
+           print(f"{player.name}: Last updated {player.updated_at.strftime('%Y-%m-%d %H:%M:%S')}")
+
+Fields that support automatic datetime parsing include:
+
+* Account timestamps (``last_update``, ``updated_at``)
+* Version information (``build_date``, ``last_checked``)
+* Status updates (``created_at``, ``updated_at``, ``archive_at``)
+* Esports events (``date``)
+* Leaderboard data (``updated_at``)
+* Website content (``date``)
+
+Note: Relative time formats (like "3 minutes ago") are converted to UTC datetime representing approximately 
+when that time was, relative to the server's current time.
 
 Error Handling
 --------------

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Any, Dict, List, TypeVar
 
 
@@ -89,7 +90,7 @@ class AccountV1:
         The player's tag.
     card : CardData
         The player's card data with image URLs.
-    last_update : str
+    last_update : datetime
         Last update timestamp.
     last_update_raw : int
         Last update timestamp (raw).
@@ -101,7 +102,7 @@ class AccountV1:
     name: str
     tag: str
     card: CardData
-    last_update: str
+    last_update: datetime
     last_update_raw: int
 
 
@@ -127,7 +128,7 @@ class AccountV2:
         The player's title.
     platforms : List[str]
         Available platforms.
-    updated_at : str
+    updated_at : datetime
         Update timestamp.
     """
 
@@ -139,7 +140,7 @@ class AccountV2:
     card: str
     title: str
     platforms: List[str]
-    updated_at: str
+    updated_at: datetime
 
 
 # ======================================== Content ========================================
@@ -335,11 +336,11 @@ class Version:
         The region of the version data.
     branch : str
         The branch of the version data.
-    build_date : str
+    build_date : datetime
         The build date of the version.
     build_ver : str
         The build version.
-    last_checked : str
+    last_checked : datetime
         The last checked timestamp.
     version : int
         The version number.
@@ -349,9 +350,9 @@ class Version:
 
     region: str
     branch: str
-    build_date: str
+    build_date: datetime
     build_ver: str
-    last_checked: str
+    last_checked: datetime
     version: int
     version_for_api: str
 
@@ -371,7 +372,7 @@ class WebsiteContent:
         The URL of the banner image.
     category : str
         The category of the website content.
-    date : str
+    date : datetime
         Release date of the content.
     title : str
         Title of the content.
@@ -386,7 +387,7 @@ class WebsiteContent:
     id: str
     banner_url: str
     category: str
-    date: str
+    date: datetime
     title: str
     url: str
     description: str = ""
@@ -434,9 +435,9 @@ class StatusUpdate:
 
     Attributes
     ----------
-    created_at : str
+    created_at : datetime
         When the update was created.
-    updated_at : str
+    updated_at : datetime
         When the update was last modified.
     publish : bool
         Whether the update is published.
@@ -450,8 +451,8 @@ class StatusUpdate:
         Author of the update.
     """
 
-    created_at: str
-    updated_at: str
+    created_at: datetime
+    updated_at: datetime
     publish: bool
     id: int
     translations: List[StatusTranslation] = field(default_factory=list)
@@ -465,15 +466,15 @@ class StatusEntry:
 
     Attributes
     ----------
-    created_at : str
+    created_at : datetime
         When the entry was created.
-    archive_at : str
+    archive_at : datetime
         When the entry will be archived.
     updates : List[StatusUpdate]
         List of status updates.
     platforms : List[str]
         Affected platforms (e.g., 'windows').
-    updated_at : str
+    updated_at : datetime
         When the entry was last modified.
     id : int
         Unique identifier for the entry.
@@ -485,11 +486,11 @@ class StatusEntry:
         Severity level (e.g., 'warning').
     """
 
-    created_at: str
-    archive_at: str
+    created_at: datetime
+    archive_at: datetime
     updates: List[StatusUpdate] = field(default_factory=list)
     platforms: List[str] = field(default_factory=list)
-    updated_at: str = ""
+    updated_at: datetime = field(default_factory=lambda: datetime.fromisoformat("1970-01-01T00:00:00+00:00"))
     id: int = 0
     titles: List[StatusTitle] = field(default_factory=list)
     maintenance_status: str = ""
@@ -835,7 +836,7 @@ class EsportsEvent:
 
     Attributes
     ----------
-    date : str
+    date : datetime
         Event date (ISO 8601 format).
     state : str
         Event state (e.g., "completed", "upcoming").
@@ -851,7 +852,7 @@ class EsportsEvent:
         Match information.
     """
 
-    date: str
+    date: datetime
     state: str
     type: str
     vod: str
@@ -926,7 +927,7 @@ class LeaderboardPlayer:
         Ranking rating points.
     wins : int
         Number of wins.
-    updated_at : str
+    updated_at : datetime
         Last update timestamp.
     """
 
@@ -941,7 +942,7 @@ class LeaderboardPlayer:
     tier: int
     rr: int
     wins: int
-    updated_at: str
+    updated_at: datetime
 
 
 @dataclass
@@ -952,7 +953,7 @@ class Leaderboard:
     ----------
     results : ResultMetadata
         Pagination metadata (total, returned, before, after).
-    updated_at : str
+    updated_at : datetime
         When the leaderboard was last updated.
     thresholds : List[LeaderboardThreshold]
         Tier threshold information.
@@ -961,7 +962,7 @@ class Leaderboard:
     """
 
     results: ResultMetadata
-    updated_at: str = ""
+    updated_at: datetime = field(default_factory=lambda: datetime.fromisoformat("1970-01-01T00:00:00+00:00"))
     thresholds: List[LeaderboardThreshold] = field(default_factory=list)
     players: List[LeaderboardPlayer] = field(default_factory=list)
 
