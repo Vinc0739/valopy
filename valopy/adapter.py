@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Optional, Type
 
 import aiohttp
 
-from .enums import AllowedMethods
+from .enums import AllowedMethod
 from .exceptions import from_client_response_error
 from .models import Result, ValoPyModel
 from .utils import dict_to_dataclass
@@ -45,7 +45,11 @@ class Adapter:
         self._api_key = api_key
         self._session: Optional[aiohttp.ClientSession] = None
 
-        _log.info("Adapter initialized with API URL: %s (redact_header=%s)", self.api_url, redact_header)
+        _log.info(
+            "Adapter initialized with API URL: %s (redact_header=%s)",
+            self.api_url,
+            redact_header,
+        )
         _log.debug("Adapter ready for making requests")
 
     async def _get_session(self) -> aiohttp.ClientSession:
@@ -118,7 +122,7 @@ class Adapter:
 
     async def _do(
         self,
-        method: AllowedMethods,
+        method: AllowedMethod,
         endpoint_path: str,
         model_class: Type[ValoPyModel],
         params: dict | None = None,
@@ -215,19 +219,37 @@ class Adapter:
             response.status,
         )
 
+        # Extract results metadata if present
+        results_metadata = data.get("results")
+
         # Extract the actual data from the response
         response_data = data.get("data", {})
 
         _log.info("Received response data from %s (size: %d bytes)", endpoint_path, len(str(response_data)))
 
-        if not isinstance(response_data, dict):
-            _log.warning("Response data is not a dict, cannot convert to dataclass")
+        if isinstance(response_data, list):
+            _log.info("Converting list response to %s dataclass for endpoint %s", model_class.__name__, endpoint_path)
 
-        else:
+            # Convert list of dicts to list of dataclasses
+            response_data = [
+                dict_to_dataclass(data=item, dataclass_type=model_class)
+                for item in response_data
+                if isinstance(item, dict)
+            ]
+
+        elif isinstance(response_data, dict):
+            # Inject results metadata into response dict before deserialization if present
+            if results_metadata:
+                response_data["results"] = results_metadata
+                _log.debug("Added results metadata to response data")
+
             _log.info("Converting response to %s dataclass for endpoint %s", model_class.__name__, endpoint_path)
 
-            # Convert dict to dataclass
+            # Convert dict to dataclass (results will be deserialized if present)
             response_data = dict_to_dataclass(data=response_data, dataclass_type=model_class)
+
+        else:
+            _log.warning("Response data is not a dict or list, cannot convert to dataclass")
 
         return Result(
             status_code=response.status,
@@ -235,7 +257,12 @@ class Adapter:
             data=response_data,
         )
 
-    async def get(self, endpoint_path: str, model_class: Type[ValoPyModel], params: dict | None = None) -> Result:
+    async def get(
+        self,
+        endpoint_path: str,
+        model_class: Type[ValoPyModel],
+        params: dict | None = None,
+    ) -> Result:
         """Make a GET request to the Valorant API.
 
         Parameters
@@ -254,10 +281,18 @@ class Adapter:
         """
 
         return await self._do(
-            method=AllowedMethods.GET, endpoint_path=endpoint_path, params=params, model_class=model_class
+            method=AllowedMethod.GET,
+            endpoint_path=endpoint_path,
+            params=params,
+            model_class=model_class,
         )
 
-    async def post(self, endpoint_path: str, model_class: Type[ValoPyModel], params: dict | None = None) -> Result:
+    async def post(
+        self,
+        endpoint_path: str,
+        model_class: Type[ValoPyModel],
+        params: dict | None = None,
+    ) -> Result:
         """Make a POST request to the Valorant API.
 
         Parameters
@@ -276,5 +311,8 @@ class Adapter:
         """
 
         return await self._do(
-            method=AllowedMethods.POST, endpoint_path=endpoint_path, params=params, model_class=model_class
+            method=AllowedMethod.POST,
+            endpoint_path=endpoint_path,
+            params=params,
+            model_class=model_class,
         )

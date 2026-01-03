@@ -1,0 +1,54 @@
+{
+    "contents": [
+        {
+            "id": "89153020-3fa7-43b0-9123-0c2e4e773dbd",
+            "banner_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/79e2b4d1c14957b4d6af818b6795fa27137563ee-1920x1080.jpg?accountingTag=VAL",
+            "description": null,
+            "category": "esports",
+            "date": "2025-12-17T15:00:09.554Z",
+            "external_link": null,
+            "title": "2026: EMEA Challengers, Game Changers und Premier",
+            "url": "https://valorantesports.com/de-de/news/2026-emea-challengers-game-changers-and-premier"
+        },
+        {
+            "id": "3fa8f61f-85f4-4051-aea2-abdb700353eb",
+            "banner_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/cc0f13bcb1371cbfe1e216a7dc223eeeb0a9d945-1600x900.jpg?accountingTag=VAL",
+            "description": null,
+            "category": "esports",
+            "date": "2025-12-16T20:00:00Z",
+            "external_link": null,
+            "title": "VCT 2025: Saisonabschluss",
+            "url": "https://valorantesports.com/de-de/news/vct-2025-season-wrap-up"
+        },
+        {
+            "id": "0158d7f6-58fe-4c8f-ab92-0fed9b2403c5",
+            "banner_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/27e61d907d15cfa6d415b557f2c91abffc733e5b-1920x1080.jpg?accountingTag=VAL",
+            "description": null,
+            "category": "game_updates",
+            "date": "2025-12-12T15:00:00Z",
+            "external_link": "https://www.youtube.com/watch?v=9qGM065kfT4",
+            "title": "HEIMKEHR // Phoenix-Kurzvideo – VALORANT",
+            "url": "https://www.youtube.com/watch?v=9qGM065kfT4"
+        },
+        {
+            "id": "36c81bef-1e4c-425c-aba3-4034056bfcb6",
+            "banner_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/eb44e3cfcd176553fb917af34a45840fc4978b85-1920x1080.jpg?accountingTag=VAL",
+            "description": null,
+            "category": "esports",
+            "date": "2025-12-11T15:00:00Z",
+            "external_link": null,
+            "title": "VCT EMEA 2026 – Leitfaden zum Kickoff",
+            "url": "https://valorantesports.com/de-de/news/vct-emea-2026-kickoff-primer"
+        },
+        {
+            "id": "1b92b173-cb4e-4ab8-b635-ae32cee9b87d",
+            "banner_url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/f092ff41d9a5c6dc22f20a6641081f0b2fd34101-1920x1080.jpg",
+            "description": null,
+            "category": "esports",
+            "date": "2025-12-05T16:00:00Z",
+            "external_link": null,
+            "title": "VALORANT Champions Tour: Saison-Awards",
+            "url": "https://valorantesports.com/de-de/news/valorant-champions-tour-season-awards"
+        }
+    ]
+}

@@ -7,7 +7,7 @@ packages = ["valopy"]
 
 [project]
 name = "valopy"
-version = "0.3.0"
+version = "0.4.0"
 description = "An async Python wrapper for the unofficial Valorant API."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -43,9 +43,7 @@ classifiers = [
 dependencies = ["aiohttp>=3.13.2"]
 
 [project.urls]
-Homepage = "https://github.com/Vinc0739/valopy"
 Documentation = "https://valopy.readthedocs.io/"
-Repository = "https://github.com/Vinc0739/valopy.git"
 "Bug Tracker" = "https://github.com/Vinc0739/valopy/issues"
 "Source Code" = "https://github.com/Vinc0739/valopy"
 

@@ -115,3 +115,43 @@ def version() -> Dict[str, Any]:
     """Get Version mock data."""
     data = MockDataLoader.load("version")
     return {"status": 200, "data": data}
+
+
+# Website fixtures
+@pytest.fixture
+def website() -> Dict[str, Any]:
+    """Get Website mock data."""
+    data = MockDataLoader.get("website", "contents")
+    return {"status": 200, "data": data}
+
+
+# Status fixtures
+@pytest.fixture
+def status() -> Dict[str, Any]:
+    """Get Status mock data."""
+    data = MockDataLoader.load("status")
+    return {"status": 200, "data": data}
+
+
+# Queue fixtures
+@pytest.fixture
+def queue() -> Dict[str, Any]:
+    """Get Queue Status mock data."""
+    data = MockDataLoader.get("queue", "queues")
+    return {"status": 200, "data": data}
+
+
+# Esports fixtures
+@pytest.fixture
+def esports() -> Dict[str, Any]:
+    """Get Esports Schedule mock data."""
+    data = MockDataLoader.get("esports", "esports_events")
+    return {"status": 200, "data": data}
+
+
+# Leaderboard fixtures
+@pytest.fixture
+def leaderboard() -> Dict[str, Any]:
+    """Get Leaderboard mock data."""
+    data = MockDataLoader.load("leaderboard")
+    return {"status": 200, "data": data}

@@ -1,0 +1,51 @@
+{
+  "esports_events": [
+    {
+      "date": "2025-05-10T15:00:00+00:00",
+      "state": "completed",
+      "type": "match",
+      "vod": null,
+      "league": {
+        "name": "VCT EMEA",
+        "identifier": "vct_emea",
+        "icon": "http://static.lolesports.com/leagues/1757677841319_VCT23_INT_EMEA_Logo_MARK_RGB_GREEN.png",
+        "region": "EMEA"
+      },
+      "tournament": {
+        "name": "Stage 1",
+        "season": "valorant_champions_tour_2025"
+      },
+      "match": {
+        "id": "113486575252774115",
+        "teams": [
+          {
+            "name": "Team Heretics",
+            "code": "TH",
+            "icon": "http://static.lolesports.com/teams/1674060672534_600px-Team_Heretics_2022_allmode1.png",
+            "has_won": true,
+            "game_wins": 2,
+            "record": {
+              "wins": 2,
+              "losses": 2
+            }
+          },
+          {
+            "name": "BBL Esports",
+            "code": "BBL",
+            "icon": "http://static.lolesports.com/teams/1674060310685_BBL-GOLD-EMBLEM1.png",
+            "has_won": false,
+            "game_wins": 0,
+            "record": {
+              "wins": 2,
+              "losses": 2
+            }
+          }
+        ],
+        "game_type": {
+          "type": "bestOf",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

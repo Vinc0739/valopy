@@ -1,0 +1,186 @@
+v0.4.0
+======
+
+**Release Date:** 03 January 2026
+
+Overview
+--------
+
+Version 0.4.0 adds comprehensive support for account lookup by PUUID, website news content, 
+server status monitoring, queue information, and esports schedule tracking. Users can now 
+fetch account information using a player's unique identifier, retrieve Valorant news articles, 
+check server health and queue configurations, and access esports event schedules with filtering capabilities.
+
+New Features
+------------
+
+Account Lookup by PUUID
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_account_v1_by_puuid` method
+    - Fetch account information using PUUID
+    - Returns ``AccountV1`` model with card images
+    - Supports force update parameter
+    
+- Added :meth:`~valopy.client.Client.get_account_v2_by_puuid` method
+    - Fetch account information using PUUID (V2 endpoint)
+    - Returns ``AccountV2`` model with platforms and title
+    - Supports force update parameter
+
+- Added ``ACCOUNT_BY_PUUID_V1`` and ``ACCOUNT_BY_PUUID_V2`` endpoints to enum
+    - V1 endpoint maps to ``AccountV1`` model
+    - V2 endpoint maps to ``AccountV2`` model
+
+Website News
+~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_website` method
+    - Fetch news articles for a specific country
+    - Returns ``List[WebsiteContent]`` with article details
+    - Supports all country codes via ``CountryCode`` enum
+
+- Added ``WebsiteContent`` model
+    - Contains article metadata: title, description, category, date, URLs
+    - Includes banner image URL and external links
+
+- Added ``WEBSITE`` endpoint to enum
+    - Maps to ``WebsiteContent`` model for list deserialization
+
+- Adapter now supports list responses for endpoints returning arrays
+    - Automatically deserializes list items to their respective models
+
+Server Status
+~~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_status` method
+    - Fetch server status for a specific region
+    - Returns ``Status`` model with maintenances and incidents
+    - Supports all regions via ``Region`` enum
+
+- Added status models
+    - ``Status``: Main response with maintenances and incidents lists
+    - ``StatusEntry``: Individual maintenance/incident entry
+    - ``StatusUpdate``: Update information with translations
+    - ``StatusTranslation``: Translated content messages
+    - ``StatusTitle``: Entry titles
+
+- Added ``STATUS`` endpoint to enum
+    - Maps to ``Status`` model for response deserialization
+
+Queue Status
+~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_queue_status` method
+    - Fetch queue status for a specific region
+    - Returns ``List[QueueData]`` with game mode configurations
+    - Supports all regions via ``Region`` enum
+
+- Added queue models
+    - ``QueueData``: Individual queue configuration
+    - ``QueuePartySize``: Party size constraints
+    - ``QueueHighSkill``: High skill tier restrictions
+    - ``QueueSkillDisparity``: Skill disparity restrictions
+    - ``QueueSkillDisparityTier``: Tier information
+    - ``QueueGameRules``: Game rules configuration
+    - ``QueueMapInfo``: Map identifier and name
+    - ``QueueMap``: Map configuration for queues
+
+- Added ``QUEUE_STATUS`` endpoint to enum
+    - Maps to ``QueueData`` model for list response deserialization
+
+Esports Schedule
+~~~~~~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_esports_schedule` method
+    - Fetch esports schedule with optional filtering
+    - Supports filtering by ``EsportsRegion`` and ``League`` enums
+    - Returns ``List[EsportsEvent]`` with detailed event information
+
+- Added esports models
+    - ``EsportsEvent``: Main event data with date, state, type, league, tournament, and match info
+    - ``EsportsLeague``: League information with name, identifier, icon, and region
+    - ``EsportsTournament``: Tournament data with name and season
+    - ``EsportsMatch``: Match information with game type and teams
+    - ``EsportsTeam``: Team details including name, code, icon, record, and game wins
+    - ``EsportsGameType``: Game configuration with type and count
+    - ``EsportsTeamRecord``: Team win/loss records
+
+- Added ``EsportsRegion`` enum
+    - Supports 12 esports regions: international, north_america, emea, brazil, japan, korea, latin_america, latin_america_south, latin_america_north, southeast_asia, vietnam, oceania
+
+- Added ``League`` enum
+    - Supports 45 esports leagues including VCT, Challengers, Game Changers, Masters, Champions, and regional VRL leagues
+
+- Added ``ESPORTS_SCHEDULE`` endpoint to enum
+    - Maps to ``EsportsEvent`` model for list response deserialization
+
+Leaderboard
+~~~~~~~~~~~
+
+- Added :meth:`~valopy.client.Client.get_leaderboard` method
+    - Fetch leaderboard for a specific region and platform
+    - Supports filtering by season, PUUID, or player name and tag
+    - Optional pagination with size and start_index parameters
+    - Returns ``Leaderboard`` model with pagination metadata
+
+- Added leaderboard models
+    - ``Leaderboard``: Main response with players, tier thresholds, and pagination metadata
+    - ``LeaderboardPlayer``: Individual player with rank, RR, wins, and account info
+    - ``LeaderboardThreshold``: Tier threshold information with RR requirements
+    - ``LeaderboardTier``: Tier classification (e.g., Immortal 1, Radiant)
+    - ``ResultMetadata``: Pagination metadata (total, returned, before, after)
+
+- Added ``Platform`` enum
+    - Supports PC and Console platforms
+
+- Added ``Season`` enum
+    - Supports 33 seasons covering Episodes 1-10, Acts 1-3 (6 Acts for Episode 10)
+
+- Added ``LEADERBOARD_V3`` endpoint to enum
+    - Maps to ``Leaderboard`` model for response deserialization
+
+- Enhanced Adapter deserialization
+    - Automatically injects results metadata into models that support pagination
+    - Enables extensible pattern for future endpoints with metadata
+
+Automatic DateTime Parsing
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Supports multiple datetime formats:
+    - ISO 8601 with timezone: ``2025-12-04T12:34:56Z``, ``2025-12-04T12:34:56+00:00``
+    - Date-only: ``2025-12-04``
+    - Common format: ``Dec 4 2025`` (used by some API responses)
+    - Relative times: ``3 minutes ago``, ``2 hours ago``
+
+- Updated all timestamp fields to use ``datetime`` type:
+    - Account: ``last_update``, ``updated_at``
+    - Version: ``build_date``, ``last_checked``
+    - Status: ``created_at``, ``updated_at``, ``archive_at``
+    - Website: ``date``
+    - Esports: ``date``
+    - Leaderboard: ``updated_at`` (both Leaderboard and LeaderboardPlayer)
+
+- Implemented automatic parsing in ``dict_to_dataclass()`` utility
+    - Detects ``datetime`` type annotations
+    - Parses multiple datetime formats with graceful fallback
+    - Relative time format support for API responses using time deltas
+
+Bug Fixes
+---------
+- Added custom CSS to fix dark mode visibility issues in documentation
+    - Fixed text colors for signature prefixes and names
+    - Fixed background color for API reference blocks
+
+Documentation
+-------------
+
+- Updated feature guide to include PUUID account methods, website method, status method, queue status method and esports schedule method
+- Added examples for account lookup by PUUID, website news, server status, queue status and esports schedule
+- Simplified all Examples and removed unnecessary
+
+Miscellaneous
+-------------
+
+- Improved code documentation and type hints
+- Added contribute.md for new contributors
+- Refactored `dict_to_dataclass` utility for better performance and readability

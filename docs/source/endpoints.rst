@@ -28,13 +28,13 @@ Account
      - ``/v2/account/{name}/{tag}``
      - :meth:`~valopy.client.Client.get_account_v2`
      - Get account by name and tag (V2)
-   * - ❌
+   * - ✅
      - ``/v1/by-puuid/account/{puuid}``
-     - —
+     - :meth:`~valopy.client.Client.get_account_v1_by_puuid`
      - Get account by PUUID (V1)
-   * - ❌
+   * - ✅
      - ``/v2/by-puuid/account/{puuid}``
-     - —
+     - :meth:`~valopy.client.Client.get_account_v2_by_puuid`
      - Get account by PUUID (V2)
 
 Content
@@ -80,9 +80,9 @@ Esports
      - Endpoint
      - Method
      - Description
-   * - ❌
+   * - ✅
      - ``/v1/esports/schedule``
-     - —
+     - :meth:`~valopy.client.Client.get_esports_schedule`
      - Get esports schedule
 
 Leaderboard
@@ -96,18 +96,15 @@ Leaderboard
      - Endpoint
      - Method
      - Description
-   * - ❌
-     - ``/v1/leaderboard/{affinity}``
-     - —
-     - Get leaderboard (V1)
-   * - ❌
-     - ``/v2/leaderboard/{affinity}``
-     - —
-     - Get leaderboard (V2)
-   * - ❌
-     - ``/v3/leaderboard/{affinity}``
-     - —
-     - Get leaderboard (V3)
+   * - ✅
+     - ``/v3/leaderboard/{region}/{platform}``
+     - :meth:`~valopy.client.Client.get_leaderboard`
+     - Get leaderboard by region and platform
+
+.. note::
+
+   V1 and V2 leaderboard endpoints are not implemented as they are deprecated.
+   Use the V3 endpoint via :meth:`~valopy.client.Client.get_leaderboard` instead.
 
 Match
 -----
@@ -248,10 +245,10 @@ Queue Status
      - Endpoint
      - Method
      - Description
-   * - ❌
-     - ``/v1/queue-status/{affinity}``
-     - —
-     - Get queue status
+   * - ✅
+     - ``/v1/queue-status/{region}``
+     - :meth:`~valopy.client.Client.get_queue_status`
+     - Get queue status and configurations
 
 Raw
 ---
@@ -280,9 +277,9 @@ Server Status
      - Endpoint
      - Method
      - Description
-   * - ❌
+   * - ✅
      - ``/v1/status/{region}``
-     - —
+     - :meth:`~valopy.client.Client.get_status`
      - Get server status
 
 Store
@@ -352,7 +349,7 @@ Website
      - Endpoint
      - Method
      - Description
-   * - ❌
+   * - ✅
      - ``/v1/website/{countrycode}``
-     - —
-     - Get website news
+     - :meth:`~valopy.client.Client.get_website`
+     - Get website content (news articles)

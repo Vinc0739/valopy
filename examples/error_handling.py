@@ -1,26 +1,32 @@
 import asyncio
 
-from valopy import Client, ValoPyHTTPError, ValoPyNotFoundError, ValoPyPermissionError, ValoPyRateLimitError
+from valopy import (
+    Client,
+    ValoPyNotFoundError,
+    ValoPyPermissionError,
+    ValoPyRateLimitError,
+    ValoPyRequestError,
+)
 
 
-async def safe_fetch_account():
+async def main() -> None:
     async with Client(api_key="your-api-key") as client:
+        # Handle common API errors gracefully.
         try:
-            account = await client.get_account_v1("PlayerName", "TAG")
+            account = await client.get_account_v2_by_puuid(puuid="some-puuid-string")
             print(f"Found: {account.name}#{account.tag}")
 
+        except ValoPyRequestError as e:
+            print(f"Request error: {e.message}")
         except ValoPyNotFoundError:
-            print("Account not found!")
+            print("Account not found")
 
         except ValoPyPermissionError:
-            print("Invalid API key or insufficient permissions")
+            print("Invalid API key")
 
         except ValoPyRateLimitError as e:
-            print(f"Rate limit exceeded: {e.rate_remain}/{e.rate_limit}")
-            print(f"Retry after: {e.rate_reset} seconds")
-
-        except ValoPyHTTPError as e:
-            print(f"HTTP Error {e.status_code}: {e.message}")
+            print(f"Rate limited. Retry after {e.rate_reset}s")
 
 
-asyncio.run(safe_fetch_account())
+if __name__ == "__main__":
+    asyncio.run(main())

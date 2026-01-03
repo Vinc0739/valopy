@@ -37,7 +37,7 @@ Thanks for your interest in contributing! I maintain this as a hobby and can't a
   ```
   - **Types**: `feat`, `fix`, `refactor`, `docs`, `chore`, `test`
   - **Ref**: Link to issue/PR (e.g., `#17`)
-  - **Description**: Use Present tense action verbs (e.g., `adds`, `fixes`, `updates`, `removes`)
+  - **Description**: Use present tense action verbs (e.g., `adds`, `fixes`, `updates`, `removes`)
   - **Examples**:
     - `feat(#17): adds account lookup by PUUID`
     - `fix(#23): fixes endpoint path for V2 PUUID`

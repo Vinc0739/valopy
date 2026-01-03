@@ -3,7 +3,7 @@
 project = "valopy"
 copyright = "2025-present Vinc0739"
 author = "Vinc0739"
-release = "0.3.0"
+release = "0.4.0"
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -18,6 +18,7 @@ exclude_patterns = []
 
 html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
 # Dark mode settings
 default_dark_mode = True
