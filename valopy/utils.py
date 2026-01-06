@@ -2,7 +2,7 @@ import logging
 import re
 from dataclasses import fields, is_dataclass
 from datetime import datetime, timedelta, timezone
-from typing import TYPE_CHECKING, Any, Optional, Type, cast, get_args, get_origin
+from typing import TYPE_CHECKING, Any, Dict, Optional, Type, cast, get_args, get_origin
 
 if TYPE_CHECKING:
     from valopy.models import ValoPyModel
@@ -70,7 +70,7 @@ def parse_datetime_string(value: str) -> Optional[datetime]:
     return None
 
 
-def dict_to_dataclass(data: dict[str, Any], dataclass_type: Type["ValoPyModel"]) -> "ValoPyModel":
+def dict_to_dataclass(data: Dict[str, Any], dataclass_type: Type["ValoPyModel"]) -> "ValoPyModel":
     """Convert a dictionary to a dataclass instance, handling nested dataclasses.
 
     Parameters

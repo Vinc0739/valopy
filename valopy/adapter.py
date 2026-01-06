@@ -277,11 +277,11 @@ class Adapter:
 
         Parameters
         ----------
-        endpoint_path : :py:class:`str`
+        endpoint_path : class:`str`
             The formatted API endpoint path to call.
         model_class : Type[:class:`ValoPyModel`]
             The dataclass type to deserialize the response into
-        params : Optional[:py:class:`dict`]
+        params : Optional[class:`dict`]
             Query parameters to include in the request, by default None
 
         Returns
@@ -307,11 +307,11 @@ class Adapter:
 
         Parameters
         ----------
-        endpoint_path : :py:class:`str`
+        endpoint_path : class:`str`
             The formatted API endpoint path to call.
         model_class : Type[:class:`ValoPyModel`]
             The dataclass type to deserialize the response into
-        params : Optional[:py:class:`dict`]
+        params : Optional[class:`dict`]
             Query parameters to include in the request, by default None
 
         Returns

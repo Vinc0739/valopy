@@ -40,7 +40,7 @@ class Client:
         ----------
         api_key : :class:`str`
             The API key used for authentication.
-        redact_header : :class:`bool`, default true
+        redact_header : :class:`bool`, default True
             Whether to redact the API key in logs, by default True
         """
 
@@ -74,11 +74,11 @@ class Client:
 
         Parameters
         ----------
-        exc_type : Optional[type[`BaseException`]]
+        exc_type : Optional[type[:class:`BaseException`]]
             Exception type if raised.
-        exc_val : Optional[`BaseException`]
+        exc_val : Optional[:class:`BaseException`]
             Exception value if raised.
-        exc_tb : Optional[`types.TracebackType`]
+        exc_tb : Optional[:class:`types.TracebackType`]
             Exception traceback if raised.
         """
 
@@ -93,7 +93,7 @@ class Client:
             The name of the account.
         tag : :class:`str`
             The tag of the account.
-        force_update : :class:`bool`, default false
+        force_update : :class:`bool`, default False
             Whether to force update the account information, by default False
 
         Returns
@@ -124,7 +124,7 @@ class Client:
         ----------
         puuid : :class:`str`
             The player's unique identifier (PUUID).
-        force_update : :class:`bool`, default false
+        force_update : :class:`bool`, default False
             Whether to force update the account information, by default False
 
         Returns
@@ -216,7 +216,7 @@ class Client:
 
         Parameters
         ----------
-        locale : Optional[:class:~valopy.enums.`Locale`]
+        locale : Optional[:class:`Locale`]
             The locale for the content data, by default None
 
         Returns
@@ -244,7 +244,7 @@ class Client:
 
         Parameters
         ----------
-        region : Optional[:class:~valopy.enums.`Region`]
+        region : Optional[:class:`Region`]
             The region to get the API version for, by default Region.EU
 
         Returns
@@ -271,7 +271,7 @@ class Client:
 
         Parameters
         ----------
-        countrycode : :class:`~valopy.enums.CountryCode`
+        countrycode : :class:`CountryCode`
             The country code to get the website information for.
 
         Returns
@@ -296,7 +296,7 @@ class Client:
 
         Parameters
         ----------
-        region : :class:`~valopy.enums.Region`
+        region : :class:`Region`
             The region to get server status for.
 
         Returns
@@ -323,7 +323,7 @@ class Client:
 
         Parameters
         ----------
-        region : :class:`~valopy.enums.Region`
+        region : :class:`Region`
             The region to get queue status for.
 
         Returns
@@ -352,9 +352,9 @@ class Client:
 
         Parameters
         ----------
-        region : Optional[:class:`~valopy.enums.EsportsRegion`]
+        region : Optional[:class:`EsportsRegion`]
             Filter by esports region.
-        league : Optional[:class:`~valopy.enums.League`]
+        league : Optional[:class:`League`]
             Filter by esports league.
 
         Returns
@@ -397,21 +397,21 @@ class Client:
 
         Parameters
         ----------
-        region : :class:`~valopy.enums.Region`
+        region : :class:`Region`
             The region to get leaderboard for.
-        platform : :class:`~valopy.enums.Platform`
+        platform : :class:`Platform`
             The platform (PC or Console).
-        season : Optional[:class:`~valopy.enums.Season`]
+        season : Optional[:class:`Season`]
             The season to filter by (e.g., Season.E9A3).
-        puuid : Optional[`str`]
+        puuid : Optional[:class:`str`]
             Filter by player PUUID. Mutually exclusive with name and tag.
-        name : Optional[`str`]
+        name : Optional[:class:`str`]
             Filter by player name. Must be used with tag.
-        tag : Optional[`str`]
+        tag : Optional[:class:`str`]
             Filter by player tag. Must be used with name.
-        size : Optional[`int`]
+        size : Optional[:class:`int`]
             Number of players to return.
-        start_index : Optional[`int`]
+        start_index : Optional[:class:`int`]
             Starting index for pagination.
 
         Returns

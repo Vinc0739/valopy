@@ -228,17 +228,17 @@ def from_client_response_error(
     ------
     :exc:`ValoPyRequestError`
         If status code is 400.
-    `ValoPyPermissionError`
+    :exc:`ValoPyPermissionError`
         If status code is 401.
-    `ValoPyNotFoundError`
+    :exc:`ValoPyNotFoundError`
         If status code is 404.
-    `ValoPyTimeoutError`
+    :exc:`ValoPyTimeoutError`
         If status code is 408.
-    `ValoPyRateLimitError`
+    :exc:`ValoPyRateLimitError`
         If status code is 429.
-    `ValoPyServerError`
+    :exc:`ValoPyServerError`
         If status code is 5xx.
-    `ValoPyHTTPError`
+    :exc:`ValoPyHTTPError`
         For any other HTTP error status codes.
     """  # noqa: E501
 
