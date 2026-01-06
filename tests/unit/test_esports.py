@@ -34,7 +34,9 @@ class TestEsports:
         esports_data = [dict_to_dataclass(item, EsportsEvent) for item in esports["data"]]
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(status_code=esports["status"], message="OK", data=esports_data)
+            mock_get.return_value = Result(
+                status_code=esports["status"], message="OK", data=esports_data
+            )
 
             result: List[EsportsEvent] = await client.get_esports_schedule()
 

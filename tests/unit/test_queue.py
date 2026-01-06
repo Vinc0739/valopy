@@ -27,7 +27,9 @@ class TestQueue:
         queue_data = [dict_to_dataclass(item, QueueData) for item in queue["data"]]
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(status_code=queue["status"], message="OK", data=queue_data)
+            mock_get.return_value = Result(
+                status_code=queue["status"], message="OK", data=queue_data
+            )
 
             result: List[QueueData] = await client.get_queue_status(region=Region.EU)
 

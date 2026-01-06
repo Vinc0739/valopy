@@ -27,7 +27,9 @@ class TestStatus:
         status_data = dict_to_dataclass(status["data"], Status)
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(status_code=status["status"], message="OK", data=status_data)
+            mock_get.return_value = Result(
+                status_code=status["status"], message="OK", data=status_data
+            )
 
             result: Status = await client.get_status(region=Region.EU)
 

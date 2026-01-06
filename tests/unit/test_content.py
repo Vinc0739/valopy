@@ -26,7 +26,9 @@ class TestContent:
         content_data = dict_to_dataclass(content["data"], Content)
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(status_code=content["status"], message="OK", data=content_data)
+            mock_get.return_value = Result(
+                status_code=content["status"], message="OK", data=content_data
+            )
 
             result: Content = await client.get_content()
 
