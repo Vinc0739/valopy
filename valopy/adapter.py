@@ -3,13 +3,15 @@ from typing import TYPE_CHECKING, Optional, Type
 
 import aiohttp
 
-from .enums import AllowedMethod
+from .enums import AllowedMethod, Endpoint
 from .exceptions import from_client_response_error
 from .models import Result, ValoPyModel
 from .utils import dict_to_dataclass
 
 if TYPE_CHECKING:
     import types
+
+    from .cache import CacheManager
 
 _log = logging.getLogger(__name__)
 
@@ -18,7 +20,7 @@ class Adapter:
     """Adapter for making HTTP requests to the Valorant API.
 
     This adapter provides automatic model typing and elegant error handling
-    for all Valorant API endpoints.
+    for all Valorant API endpoints, with optional caching support.
 
     Attributes
     ----------
@@ -26,9 +28,16 @@ class Adapter:
         The API key used for authentication.
     api_url : :class:`str`
         The base URL for the Valorant API.
+    cache_manager : Optional[:class:`~valopy.cache.CacheManager`]
+        The cache manager instance for caching responses.
     """
 
-    def __init__(self, api_key: str, redact_header: bool = True) -> None:
+    def __init__(
+        self,
+        api_key: str,
+        redact_header: bool = True,
+        cache_manager: Optional["CacheManager"] = None,
+    ) -> None:
         """Initialize the Adapter.
 
         Parameters
@@ -37,18 +46,22 @@ class Adapter:
             The API key used for authentication.
         redact_header : Optional[:class:`bool`]
             Whether to redact the API key in logs, by default True
+        cache_manager : Optional[:class:`CacheManager`]
+            The cache manager for caching API responses, by default None
         """
 
         self.api_url = "https://api.henrikdev.xyz/valorant"
         self.redact_header = redact_header
+        self.cache_manager = cache_manager
 
         self._api_key = api_key
         self._session: Optional[aiohttp.ClientSession] = None
 
         _log.info(
-            "Adapter initialized with API URL: %s (redact_header=%s)",
+            "Adapter initialized with API URL: %s (redact_header=%s, caching=%s)",
             self.api_url,
             redact_header,
+            cache_manager is not None,
         )
         _log.debug("Adapter ready for making requests")
 
@@ -121,6 +134,9 @@ class Adapter:
     ) -> Result:
         """Make an HTTP request to the Valorant API.
 
+        This method handles the HTTP transport layer and exception handling only.
+        Caching is handled at the get/post level.
+
         Parameters
         ----------
         method : :class:`AllowedMethod`
@@ -134,7 +150,7 @@ class Adapter:
 
         Returns
         -------
-        :class:`Result`
+        :class:`~valopy.models.Result`
             A Result object containing the HTTP response metadata and deserialized data.
 
         Raises
@@ -269,60 +285,106 @@ class Adapter:
 
     async def get(
         self,
+        endpoint: Endpoint,
         endpoint_path: str,
         model_class: Type[ValoPyModel],
         params: Optional[dict] = None,
     ) -> Result:
         """Make a GET request to the Valorant API.
 
+        Handles caching logic before delegating to the HTTP layer.
+
         Parameters
         ----------
-        endpoint_path : class:`str`
+        endpoint : :class:`Endpoint`
+            The endpoint enum for caching identification.
+        endpoint_path : :class:`str`
             The formatted API endpoint path to call.
         model_class : Type[:class:`ValoPyModel`]
             The dataclass type to deserialize the response into
-        params : Optional[class:`dict`]
+        params : Optional[:class:`dict`]
             Query parameters to include in the request, by default None
 
         Returns
         -------
-        :class:`Result`
+        :class:`~valopy.models.Result`
             The result of the GET request.
         """
 
-        return await self._do(
+        # Check cache first if enabled
+        if self.cache_manager:
+            cached_data = self.cache_manager.get(endpoint, endpoint_path, params)
+            if cached_data is not None:
+                _log.info("Returning cached response for endpoint %s", endpoint.name)
+                return Result(
+                    status_code=200,
+                    message="from cache",
+                    data=cached_data,
+                )
+
+        # Make the HTTP request
+        result = await self._do(
             method=AllowedMethod.GET,
             endpoint_path=endpoint_path,
             params=params,
             model_class=model_class,
         )
 
+        # Cache the response if enabled
+        if self.cache_manager:
+            self.cache_manager.set(endpoint, endpoint_path, result.data, params)
+
+        return result
+
     async def post(
         self,
+        endpoint: Endpoint,
         endpoint_path: str,
         model_class: Type[ValoPyModel],
         params: Optional[dict] = None,
     ) -> Result:
         """Make a POST request to the Valorant API.
 
+        Handles caching logic before delegating to the HTTP layer.
+
         Parameters
         ----------
-        endpoint_path : class:`str`
+        endpoint : :class:`Endpoint`
+            The endpoint enum for caching identification.
+        endpoint_path : :class:`str`
             The formatted API endpoint path to call.
         model_class : Type[:class:`ValoPyModel`]
             The dataclass type to deserialize the response into
-        params : Optional[class:`dict`]
+        params : Optional[:class:`dict`]
             Query parameters to include in the request, by default None
 
         Returns
         -------
-        :class:`Result`
+        :class:`~valopy.models.Result`
             The result of the POST request.
         """
 
-        return await self._do(
+        # Check cache first if enabled
+        if self.cache_manager:
+            cached_data = self.cache_manager.get(endpoint, endpoint_path, params)
+            if cached_data is not None:
+                _log.info("Returning cached response for endpoint %s", endpoint.name)
+                return Result(
+                    status_code=200,
+                    message="from cache",
+                    data=cached_data,
+                )
+
+        # Make the HTTP request
+        result = await self._do(
             method=AllowedMethod.POST,
             endpoint_path=endpoint_path,
             params=params,
             model_class=model_class,
         )
+
+        # Cache the response if enabled
+        if self.cache_manager:
+            self.cache_manager.set(endpoint, endpoint_path, result.data, params)
+
+        return result

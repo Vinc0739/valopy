@@ -268,3 +268,160 @@ ValoPy provides specific exception classes for different error scenarios:
            print(f"Rate limited, retry after {e.rate_reset}s")
 
 See :doc:`../api/exceptions` for the complete exception hierarchy.
+
+Caching
+-------
+
+ValoPy includes built-in caching support to reduce API calls and improve performance. By default,
+caching is enabled with a 1-hour TTL (time-to-live) for all responses.
+
+Basic Usage
+~~~~~~~~~~~
+
+Caching is enabled by default:
+
+.. code-block:: python
+
+   from valopy import Client
+
+   async with Client(api_key="your-api-key") as client:
+       # First call: Makes API request and caches response
+       account1 = await client.get_account_v1("Name", "Tag")
+       
+       # Second call: Returns cached response (no API call)
+       account2 = await client.get_account_v1("Name", "Tag")
+
+Disabling Caching
+~~~~~~~~~~~~~~~~~
+
+To disable caching entirely:
+
+.. code-block:: python
+
+   from valopy import Client
+
+   async with Client(api_key="your-api-key", caching=False) as client:
+       # All calls make fresh API requests
+       account = await client.get_account_v1("Name", "Tag")
+
+Custom Cache Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Configure cache behavior globally and per-endpoint:
+
+.. code-block:: python
+
+   from valopy import Client, CacheConfig, EndpointCacheConfig, Endpoint
+
+   # Create custom cache config
+   cache_config = CacheConfig(
+       enabled=True,
+       default_ttl=3600,  # 1 hour default
+       endpoints={
+           Endpoint.ACCOUNT_BY_NAME_V1: EndpointCacheConfig(
+               enabled=True,
+               ttl=1800  # 30 minutes for this specific endpoint
+           ),
+           Endpoint.STATUS: EndpointCacheConfig(
+               enabled=False  # Disable caching for status endpoint
+           ),
+       }
+   )
+
+   async with Client(api_key="your-api-key", caching=cache_config) as client:
+       account = await client.get_account_v1("Name", "Tag")
+       status = await client.get_status(region=Region.NA)
+
+Cache Management
+~~~~~~~~~~~~~~~~
+
+Manage the cache programmatically:
+
+.. code-block:: python
+
+   from valopy import Client
+
+   async with Client(api_key="your-api-key") as client:
+       account = await client.get_account_v1("Name", "Tag")
+       
+       # Get cache statistics
+       stats = client.get_cache_stats()
+       print(f"Active entries: {stats['active_entries']}")
+       print(f"Total entries: {stats['total_entries']}")
+       
+       # Clear all cached entries
+       client.clear_cache()
+       
+       # Remove only expired entries
+       client.clear_expired_cache()
+
+Cache Key Generation
+~~~~~~~~~~~~~~~~~~~~~
+
+Cache keys are generated based on:
+
+1. **Endpoint path** - The formatted URL with parameters (e.g., ``/account-v1/Name/Tag``)
+2. **Query parameters** - Any query parameters passed (e.g., ``force=false``)
+
+This ensures that different requests produce different cache entries. For example:
+
+.. code-block:: python
+
+   async with Client(api_key="your-api-key") as client:
+       # These produce different cache entries (different account names)
+       account1 = await client.get_account_v1("Name1", "Tag1")
+       account2 = await client.get_account_v1("Name2", "Tag2")
+       
+       # These use the same cache entry
+       account1_cached = await client.get_account_v1("Name1", "Tag1")
+
+Force Updates (API Parameter)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``force_update`` parameter is an API-level parameter, not a cache-bypass mechanism:
+
+.. code-block:: python
+
+   from valopy import Client
+
+   async with Client(api_key="your-api-key") as client:
+       # First call with force_update=False
+       account = await client.get_account_v1("Name", "Tag", force_update=False)
+       
+       # Second call with force_update=True - uses DIFFERENT cache entry
+       account = await client.get_account_v1("Name", "Tag", force_update=True)
+
+**Important:** The ``force_update`` parameter tells the API to refresh data on their side, but the response 
+is still cached by ValoPy. Each combination of parameters creates a separate cache entry. For example:
+
+* ``get_account_v1("Name", "Tag", force_update=False)`` - cached separately
+* ``get_account_v1("Name", "Tag", force_update=True)`` - cached separately
+* These two calls produce different cache entries even though they fetch the same account
+
+To truly bypass caching, configure it at initialization time:
+
+.. code-block:: python
+
+   from valopy import Client, CacheConfig, EndpointCacheConfig, Endpoint
+
+   # Option 1: Disable caching for specific endpoints
+   cache_config = CacheConfig(
+       endpoints={
+           Endpoint.ACCOUNT_BY_NAME_V1: EndpointCacheConfig(enabled=False)
+       }
+   )
+   async with Client(api_key="your-api-key", caching=cache_config) as client:
+       account = await client.get_account_v1("Name", "Tag")  # Not cached
+       
+   # Option 2: Disable caching completely
+   async with Client(api_key="your-api-key", caching=False) as client:
+       account = await client.get_account_v1("Name", "Tag")  # No caching at all
+
+Notes on Caching
+~~~~~~~~~~~~~~~~
+
+* Cache is in-memory only (not persistent between sessions)
+* Expired entries are automatically removed when accessed
+* Cache is cleared when the client is closed
+* Using :meth:`~valopy.client.Client.clear_expired_cache` periodically can help manage memory
+* The ``force_update`` parameter is API-level only and does NOT bypass the cache; different parameter combinations create separate cache entries

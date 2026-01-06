@@ -13,11 +13,12 @@ __title__ = "valopy"
 __author__ = "Vinc0739"
 __license__ = "MIT"
 __copyright__ = "Copyright 2025-present Vinc0739"
-__version__ = "0.4.1"
+__version__ = "0.5.0"
 
 import logging
 
 from .adapter import *
+from .cache import *
 from .client import *
 from .enums import *
 from .exceptions import *

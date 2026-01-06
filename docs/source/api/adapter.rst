@@ -7,3 +7,4 @@ The ``Adapter`` Class is responsible for handling the HTTP requests to the Valor
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:

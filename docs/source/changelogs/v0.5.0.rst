@@ -1,0 +1,85 @@
+v0.5.0
+======
+
+**Release Date:** 06 January 2026
+
+Overview
+--------
+
+Version 0.5.0 introduces comprehensive caching support to improve performance and reduce API 
+calls. Users can now configure cache behavior globally or per-endpoint, with full control over 
+TTL (time-to-live) and which endpoints should be cached. Additionally, all docstring issues 
+have been resolved for improved documentation consistency.
+
+New Features
+------------
+
+Caching System
+~~~~~~~~~~~~~~
+
+- Added :class:`~valopy.cache.CacheManager` for managing cached API responses
+    - In-memory cache with automatic expiration
+    - Supports per-endpoint configuration
+    - Thread-safe cache key generation
+    
+- Added :class:`~valopy.cache.CacheConfig` for cache configuration
+    - Global ``enabled`` flag to control caching
+    - ``default_ttl`` parameter (default: 3600 seconds / 1 hour)
+    - Per-endpoint cache configuration via ``endpoints`` dict
+    
+- Added :class:`~valopy.cache.EndpointCacheConfig` for per-endpoint settings
+    - ``enabled`` flag to enable/disable caching for specific endpoints
+    - ``ttl`` parameter to override global TTL for specific endpoints
+    
+- Added :class:`~valopy.cache.CacheEntry` internal class for cache storage
+    - Stores response data with creation timestamp
+    - Automatic expiration checking via ``is_expired()`` method
+
+Client Updates
+~~~~~~~~~~~~~~
+
+- Updated :class:`~valopy.client.Client` to support caching
+    - New ``caching`` parameter in :meth:`~valopy.client.Client.__init__`
+    - Accepts ``True`` (default), ``False``, or :class:`~valopy.cache.CacheConfig`
+    
+- Added :meth:`~valopy.client.Client.clear_cache` method
+    - Clears all cached entries
+    
+- Added :meth:`~valopy.client.Client.clear_expired_cache` method
+    - Removes only expired entries from cache
+    
+- Added :meth:`~valopy.client.Client.get_cache_stats` method
+    - Returns cache statistics: total_entries, expired_entries, active_entries
+
+Adapter Updates
+~~~~~~~~~~~~~~~
+
+- Updated :class:`~valopy.adapter.Adapter` to support caching
+    - New ``cache_manager`` parameter in :meth:`~valopy.adapter.Adapter.__init__`
+    - Cache lookup before HTTP requests in :meth:`~valopy.adapter.Adapter.get` and :meth:`~valopy.adapter.Adapter.post`
+    - Automatic cache population after successful API calls
+    
+- Updated :meth:`~valopy.adapter.Adapter.get` and :meth:`~valopy.adapter.Adapter.post`
+    - Now accept ``endpoint`` parameter for cache identification
+    - Cache hit detection and cache miss handling
+
+Documentation
+-------------
+
+- Added comprehensive caching section to :doc:`features guide <../guide/features>`
+    - Basic usage examples
+    - Custom configuration examples
+    - Cache management methods
+    - Cache key generation explanation
+    - Force update and bypass cache information
+    
+- Fixed docstring formatting errors
+    - Corrected parameter type annotations in :class:`~valopy.adapter.Adapter`
+    - Fixed ``:class:`` references in :meth:`~valopy.adapter.Adapter.get` docstring
+    - Fixed ``:class:`` references in :meth:`~valopy.adapter.Adapter.post` docstring
+    - Ensured consistency between parameter and return value documentation
+
+Bug Fixes
+---------
+
+- Fixed docstring parameter type formatting in Adapter class

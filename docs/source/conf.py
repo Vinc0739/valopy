@@ -1,10 +1,16 @@
 # Configuration file for the Sphinx documentation builder.
-from importlib.metadata import version as get_version
+import sys
+from pathlib import Path
+
+# Add the parent directory to the path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from valopy import __version__
 
 project = "valopy"
 copyright = "2025-present Vinc0739"
 author = "Vinc0739"
-release = "v" + get_version("valopy")
+release = "v" + __version__
 
 extensions = [
     "sphinx.ext.autodoc",

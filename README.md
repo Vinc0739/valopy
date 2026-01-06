@@ -88,7 +88,7 @@ asyncio.run(get_account_info())
 
 For additional examples and use cases, check out the:
 - **[/examples](/examples)** directory with complete examples
-- **[Documentation](https://valopy.readthedocs.io/en/latest/examples/index.html)** with more details
+- **[Documentation](https://valopy.readthedocs.io/en/latest/examples.html)** with more details
 
 ## Links
 

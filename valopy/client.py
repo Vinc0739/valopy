@@ -1,8 +1,9 @@
 import logging
 import types
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from .adapter import Adapter
+from .cache import CacheConfig, CacheManager
 from .enums import CountryCode, Endpoint, EsportsRegion, League, Locale, Platform, Region, Season
 from .exceptions import ValoPyValidationError
 
@@ -31,9 +32,16 @@ class Client:
     ----------
     adapter : :class:`~valopy.adapter.Adapter`
         The adapter used for making HTTP requests.
+    cache_manager : Optional[:class:`~valopy.cache.CacheManager`]
+        The cache manager instance if caching is enabled.
     """
 
-    def __init__(self, api_key: str, redact_header: bool = True) -> None:
+    def __init__(
+        self,
+        api_key: str,
+        redact_header: bool = True,
+        caching: Union[bool, CacheConfig] = True,
+    ) -> None:
         """Initialize the Client.
 
         Parameters
@@ -42,12 +50,36 @@ class Client:
             The API key used for authentication.
         redact_header : :class:`bool`, default True
             Whether to redact the API key in logs, by default True
+        caching : Union[:class:`bool`, :class:`~valopy.cache.CacheConfig`], default True
+            Caching configuration:
+            - True: Enable caching with default configuration (1 hour TTL)
+            - False: Disable caching
+            - CacheConfig: Custom caching configuration
         """
 
         _log.info("Initializing Valorant API Client (redact_header=%s)", redact_header)
+
+        # Setup caching
+        self.cache_manager = None
+        if caching is True:
+            # Use default cache config
+            _log.debug("Creating cache manager with default configuration")
+            self.cache_manager = CacheManager(CacheConfig())
+
+        elif isinstance(caching, CacheConfig):
+            # Use custom cache config
+            _log.debug("Creating cache manager with custom configuration")
+            self.cache_manager = CacheManager(caching)
+
+        elif caching is False:
+            # Caching disabled
+            _log.debug("Caching disabled")
+
         _log.debug("Creating adapter with provided API key")
 
-        self.adapter = Adapter(api_key=api_key, redact_header=redact_header)
+        self.adapter = Adapter(
+            api_key=api_key, redact_header=redact_header, cache_manager=self.cache_manager
+        )
 
     async def close(self) -> None:
         """Close the client's adapter session."""
@@ -109,6 +141,7 @@ class Client:
         endpoint_path = Endpoint.ACCOUNT_BY_NAME_V1.url.format(name=name, tag=tag)
 
         result = await self.adapter.get(
+            endpoint=Endpoint.ACCOUNT_BY_NAME_V1,
             endpoint_path=endpoint_path,
             params={"force": str(force_update).lower()},
             model_class=Endpoint.ACCOUNT_BY_NAME_V1.model,
@@ -140,6 +173,7 @@ class Client:
         endpoint_path = Endpoint.ACCOUNT_BY_PUUID_V1.url.format(puuid=puuid)
 
         result = await self.adapter.get(
+            endpoint=Endpoint.ACCOUNT_BY_PUUID_V1,
             endpoint_path=endpoint_path,
             params={"force": str(force_update).lower()},
             model_class=Endpoint.ACCOUNT_BY_PUUID_V1.model,
@@ -173,6 +207,7 @@ class Client:
         endpoint_path = Endpoint.ACCOUNT_BY_NAME_V2.url.format(name=name, tag=tag)
 
         result = await self.adapter.get(
+            endpoint=Endpoint.ACCOUNT_BY_NAME_V2,
             endpoint_path=endpoint_path,
             params={"force": str(force_update).lower()},
             model_class=Endpoint.ACCOUNT_BY_NAME_V2.model,
@@ -203,6 +238,7 @@ class Client:
         endpoint_path = Endpoint.ACCOUNT_BY_PUUID_V2.url.format(puuid=puuid)
 
         result = await self.adapter.get(
+            endpoint=Endpoint.ACCOUNT_BY_PUUID_V2,
             endpoint_path=endpoint_path,
             params={"force": str(force_update).lower()},
             model_class=Endpoint.ACCOUNT_BY_PUUID_V2.model,
@@ -230,6 +266,7 @@ class Client:
         params = {"locale": locale.value} if locale else {}
 
         result = await self.adapter.get(
+            endpoint=Endpoint.CONTENT_V1,
             endpoint_path=Endpoint.CONTENT_V1.url,
             params=params,
             model_class=Endpoint.CONTENT_V1.model,
@@ -258,6 +295,7 @@ class Client:
         endpoint_path = Endpoint.VERSION_V1.url.format(region=region.value)
 
         result = await self.adapter.get(
+            endpoint=Endpoint.VERSION_V1,
             endpoint_path=endpoint_path,
             model_class=Endpoint.VERSION_V1.model,
         )
@@ -285,6 +323,7 @@ class Client:
         endpoint_path = Endpoint.WEBSITE.url.format(countrycode=countrycode.value)
 
         result = await self.adapter.get(
+            endpoint=Endpoint.WEBSITE,
             endpoint_path=endpoint_path,
             model_class=Endpoint.WEBSITE.model,
         )
@@ -310,6 +349,7 @@ class Client:
         endpoint_path = Endpoint.STATUS.url.format(region=region.value)
 
         result = await self.adapter.get(
+            endpoint=Endpoint.STATUS,
             endpoint_path=endpoint_path,
             model_class=Endpoint.STATUS.model,
         )
@@ -337,6 +377,7 @@ class Client:
         endpoint_path = Endpoint.QUEUE_STATUS.url.format(region=region.value)
 
         result = await self.adapter.get(
+            endpoint=Endpoint.QUEUE_STATUS,
             endpoint_path=endpoint_path,
             model_class=Endpoint.QUEUE_STATUS.model,
         )
@@ -373,6 +414,7 @@ class Client:
         if league:
             params["league"] = league.value
         result = await self.adapter.get(
+            endpoint=Endpoint.ESPORTS_SCHEDULE,
             endpoint_path=endpoint_path,
             params=params,
             model_class=Endpoint.ESPORTS_SCHEDULE.model,
@@ -462,6 +504,7 @@ class Client:
             params["start_index"] = start_index
 
         result = await self.adapter.get(
+            endpoint=Endpoint.LEADERBOARD_V3,
             endpoint_path=endpoint_path,
             params=params,
             model_class=Endpoint.LEADERBOARD_V3.model,
@@ -470,3 +513,44 @@ class Client:
         _log.info("Successfully retrieved leaderboard")
 
         return result.data  # type: ignore
+
+    def clear_cache(self) -> None:
+        """Clear all cached entries.
+
+        This method has no effect if caching is disabled.
+        """
+
+        if self.cache_manager:
+            self.cache_manager.clear()
+            _log.info("Cache cleared by user")
+
+    def clear_expired_cache(self) -> None:
+        """Remove all expired entries from the cache.
+
+        This method has no effect if caching is disabled.
+        """
+
+        if self.cache_manager:
+            self.cache_manager.clear_expired()
+            _log.info("Expired cache entries cleared by user")
+
+    def get_cache_stats(self) -> Optional[dict[str, Any]]:
+        """Get cache statistics.
+
+        Returns
+        -------
+        Optional[dict]
+            A dictionary containing cache statistics if caching is enabled:
+            - total_entries: Total number of cached entries
+            - expired_entries: Number of expired entries
+            - active_entries: Number of non-expired entries
+
+            Returns None if caching is disabled.
+        """
+
+        if self.cache_manager:
+            stats = self.cache_manager.get_stats()
+            _log.debug("Cache stats: %s", stats)
+            return stats
+
+        return None

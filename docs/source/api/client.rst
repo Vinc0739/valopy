@@ -7,3 +7,4 @@ The ``Client`` class is the main interface for interacting with the Valorant API
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
