@@ -1,10 +1,8 @@
-"""Utility functions for the valopy library."""
-
 import logging
 import re
 from dataclasses import fields, is_dataclass
 from datetime import datetime, timedelta, timezone
-from typing import TYPE_CHECKING, Any, Type, cast, get_args, get_origin
+from typing import TYPE_CHECKING, Any, Optional, Type, cast, get_args, get_origin
 
 if TYPE_CHECKING:
     from valopy.models import ValoPyModel
@@ -12,7 +10,7 @@ if TYPE_CHECKING:
 _log = logging.getLogger(__name__)
 
 
-def _parse_datetime_string(value: str) -> datetime | None:
+def parse_datetime_string(value: str) -> Optional[datetime]:
     """Parse datetime string in multiple formats.
 
     Supports:
@@ -22,12 +20,12 @@ def _parse_datetime_string(value: str) -> datetime | None:
 
     Parameters
     ----------
-    value : str
+    value : :class:`str`
         The datetime string to parse.
 
     Returns
     -------
-    datetime | None
+    Optional[:class:`datetime.datetime`]
         Parsed datetime object, or None if parsing fails.
     """
     if not isinstance(value, str) or not value.strip():
@@ -52,7 +50,7 @@ def _parse_datetime_string(value: str) -> datetime | None:
         # Not in "Dec 4 2025" format, try next format
         pass
 
-    # Try relative time format like "3 minutes ago" or "2 hours ago" for account v1 last_update field
+    # Try relative time format like "3 minutes ago" / "2 hours ago" for account v1 last_update field
     match = re.match(r"(\d+)\s+(minute|hour)s?\s+ago", value.lower())
     if match:
         amount = int(match.group(1))
@@ -74,20 +72,17 @@ def _parse_datetime_string(value: str) -> datetime | None:
 
 def dict_to_dataclass(data: dict[str, Any], dataclass_type: Type["ValoPyModel"]) -> "ValoPyModel":
     """Convert a dictionary to a dataclass instance, handling nested dataclasses.
-    Recursively converts nested dictionaries to their corresponding dataclass types
-    if they are also dataclasses, and lists of nested dataclasses.
-    Uses dataclass field introspection for performance optimization.
 
     Parameters
     ----------
-    data : dict[str, Any]
+    data : Dict[:class:`str`, :class:`Any`]
         The dictionary to convert.
-    dataclass_type : Type[ValoPyModel]
-        The dataclass type to convert to (must be AccountV1, AccountV2, Content, or Version).
+    dataclass_type : Type[:class:`ValoPyModel`]
+        The dataclass type to convert to (must be AccountV1, AccountV2, Content, etc.).
 
     Returns
     -------
-    ValoPyModel
+    :class:`ValoPyModel`
         An instance of the dataclass.
     """
 
@@ -109,7 +104,7 @@ def dict_to_dataclass(data: dict[str, Any], dataclass_type: Type["ValoPyModel"])
 
         # Parse datetime strings to datetime objects
         if field_type is datetime and isinstance(value, str):
-            parsed = _parse_datetime_string(value)
+            parsed = parse_datetime_string(value)
             if parsed is not None:
                 kwargs[field.name] = parsed
             else:

@@ -13,7 +13,7 @@ __title__ = "valopy"
 __author__ = "Vinc0739"
 __license__ = "MIT"
 __copyright__ = "Copyright 2025-present Vinc0739"
-__version__ = "0.1.0"
+__version__ = "0.4.1"
 
 import logging
 

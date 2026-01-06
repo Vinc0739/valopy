@@ -22,9 +22,9 @@ class Adapter:
 
     Attributes
     ----------
-    api_key : str
+    api_key : :class:`str`
         The API key used for authentication.
-    api_url : str
+    api_url : :class:`str`
         The base URL for the Valorant API.
     """
 
@@ -33,9 +33,9 @@ class Adapter:
 
         Parameters
         ----------
-        api_key : str
+        api_key : :class:`str`
             The API key used for authentication.
-        redact_header : bool, optional
+        redact_header : Optional[:class:`bool`]
             Whether to redact the API key in logs, by default True
         """
 
@@ -57,7 +57,7 @@ class Adapter:
 
         Returns
         -------
-        aiohttp.ClientSession
+        :class:`aiohttp.ClientSession`
             The persistent session for making requests.
         """
 
@@ -72,12 +72,8 @@ class Adapter:
         return self._session
 
     async def close(self) -> None:
-        """Close the persistent session.
+        """Close the persistent session."""
 
-        Returns
-        -------
-        None
-        """
         if self._session and not self._session.closed:
             _log.info("Closing aiohttp ClientSession")
 
@@ -91,14 +87,14 @@ class Adapter:
 
         Returns
         -------
-        Adapter
+        :class:`Adapter`
             The adapter instance.
         """
         return self
 
     async def __aexit__(
         self,
-        exc_type: "type[BaseException] | None",
+        exc_type: "Type[BaseException] | None",
         exc_val: "BaseException | None",
         exc_tb: "types.TracebackType | None",
     ) -> None:
@@ -106,16 +102,12 @@ class Adapter:
 
         Parameters
         ----------
-        exc_type : type[BaseException] | None
+        exc_type : Optional[type[:class:`BaseException`]]
             Exception type if raised.
-        exc_val : BaseException | None
+        exc_val : Optional[:class:`BaseException`]
             Exception value if raised.
-        exc_tb : types.TracebackType | None
+        exc_tb : Optional[:class:`types.TracebackType`]
             Exception traceback if raised.
-
-        Returns
-        -------
-        None
         """
 
         await self.close()
@@ -125,44 +117,44 @@ class Adapter:
         method: AllowedMethod,
         endpoint_path: str,
         model_class: Type[ValoPyModel],
-        params: dict | None = None,
+        params: Optional[dict] = None,
     ) -> Result:
         """Make an HTTP request to the Valorant API.
 
         Parameters
         ----------
-        method : AllowedMethods
+        method : :class:`AllowedMethod`
             The HTTP method to use for the request.
-        endpoint_path : str
+        endpoint_path : :class:`str`
             The formatted API endpoint path to call.
-        model_class : Type[APIModel]
+        model_class : Type[:class:`APIModel`]
             The dataclass type to deserialize the response into
-        params : dict | None, optional
+        params : Optional[:class:`dict`]
             Query parameters to include in the request, by default None
 
         Returns
         -------
-        Result
-            The result of the HTTP request.
+        :class:`Result`
+            A Result object containing the HTTP response metadata and deserialized data.
 
         Raises
         ------
-        ValoPyRequestError
-            If a 400 Bad Request error occurs.
-        ValoPyPermissionError
-            If a 401 Permission Denied error occurs.
-        ValoPyNotFoundError
-            If a 404 Not Found error occurs.
-        ValoPyTimeoutError
-            If a 408 Request Timeout error occurs.
-        ValoPyRateLimitError
-            If a 429 Rate Limit Exceeded error occurs.
-        ValoPyServerError
-            If a 5xx Server Error occurs.
-        ValoPyHTTPError
-            For other HTTP errors.
-        aiohttp.ClientError
-            For other client errors.
+        :exc:`ValoPyRequestError`
+            Raised when a 400 Bad Request error occurs, typically indicating invalid parameters.
+        :exc:`ValoPyPermissionError`
+            Raised when a 401 Unauthorized error occurs, indicating invalid or missing API key.
+        :exc:`ValoPyNotFoundError`
+            Raised when a 404 Not Found error occurs, indicating the resource does not exist.
+        :exc:`ValoPyTimeoutError`
+            Raised when a 408 Request Timeout error occurs, indicating the request took too long.
+        :exc:`ValoPyRateLimitError`
+            Raised when a 429 Too Many Requests error occurs, indicating rate limit exceeded.
+        :exc:`ValoPyServerError`
+            Raised when a 5xx Server Error occurs, indicating an issue with the API server.
+        :exc:`ValoPyHTTPError`
+            Raised for other HTTP errors not covered by specific exception types.
+        :exc:`aiohttp.ClientError`
+            Raised for client-level errors such as connection issues or network problems.
         """
 
         # Construct the full URL and headers
@@ -200,13 +192,19 @@ class Adapter:
 
         except aiohttp.ClientResponseError as e:
             _log.error(
-                "HTTP error %d on %s request to endpoint %s", e.status, method.value, endpoint_path, exc_info=True
+                "HTTP error %d on %s request to endpoint %s",
+                e.status,
+                method.value,
+                endpoint_path,
+                exc_info=True,
             )
 
             raise from_client_response_error(error=e, redacted=self.redact_header) from e
 
         except aiohttp.ClientError as e:
-            _log.error("Client error on %s request to %s: %s", method.value, url, str(e), exc_info=True)
+            _log.error(
+                "Client error on %s request to %s: %s", method.value, url, str(e), exc_info=True
+            )
 
             raise
 
@@ -225,10 +223,18 @@ class Adapter:
         # Extract the actual data from the response
         response_data = data.get("data", {})
 
-        _log.info("Received response data from %s (size: %d bytes)", endpoint_path, len(str(response_data)))
+        _log.info(
+            "Received response data from %s (size: %d bytes)",
+            endpoint_path,
+            len(str(response_data)),
+        )
 
         if isinstance(response_data, list):
-            _log.info("Converting list response to %s dataclass for endpoint %s", model_class.__name__, endpoint_path)
+            _log.info(
+                "Converting list response to %s dataclass for endpoint %s",
+                model_class.__name__,
+                endpoint_path,
+            )
 
             # Convert list of dicts to list of dataclasses
             response_data = [
@@ -243,7 +249,11 @@ class Adapter:
                 response_data["results"] = results_metadata
                 _log.debug("Added results metadata to response data")
 
-            _log.info("Converting response to %s dataclass for endpoint %s", model_class.__name__, endpoint_path)
+            _log.info(
+                "Converting response to %s dataclass for endpoint %s",
+                model_class.__name__,
+                endpoint_path,
+            )
 
             # Convert dict to dataclass (results will be deserialized if present)
             response_data = dict_to_dataclass(data=response_data, dataclass_type=model_class)
@@ -261,22 +271,22 @@ class Adapter:
         self,
         endpoint_path: str,
         model_class: Type[ValoPyModel],
-        params: dict | None = None,
+        params: Optional[dict] = None,
     ) -> Result:
         """Make a GET request to the Valorant API.
 
         Parameters
         ----------
-        endpoint_path : str
+        endpoint_path : :py:class:`str`
             The formatted API endpoint path to call.
-        model_class : Type[ValoPyModel]
+        model_class : Type[:class:`ValoPyModel`]
             The dataclass type to deserialize the response into
-        params : dict | None, optional
+        params : Optional[:py:class:`dict`]
             Query parameters to include in the request, by default None
 
         Returns
         -------
-        Result
+        :class:`Result`
             The result of the GET request.
         """
 
@@ -291,22 +301,22 @@ class Adapter:
         self,
         endpoint_path: str,
         model_class: Type[ValoPyModel],
-        params: dict | None = None,
+        params: Optional[dict] = None,
     ) -> Result:
         """Make a POST request to the Valorant API.
 
         Parameters
         ----------
-        endpoint_path : str
+        endpoint_path : :py:class:`str`
             The formatted API endpoint path to call.
-        model_class : Type[ValoPyModel]
+        model_class : Type[:class:`ValoPyModel`]
             The dataclass type to deserialize the response into
-        params : dict | None, optional
+        params : Optional[:py:class:`dict`]
             Query parameters to include in the request, by default None
 
         Returns
         -------
-        Result
+        :class:`Result`
             The result of the POST request.
         """
 
