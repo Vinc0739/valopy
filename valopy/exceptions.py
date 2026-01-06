@@ -13,11 +13,11 @@ class ValoPyHTTPError(ValoPyError):
 
     Attributes
     ----------
-    message : str
+    message : :class:`str`
         The error message describing the HTTP error.
-    status_code : int
+    status_code : :class:`int`
         The HTTP status code.
-    url : Optional[str]
+    url : Optional[:class:`str`]
         The URL that caused the error, if available.
     """
 
@@ -34,11 +34,11 @@ class ValoPyRequestError(ValoPyHTTPError):
 
     Attributes
     ----------
-    message : str
+    message : :class:`str`
         Error message indicating bad request.
-    status_code : int
+    status_code : :class:`int`
         HTTP status code (400).
-    url : Optional[str]
+    url : Optional[:class:`str`]
         The URL that caused the error.
     """
 
@@ -55,18 +55,22 @@ class ValoPyPermissionError(ValoPyHTTPError):
 
     Attributes
     ----------
-    message : str
+    message : :class:`str`
         Error message indicating permission denied.
-    status_code : int
+    status_code : :class:`int`
         HTTP status code (401).
-    url : Optional[str]
+    url : Optional[:class:`str`]
         The URL that caused the error.
-    request_headers : dict
+    request_headers : :class:`dict`
         The request headers from the failed request.
     """
 
     def __init__(
-        self, status_code: int, url: Optional[str] = None, request_headers: dict = {}, redacted: bool = False
+        self,
+        status_code: int,
+        url: Optional[str] = None,
+        request_headers: dict = {},
+        redacted: bool = False,
     ) -> None:
 
         api_key = request_headers.get("Authorization", "[REDACTED]")
@@ -83,11 +87,11 @@ class ValoPyNotFoundError(ValoPyHTTPError):
 
     Attributes
     ----------
-    message : str
+    message : :class:`str`
         Error message indicating resource not found.
-    status_code : int
+    status_code : :class:`int`
         HTTP status code (404).
-    url : Optional[str]
+    url : Optional[:class:`str`]
         The URL that was not found.
     """
 
@@ -104,7 +108,7 @@ class ValoPyValidationError(ValoPyError):
 
     Attributes
     ----------
-    message : str
+    message : :class:`str`
         The error message describing the validation error.
     """
 
@@ -118,11 +122,11 @@ class ValoPyTimeoutError(ValoPyHTTPError):
 
     Attributes
     ----------
-    message : str
+    message : :class:`str`
         Error message indicating request timeout.
-    status_code : int
+    status_code : :class:`int`
         HTTP status code (408).
-    url : Optional[str]
+    url : Optional[:class:`str`]
         The URL that timed out.
     """
 
@@ -139,27 +143,30 @@ class ValoPyRateLimitError(ValoPyHTTPError):
 
     Attributes
     ----------
-    message : str
+    message : :class:`str`
         Error message indicating rate limit exceeded.
-    status_code : int
+    status_code : :class:`int`
         HTTP status code (429).
-    url : Optional[str]
+    url : Optional[:class:`str`]
         The URL that exceeded the rate limit.
-    rate_limit : Optional[str]
+    rate_limit : Optional[:class:`str`]
         The rate limit value from response headers.
-    rate_remain : Optional[str]
+    rate_remain : Optional[:class:`str`]
         The remaining requests value from response headers.
-    rate_reset : Optional[str]
+    rate_reset : Optional[:class:`str`]
         The rate limit reset time from response headers.
     """
 
-    def __init__(self, status_code: int, url: Optional[str] = None, response_headers: dict = {}) -> None:
+    def __init__(
+        self, status_code: int, url: Optional[str] = None, response_headers: dict = {}
+    ) -> None:
         self.rate_limit = response_headers.get("x-ratelimit-limit")
         self.rate_remain = response_headers.get("x-ratelimit-remaining")
         self.rate_reset = response_headers.get("x-ratelimit-reset")
 
         self.message = (
-            f"Rate Limit Exceeded ({self.rate_remain}/{self.rate_limit}), try again in {self.rate_reset}: {url}"
+            f"Rate Limit Exceeded ({self.rate_remain}/{self.rate_limit}),"
+            f"try again in {self.rate_reset}: {url}"
             if self.rate_limit
             else f"Rate Limit Exceeded: {url}"
         )
@@ -175,11 +182,11 @@ class ValoPyServerError(ValoPyHTTPError):
 
     Attributes
     ----------
-    message : str
+    message : :class:`str`
         Error message indicating server error.
-    status_code : int
+    status_code : :class:`int`
         HTTP status code (5xx).
-    url : Optional[str]
+    url : Optional[:class:`str`]
         The URL that caused the server error.
     """
 
@@ -207,35 +214,39 @@ def from_client_response_error(
 
     Parameters
     ----------
-    error : aiohttp.ClientResponseError
+    error : :class:`aiohttp.ClientResponseError`
         The original ClientResponseError.
-    redacted : bool
+    redacted : :class:`bool`
         Whether the API key in the request headers is redacted.
 
     Returns
     -------
-    ValoPyHTTPError | ValoPyRequestError | ValoPyPermissionError | ValoPyNotFoundError | ValoPyTimeoutError | ValoPyRateLimitError | ValoPyServerError
+    :exc:`ValoPyHTTPError` | :exc:`ValoPyRequestError` | :exc:`ValoPyPermissionError` | :exc:`ValoPyNotFoundError` | :exc:`ValoPyTimeoutError` | :exc:`ValoPyRateLimitError` | :exc:`ValoPyServerError`
         The corresponding ValoPy error matching the HTTP status code.
 
     Raises
     ------
-    ValoPyRequestError
+    :exc:`ValoPyRequestError`
         If status code is 400.
-    ValoPyPermissionError
+    :exc:`ValoPyPermissionError`
         If status code is 401.
-    ValoPyNotFoundError
+    :exc:`ValoPyNotFoundError`
         If status code is 404.
-    ValoPyTimeoutError
+    :exc:`ValoPyTimeoutError`
         If status code is 408.
-    ValoPyRateLimitError
+    :exc:`ValoPyRateLimitError`
         If status code is 429.
-    ValoPyServerError
+    :exc:`ValoPyServerError`
         If status code is 5xx.
-    ValoPyHTTPError
+    :exc:`ValoPyHTTPError`
         For any other HTTP error status codes.
     """  # noqa: E501
 
-    request_headers = dict(error.request_info.headers) if error.request_info and error.request_info.headers else {}
+    request_headers = (
+        dict(error.request_info.headers)
+        if error.request_info and error.request_info.headers
+        else {}
+    )
     response_headers = dict(error.headers) if error.headers else {}
 
     match error.status:

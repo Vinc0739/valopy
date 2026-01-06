@@ -1,6 +1,7 @@
 .vscode/
 cspell.json
 dev/
+uv.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -27,7 +27,9 @@ class TestWebsite:
         website_data = [dict_to_dataclass(item, WebsiteContent) for item in website["data"]]
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(status_code=website["status"], message="OK", data=website_data)
+            mock_get.return_value = Result(
+                status_code=website["status"], message="OK", data=website_data
+            )
 
             result: List[WebsiteContent] = await client.get_website(countrycode=CountryCode.DE_DE)
 

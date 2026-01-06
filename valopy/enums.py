@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Type
 
 from .models import (
     AccountV1,
@@ -19,9 +20,9 @@ class AllowedMethod(Enum):
 
     Members
     -------
-    GET : str
+    GET : :class:`str`
         HTTP GET method.
-    POST : str
+    POST : :class:`str`
         HTTP POST method.
     """
 
@@ -34,43 +35,43 @@ class Locale(str, Enum):
 
     Members
     -------
-    AR_AE : str
+    AR_AE : :class:`str`
         Arabic (United Arab Emirates)
-    DE_DE : str
+    DE_DE : :class:`str`
         German (Germany)
-    EN_GB : str
+    EN_GB : :class:`str`
         English (Great Britain)
-    EN_US : str
+    EN_US : :class:`str`
         English (United States)
-    ES_ES : str
+    ES_ES : :class:`str`
         Spanish (Spain)
-    ES_MX : str
+    ES_MX : :class:`str`
         Spanish (Mexico)
-    FR_FR : str
+    FR_FR : :class:`str`
         French (France)
-    ID_ID : str
+    ID_ID : :class:`str`
         Indonesian (Indonesia)
-    IT_IT : str
+    IT_IT : :class:`str`
         Italian (Italy)
-    JA_JP : str
+    JA_JP : :class:`str`
         Japanese (Japan)
-    KO_KR : str
+    KO_KR : :class:`str`
         Korean (South Korea)
-    PL_PL : str
+    PL_PL : :class:`str`
         Polish (Poland)
-    PT_BR : str
+    PT_BR : :class:`str`
         Portuguese (Brazil)
-    RU_RU : str
+    RU_RU : :class:`str`
         Russian (Russia)
-    TH_TH : str
+    TH_TH : :class:`str`
         Thai (Thailand)
-    TR_TR : str
+    TR_TR : :class:`str`
         Turkish (Turkey)
-    VI_VN : str
+    VI_VN : :class:`str`
         Vietnamese (Vietnam)
-    ZH_CN : str
+    ZH_CN : :class:`str`
         Chinese Simplified (China)
-    ZH_TW : str
+    ZH_TW : :class:`str`
         Chinese Traditional (Taiwan)
     """
 
@@ -100,17 +101,17 @@ class Region(str, Enum):
 
     Members
     -------
-    EU : str
+    EU : :class:`str`
         Europe
-    NA : str
+    NA : :class:`str`
         North America
-    LATAM : str
+    LATAM : :class:`str`
         Latin America
-    BR : str
+    BR : :class:`str`
         Brazil
-    AP : str
+    AP : :class:`str`
         Asia Pacific
-    KR : str
+    KR : :class:`str`
         Korea
     """
 
@@ -127,9 +128,9 @@ class Platform(str, Enum):
 
     Members
     -------
-    PC : str
+    PC : :class:`str`
         Personal Computer (PC)
-    CONSOLE : str
+    CONSOLE : :class:`str`
         Console
     """
 
@@ -140,75 +141,76 @@ class Platform(str, Enum):
 class Season(str, Enum):
     """Valorant competitive seasons.
 
-    Episode 10 (Season 2025) is separated into 6 acts for 2025. This will likely continue for future seasons.
+    Episode 10 (Season 2025) is separated into 6 acts for 2025.
+    This will likely continue for future seasons.
 
     Members
     -------
-    E1A1 : str
+    E1A1 : :class:`str`
         Episode 1 Act 1
-    E1A2 : str
+    E1A2 : :class:`str`
         Episode 1 Act 2
-    E1A3 : str
+    E1A3 : :class:`str`
         Episode 1 Act 3
-    E2A1 : str
+    E2A1 : :class:`str`
         Episode 2 Act 1
-    E2A2 : str
+    E2A2 : :class:`str`
         Episode 2 Act 2
-    E2A3 : str
+    E2A3 : :class:`str`
         Episode 2 Act 3
-    E3A1 : str
+    E3A1 : :class:`str`
         Episode 3 Act 1
-    E3A2 : str
+    E3A2 : :class:`str`
         Episode 3 Act 2
-    E3A3 : str
+    E3A3 : :class:`str`
         Episode 3 Act 3
-    E4A1 : str
+    E4A1 : :class:`str`
         Episode 4 Act 1
-    E4A2 : str
+    E4A2 : :class:`str`
         Episode 4 Act 2
-    E4A3 : str
+    E4A3 : :class:`str`
         Episode 4 Act 3
-    E5A1 : str
+    E5A1 : :class:`str`
         Episode 5 Act 1
-    E5A2 : str
+    E5A2 : :class:`str`
         Episode 5 Act 2
-    E5A3 : str
+    E5A3 : :class:`str`
         Episode 5 Act 3
-    E6A1 : str
+    E6A1 : :class:`str`
         Episode 6 Act 1
-    E6A2 : str
+    E6A2 : :class:`str`
         Episode 6 Act 2
-    E6A3 : str
+    E6A3 : :class:`str`
         Episode 6 Act 3
-    E7A1 : str
+    E7A1 : :class:`str`
         Episode 7 Act 1
-    E7A2 : str
+    E7A2 : :class:`str`
         Episode 7 Act 2
-    E7A3 : str
+    E7A3 : :class:`str`
         Episode 7 Act 3
-    E8A1 : str
+    E8A1 : :class:`str`
         Episode 8 Act 1
-    E8A2 : str
+    E8A2 : :class:`str`
         Episode 8 Act 2
-    E8A3 : str
+    E8A3 : :class:`str`
         Episode 8 Act 3
-    E9A1 : str
+    E9A1 : :class:`str`
         Episode 9 Act 1
-    E9A2 : str
+    E9A2 : :class:`str`
         Episode 9 Act 2
-    E9A3 : str
+    E9A3 : :class:`str`
         Episode 9 Act 3
-    E10A1 : str
+    E10A1 : :class:`str`
         Episode 10 Act 1
-    E10A2 : str
+    E10A2 : :class:`str`
         Episode 10 Act 2
-    E10A3 : str
+    E10A3 : :class:`str`
         Episode 10 Act 3
-    E10A4 : str
+    E10A4 : :class:`str`
         Episode 10 Act 4
-    E10A5 : str
+    E10A5 : :class:`str`
         Episode 10 Act 5
-    E10A6 : str
+    E10A6 : :class:`str`
         Episode 10 Act 6
     """
 
@@ -252,31 +254,31 @@ class CountryCode(str, Enum):
 
     Attributes
     ----------
-    EN_US : str
+    EN_US : :class:`str`
         English (United States)
-    EN_GB : str
+    EN_GB : :class:`str`
         English (Great Britain)
-    DE_DE : str
+    DE_DE : :class:`str`
         German (Germany)
-    ES_ES : str
+    ES_ES : :class:`str`
         Spanish (Spain)
-    ES_MX : str
+    ES_MX : :class:`str`
         Spanish (Mexico)
-    FR_FR : str
+    FR_FR : :class:`str`
         French (France)
-    IT_IT : str
+    IT_IT : :class:`str`
         Italian (Italy)
-    JA_JP : str
+    JA_JP : :class:`str`
         Japanese (Japan)
-    KO_KR : str
+    KO_KR : :class:`str`
         Korean (South Korea)
-    PT_BR : str
+    PT_BR : :class:`str`
         Portuguese (Brazil)
-    RU_RU : str
+    RU_RU : :class:`str`
         Russian (Russia)
-    TR_TR : str
+    TR_TR : :class:`str`
         Turkish (Turkey)
-    VI_VN : str
+    VI_VN : :class:`str`
         Vietnamese (Vietnam)
     """
 
@@ -300,29 +302,29 @@ class EsportsRegion(str, Enum):
 
     Members
     -------
-    INTERNATIONAL : str
+    INTERNATIONAL : :class:`str`
         International region
-    NORTH_AMERICA : str
+    NORTH_AMERICA : :class:`str`
         North America
-    EMEA : str
+    EMEA : :class:`str`
         Europe, Middle East, and Africa
-    BRAZIL : str
+    BRAZIL : :class:`str`
         Brazil
-    JAPAN : str
+    JAPAN : :class:`str`
         Japan
-    KOREA : str
+    KOREA : :class:`str`
         Korea
-    LATIN_AMERICA : str
+    LATIN_AMERICA : :class:`str`
         Latin America
-    LATIN_AMERICA_SOUTH : str
+    LATIN_AMERICA_SOUTH : :class:`str`
         Latin America South
-    LATIN_AMERICA_NORTH : str
+    LATIN_AMERICA_NORTH : :class:`str`
         Latin America North
-    SOUTHEAST_ASIA : str
+    SOUTHEAST_ASIA : :class:`str`
         Southeast Asia
-    VIETNAM : str
+    VIETNAM : :class:`str`
         Vietnam
-    OCEANIA : str
+    OCEANIA : :class:`str`
         Oceania
     """
 
@@ -345,97 +347,97 @@ class League(str, Enum):
 
     Members
     -------
-    VCT_AMERICAS : str
+    VCT_AMERICAS : :class:`str`
         VCT Americas
-    CHALLENGERS_NA : str
+    CHALLENGERS_NA : :class:`str`
         Challengers North America
-    GAME_CHANGERS_NA : str
+    GAME_CHANGERS_NA : :class:`str`
         Game Changers North America
-    VCT_EMEA : str
+    VCT_EMEA : :class:`str`
         VCT EMEA
-    VCT_PACIFIC : str
+    VCT_PACIFIC : :class:`str`
         VCT Pacific
-    CHALLENGERS_BR : str
+    CHALLENGERS_BR : :class:`str`
         Challengers Brazil
-    CHALLENGERS_JPN : str
+    CHALLENGERS_JPN : :class:`str`
         Challengers Japan
-    CHALLENGERS_KR : str
+    CHALLENGERS_KR : :class:`str`
         Challengers Korea
-    CHALLENGERS_LATAM : str
+    CHALLENGERS_LATAM : :class:`str`
         Challengers Latin America
-    CHALLENGERS_LATAM_N : str
+    CHALLENGERS_LATAM_N : :class:`str`
         Challengers Latin America North
-    CHALLENGERS_LATAM_S : str
+    CHALLENGERS_LATAM_S : :class:`str`
         Challengers Latin America South
-    CHALLENGERS_APAC : str
+    CHALLENGERS_APAC : :class:`str`
         Challengers APAC
-    CHALLENGERS_SEA_ID : str
+    CHALLENGERS_SEA_ID : :class:`str`
         Challengers SEA Indonesia
-    CHALLENGERS_SEA_PH : str
+    CHALLENGERS_SEA_PH : :class:`str`
         Challengers SEA Philippines
-    CHALLENGERS_SEA_SG_AND_MY : str
+    CHALLENGERS_SEA_SG_AND_MY : :class:`str`
         Challengers SEA Singapore and Malaysia
-    CHALLENGERS_SEA_TH : str
+    CHALLENGERS_SEA_TH : :class:`str`
         Challengers SEA Thailand
-    CHALLENGERS_SEA_HK_AND_TW : str
+    CHALLENGERS_SEA_HK_AND_TW : :class:`str`
         Challengers SEA Hong Kong and Taiwan
-    CHALLENGERS_SEA_VN : str
+    CHALLENGERS_SEA_VN : :class:`str`
         Challengers SEA Vietnam
-    VALORANT_OCEANIA_TOUR : str
+    VALORANT_OCEANIA_TOUR : :class:`str`
         Valorant Oceania Tour
-    CHALLENGERS_SOUTH_ASIA : str
+    CHALLENGERS_SOUTH_ASIA : :class:`str`
         Challengers South Asia
-    GAME_CHANGERS_SEA : str
+    GAME_CHANGERS_SEA : :class:`str`
         Game Changers SEA
-    GAME_CHANGERS_SERIES_BRAZIL : str
+    GAME_CHANGERS_SERIES_BRAZIL : :class:`str`
         Game Changers Series Brazil
-    GAME_CHANGERS_EAST_ASIA : str
+    GAME_CHANGERS_EAST_ASIA : :class:`str`
         Game Changers East Asia
-    GAME_CHANGERS_EMEA : str
+    GAME_CHANGERS_EMEA : :class:`str`
         Game Changers EMEA
-    GAME_CHANGERS_JPN : str
+    GAME_CHANGERS_JPN : :class:`str`
         Game Changers Japan
-    GAME_CHANGERS_KR : str
+    GAME_CHANGERS_KR : :class:`str`
         Game Changers Korea
-    GAME_CHANGERS_LATAM : str
+    GAME_CHANGERS_LATAM : :class:`str`
         Game Changers Latin America
-    GAME_CHANGERS_CHAMPIONSHIP : str
+    GAME_CHANGERS_CHAMPIONSHIP : :class:`str`
         Game Changers Championship
-    MASTERS : str
+    MASTERS : :class:`str`
         Masters
-    LAST_CHANCE_QUALIFIER_APAC : str
+    LAST_CHANCE_QUALIFIER_APAC : :class:`str`
         Last Chance Qualifier APAC
-    LAST_CHANCE_QUALIFIER_EAST_ASIA : str
+    LAST_CHANCE_QUALIFIER_EAST_ASIA : :class:`str`
         Last Chance Qualifier East Asia
-    LAST_CHANCE_QUALIFIER_EMEA : str
+    LAST_CHANCE_QUALIFIER_EMEA : :class:`str`
         Last Chance Qualifier EMEA
-    LAST_CHANCE_QUALIFIER_NA : str
+    LAST_CHANCE_QUALIFIER_NA : :class:`str`
         Last Chance Qualifier North America
-    LAST_CHANCE_QUALIFIER_BR_AND_LATAM : str
+    LAST_CHANCE_QUALIFIER_BR_AND_LATAM : :class:`str`
         Last Chance Qualifier Brazil and Latin America
-    VCT_LOCK_IN : str
+    VCT_LOCK_IN : :class:`str`
         VCT Lock In
-    CHAMPIONS : str
+    CHAMPIONS : :class:`str`
         Champions
-    VRL_SPAIN : str
+    VRL_SPAIN : :class:`str`
         VRL Spain
-    VRL_NORTHERN_EUROPE : str
+    VRL_NORTHERN_EUROPE : :class:`str`
         VRL Northern Europe
-    VRL_DACH : str
+    VRL_DACH : :class:`str`
         VRL DACH
-    VRL_FRANCE : str
+    VRL_FRANCE : :class:`str`
         VRL France
-    VRL_EAST : str
+    VRL_EAST : :class:`str`
         VRL East
-    VRL_TURKEY : str
+    VRL_TURKEY : :class:`str`
         VRL Turkey
-    VRL_CIS : str
+    VRL_CIS : :class:`str`
         VRL CIS
-    MENA_RESILIENCE : str
+    MENA_RESILIENCE : :class:`str`
         MENA Resilience
-    CHALLENGERS_ITALY : str
+    CHALLENGERS_ITALY : :class:`str`
         Challengers Italy
-    CHALLENGERS_PORTUGAL : str
+    CHALLENGERS_PORTUGAL : :class:`str`
         Challengers Portugal
     """
 
@@ -492,13 +494,13 @@ class Endpoint(Enum):
 
     Attributes
     ----------
-    url : str
+    url : :class:`str`
         The URL path of the endpoint with placeholders for formatting.
-    model : type[`ValoPyModel`]
+    model : Type[:class:`ValoPyModel`]
         The dataclass model class associated with the endpoint for response deserialization.
     """
 
-    def __init__(self, url: str, model_class: type[ValoPyModel]) -> None:
+    def __init__(self, url: str, model_class: Type[ValoPyModel]) -> None:
         self.url = url
         self.model = model_class
 

@@ -1,5 +1,5 @@
-valopy
-======
+ValoPy |release|
+================
 
 An async Python wrapper for the unofficial Valorant API.
 
@@ -32,6 +32,7 @@ Features
 
    endpoints
    api/client
+   api/adapter
    api/models
    api/enums
    api/exceptions

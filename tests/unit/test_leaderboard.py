@@ -7,7 +7,13 @@ import pytest
 from valopy.client import Client
 from valopy.enums import Platform, Region
 from valopy.exceptions import ValoPyValidationError
-from valopy.models import Leaderboard, LeaderboardPlayer, LeaderboardThreshold, Result, ResultMetadata
+from valopy.models import (
+    Leaderboard,
+    LeaderboardPlayer,
+    LeaderboardThreshold,
+    Result,
+    ResultMetadata,
+)
 from valopy.utils import dict_to_dataclass
 
 
@@ -31,7 +37,9 @@ class TestLeaderboard:
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
             mock_get.return_value = Result(status_code=200, message="OK", data=leaderboard_data)
 
-            result: Leaderboard = await client.get_leaderboard(region=Region.NA, platform=Platform.PC)
+            result: Leaderboard = await client.get_leaderboard(
+                region=Region.NA, platform=Platform.PC
+            )
 
             # Verify main data
             assert isinstance(result, Leaderboard)

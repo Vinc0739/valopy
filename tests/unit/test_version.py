@@ -27,7 +27,9 @@ class TestVersion:
         version_data = dict_to_dataclass(version["data"], Version)
 
         with patch.object(client.adapter, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = Result(status_code=version["status"], message="OK", data=version_data)
+            mock_get.return_value = Result(
+                status_code=version["status"], message="OK", data=version_data
+            )
 
             result: Version = await client.get_version(region=Region.EU)
 

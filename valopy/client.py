@@ -29,7 +29,7 @@ class Client:
 
     Attributes
     ----------
-    adapter : Adapter
+    adapter : :class:`~valopy.adapter.Adapter`
         The adapter used for making HTTP requests.
     """
 
@@ -38,9 +38,9 @@ class Client:
 
         Parameters
         ----------
-        api_key : str
+        api_key : :class:`str`
             The API key used for authentication.
-        redact_header : bool, optional
+        redact_header : :class:`bool`, default True
             Whether to redact the API key in logs, by default True
         """
 
@@ -50,12 +50,8 @@ class Client:
         self.adapter = Adapter(api_key=api_key, redact_header=redact_header)
 
     async def close(self) -> None:
-        """Close the client's adapter session.
+        """Close the client's adapter session."""
 
-        Returns
-        -------
-        None
-        """
         await self.adapter.close()
 
     async def __aenter__(self) -> "Client":
@@ -63,32 +59,29 @@ class Client:
 
         Returns
         -------
-        Client
+        :class:`Client`
             The client instance.
         """
         return self
 
     async def __aexit__(
         self,
-        exc_type: "type[BaseException] | None",
-        exc_val: "BaseException | None",
-        exc_tb: "types.TracebackType | None",
+        exc_type: "Optional[type[BaseException]]",
+        exc_val: "Optional[BaseException]",
+        exc_tb: "Optional[types.TracebackType]",
     ) -> None:
         """Async context manager exit.
 
         Parameters
         ----------
-        exc_type : type[BaseException] | None
+        exc_type : Optional[type[:class:`BaseException`]]
             Exception type if raised.
-        exc_val : BaseException | None
+        exc_val : Optional[:class:`BaseException`]
             Exception value if raised.
-        exc_tb : types.TracebackType | None
+        exc_tb : Optional[:class:`types.TracebackType`]
             Exception traceback if raised.
-
-        Returns
-        -------
-        None
         """
+
         await self.close()
 
     async def get_account_v1(self, name: str, tag: str, force_update: bool = False) -> "AccountV1":
@@ -96,16 +89,16 @@ class Client:
 
         Parameters
         ----------
-        name : str
+        name : :class:`str`
             The name of the account.
-        tag : str
+        tag : :class:`str`
             The tag of the account.
-        force_update : bool, optional
+        force_update : :class:`bool`, default False
             Whether to force update the account information, by default False
 
         Returns
         -------
-        AccountV1
+        :class:`~valopy.models.AccountV1`
             The Account V1 information.
         """
 
@@ -129,14 +122,14 @@ class Client:
 
         Parameters
         ----------
-        puuid : str
+        puuid : :class:`str`
             The player's unique identifier (PUUID).
-        force_update : bool, optional
+        force_update : :class:`bool`, default False
             Whether to force update the account information, by default False
 
         Returns
         -------
-        AccountV1
+        :class:`~valopy.models.AccountV1`
             The Account V1 information.
         """
 
@@ -160,16 +153,16 @@ class Client:
 
         Parameters
         ----------
-        name : str
+        name : :class:`str`
             The name of the account.
-        tag : str
+        tag : :class:`str`
             The tag of the account.
-        force_update : bool, optional
+        force_update : :class:`bool`, default false
             Whether to force update the account information, by default False
 
         Returns
         -------
-        AccountV2
+        :class:`~valopy.models.AccountV2`
             The Account V2 information.
         """
 
@@ -193,18 +186,17 @@ class Client:
 
         Parameters
         ----------
-        puuid : str
+        puuid : :class:`str`
             The player's unique identifier (PUUID).
-        force_update : bool, optional
+        force_update : :class:`bool`, default false
             Whether to force update the account information, by default False
 
         Returns
         -------
-        AccountV2
+        :class:`~valopy.models.AccountV2`
             The Account V2 information.
         """
 
-        _log.info("Fetching Account V2 by PUUID %s", puuid)
         if force_update:
             _log.debug("Force update enabled for account PUUID %s", puuid)
 
@@ -224,12 +216,12 @@ class Client:
 
         Parameters
         ----------
-        locale : Optional[Locale], optional
+        locale : Optional[:class:`Locale`]
             The locale for the content data, by default None
 
         Returns
         -------
-        Content
+        :class:`~valopy.models.Content`
             The content data retrieved from the API.
         """
 
@@ -252,12 +244,12 @@ class Client:
 
         Parameters
         ----------
-        region : Optional[Region], optional
+        region : Optional[:class:`Region`]
             The region to get the API version for, by default Region.EU
 
         Returns
         -------
-        Version
+        :class:`~valopy.models.Version`
             The version data retrieved from the API.
         """
 
@@ -279,12 +271,12 @@ class Client:
 
         Parameters
         ----------
-        countrycode : CountryCode
+        countrycode : :class:`CountryCode`
             The country code to get the website information for.
 
         Returns
         -------
-        list[WebsiteContent]
+        list[:class:`~valopy.models.WebsiteContent`]
             A list of website content data.
         """
 
@@ -304,12 +296,12 @@ class Client:
 
         Parameters
         ----------
-        region : Region
+        region : :class:`Region`
             The region to get server status for.
 
         Returns
         -------
-        Status
+        :class:`~valopy.models.Status`
             The server status including maintenances and incidents.
         """
 
@@ -331,12 +323,12 @@ class Client:
 
         Parameters
         ----------
-        region : Region
+        region : :class:`Region`
             The region to get queue status for.
 
         Returns
         -------
-        list[QueueData]
+        List[:class:`~valopy.models.QueueData`]
             List of queue configurations for all available game modes.
         """
 
@@ -360,14 +352,14 @@ class Client:
 
         Parameters
         ----------
-        region : EsportsRegion, optional
+        region : Optional[:class:`EsportsRegion`]
             Filter by esports region.
-        league : League, optional
+        league : Optional[:class:`League`]
             Filter by esports league.
 
         Returns
         -------
-        list[EsportsEvent]
+        List[:class:`~valopy.models.EsportsEvent`]
             List of esports events.
         """
 
@@ -405,32 +397,33 @@ class Client:
 
         Parameters
         ----------
-        region : Region
+        region : :class:`Region`
             The region to get leaderboard for.
-        platform : Platform
+        platform : :class:`Platform`
             The platform (PC or Console).
-        season : Season, optional
+        season : Optional[:class:`Season`]
             The season to filter by (e.g., Season.E9A3).
-        puuid : str, optional
+        puuid : Optional[:class:`str`]
             Filter by player PUUID. Mutually exclusive with name and tag.
-        name : str, optional
+        name : Optional[:class:`str`]
             Filter by player name. Must be used with tag.
-        tag : str, optional
+        tag : Optional[:class:`str`]
             Filter by player tag. Must be used with name.
-        size : int, optional
+        size : Optional[:class:`int`]
             Number of players to return.
-        start_index : int, optional
+        start_index : Optional[:class:`int`]
             Starting index for pagination.
 
         Returns
         -------
-        Leaderboard
+        :class:`~valopy.models.Leaderboard`
             Leaderboard data with players and pagination info.
 
         Raises
         ------
-        ValoPyValidationError
-            If both puuid and name/tag are provided, or if name is provided without tag (or vice versa).
+        :exc:`ValoPyValidationError`
+            If both puuid and name/tag are provided,
+            or if name is provided without tag (or vice versa).
         """
 
         # Validation: check that only puuid or name+tag is provided
@@ -440,7 +433,9 @@ class Client:
             )
 
         if (name and not tag) or (tag and not name):
-            raise ValoPyValidationError("Name and tag must both be provided together or both omitted")
+            raise ValoPyValidationError(
+                "Name and tag must both be provided together or both omitted"
+            )
 
         _log.info(
             "Fetching leaderboard for region=%s, platform=%s, season=%s",
@@ -449,7 +444,9 @@ class Client:
             season,
         )
 
-        endpoint_path = Endpoint.LEADERBOARD_V3.url.format(region=region.value, platform=platform.value)
+        endpoint_path = Endpoint.LEADERBOARD_V3.url.format(
+            region=region.value, platform=platform.value
+        )
 
         params = {}
         if season:

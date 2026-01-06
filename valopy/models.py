@@ -9,17 +9,19 @@ class Result:
 
     Attributes
     ----------
-    status_code : int
+    status_code : :class:`int`
         The HTTP status code of the response.
-    message : str
+    message : :class:`str`
         The HTTP status message.
-    data : Any
+    data : :class:`Any`
         The response data (dict or deserialized dataclass).
     """
 
     status_code: int
     message: str = "None"
-    data: Any = field(default_factory=dict)  # either dict or deserialized dataclass of type ValoPyModel
+    data: Any = field(
+        default_factory=dict
+    )  # either dict or deserialized dataclass of type ValoPyModel
 
 
 @dataclass
@@ -28,13 +30,13 @@ class ResultMetadata:
 
     Attributes
     ----------
-    total : int
+    total : :class:`int`
         Total number of results available.
-    returned : int
+    returned : :class:`int`
         Number of results returned in this response.
-    before : int
+    before : :class:`int`
         Number of results before this page.
-    after : int
+    after : :class:`int`
         Number of results after this page.
     """
 
@@ -53,13 +55,13 @@ class CardData:
 
     Attributes
     ----------
-    small : str
+    small : :class:`str`
         Small card image URL.
-    large : str
+    large : :class:`str`
         Large card image URL.
-    wide : str
+    wide : :class:`str`
         Wide card image URL.
-    id : str
+    id : :class:`str`
         Card ID.
     """
 
@@ -78,22 +80,22 @@ class AccountV1:
 
     Attributes
     ----------
-    puuid : str
+    puuid : :class:`str`
         The player's unique identifier.
-    region : str
+    region : :class:`str`
         The player's region.
-    account_level : int
+    account_level : :class:`int`
         The player's account level.
-    name : str
+    name : :class:`str`
         The player's game name.
-    tag : str
+    tag : :class:`str`
         The player's tag.
-    card : CardData
+    card : :class:`CardData`
         The player's card data with image URLs.
-    last_update : datetime
+    last_update : :class:`datetime.datetime`
         Last update timestamp. Note: This is an approximation calculated from relative time strings
         (e.g., "3 minutes ago") returned by the API, so accuracy may vary by seconds/minutes.
-    last_update_raw : int
+    last_update_raw : :class:`int`
         Last update timestamp (raw).
     """
 
@@ -113,23 +115,23 @@ class AccountV2:
 
     Attributes
     ----------
-    puuid : str
+    puuid : :class:`str`
         The player's unique identifier.
-    region : str
+    region : :class:`str`
         The player's region.
-    account_level : int
+    account_level : :class:`int`
         The player's account level.
-    name : str
+    name : :class:`str`
         The player's game name.
-    tag : str
+    tag : :class:`str`
         The player's tag.
-    card : str
+    card : :class:`str`
         The player's card ID.
-    title : str
+    title : :class:`str`
         The player's title.
-    platforms : List[str]
+    platforms : List[:class:`str`]
         Available platforms.
-    updated_at : datetime
+    updated_at : :class:`datetime.datetime`
         Update timestamp.
     """
 
@@ -153,15 +155,15 @@ class ContentCharacter:
 
     Attributes
     ----------
-    name : str
+    name : :class:`str`
         Character name.
-    id : str
+    id : :class:`str`
         Character ID.
-    assetName : str
+    assetName : :class:`str`
         Asset name.
-    localizedNames : Dict[str, str]
+    localizedNames : Dict[:class:`str`, :class:`str`]
         Character names in different locales.
-    isPlayableCharacter : bool
+    isPlayableCharacter : :class:`bool`
         Whether character is playable.
     """
 
@@ -178,15 +180,15 @@ class ContentMap:
 
     Attributes
     ----------
-    name : str
+    name : :class:`str`
         Map name.
-    id : str
+    id : :class:`str`
         Map ID.
-    assetName : str
+    assetName : :class:`str`
         Asset name.
-    assetPath : str
+    assetPath : :class:`str`
         Asset path.
-    localizedNames : Dict[str, str]
+    localizedNames : Dict[:class:`str`, :class:`str`]
         Map names in different locales.
     """
 
@@ -203,15 +205,15 @@ class ContentItem:
 
     Attributes
     ----------
-    name : str
+    name : :class:`str`
         Item name.
-    id : str
+    id : :class:`str`
         Item ID.
-    assetName : str
+    assetName : :class:`str`
         Asset name.
-    assetPath : str
+    assetPath : :class:`str`
         Asset path.
-    localizedNames : Dict[str, str]
+    localizedNames : Dict[:class:`str`, :class:`str`]
         Item names in different locales.
     """
 
@@ -228,13 +230,13 @@ class ContentPlayerTitle:
 
     Attributes
     ----------
-    name : str
+    name : :class:`str`
         Title name.
-    id : str
+    id : :class:`str`
         Title ID.
-    assetName : str
+    assetName : :class:`str`
         Asset name.
-    titleText : str
+    titleText : :class:`str`
         Display text for the title.
     """
 
@@ -250,13 +252,13 @@ class ContentAct:
 
     Attributes
     ----------
-    name : str
+    name : :class:`str`
         Act name.
-    id : str
+    id : :class:`str`
         Act ID.
-    localizedNames : Dict[str, str]
+    localizedNames : Dict[:class:`str`, :class:`str`]
         Act names in different locales.
-    isActive : bool
+    isActive : :class:`bool`
         Whether the act is currently active.
     """
 
@@ -272,37 +274,37 @@ class Content:
 
     Attributes
     ----------
-    version : str
+    version : :class:`str`
         Content version.
-    characters : List[ContentCharacter]
+    characters : List[:class:`ContentCharacter`]
         Available characters.
-    maps : List[ContentMap]
+    maps : List[:class:`ContentMap`]
         Available maps.
-    chromas : List[ContentItem]
+    chromas : List[:class:`ContentItem`]
         Available chromas.
-    skins : List[ContentItem]
+    skins : List[:class:`ContentItem`]
         Available skins.
-    skin_levels : List[ContentItem]
+    skin_levels : List[:class:`ContentItem`]
         Available skin levels.
-    equips : List[ContentItem]
+    equips : List[:class:`ContentItem`]
         Available equips.
-    game_modes : List[ContentItem]
+    game_modes : List[:class:`ContentItem`]
         Available game modes.
-    sprays : List[ContentItem]
+    sprays : List[:class:`ContentItem`]
         Available sprays.
-    spray_levels : List[ContentItem]
+    spray_levels : List[:class:`ContentItem`]
         Available spray levels.
-    charms : List[ContentItem]
+    charms : List[:class:`ContentItem`]
         Available charms.
-    charm_levels : List[ContentItem]
+    charm_levels : List[:class:`ContentItem`]
         Available charm levels.
-    player_cards : List[ContentItem]
+    player_cards : List[:class:`ContentItem`]
         Available player cards.
-    player_titles : List[ContentPlayerTitle]
+    player_titles : List[:class:`ContentPlayerTitle`]
         Available player titles.
-    acts : List[ContentAct]
+    acts : List[:class:`ContentAct`]
         Available acts.
-    ceremonies : List[ContentItem]
+    ceremonies : List[:class:`ContentItem`]
         Available ceremonies.
     """
 
@@ -333,19 +335,19 @@ class Version:
 
     Attributes
     ----------
-    region : str
+    region : :class:`str`
         The region of the version data.
-    branch : str
+    branch : :class:`str`
         The branch of the version data.
-    build_date : datetime
+    build_date : :class:`datetime.datetime`
         The build date of the version.
-    build_ver : str
+    build_ver : :class:`str`
         The build version.
-    last_checked : datetime
+    last_checked : :class:`datetime.datetime`
         The last checked timestamp.
-    version : int
+    version : :class:`int`
         The version number.
-    version_for_api : str
+    version_for_api : :class:`str`
         The version string for API usage.
     """
 
@@ -367,21 +369,21 @@ class WebsiteContent:
 
     Attributes
     ----------
-    id : str
+    id : :class:`str`
         The unique identifier for the website content.
-    banner_url : str
+    banner_url : :class:`str`
         The URL of the banner image.
-    category : str
+    category : :class:`str`
         The category of the website content.
-    date : datetime
+    date : :class:`datetime.datetime`
         Release date of the content.
-    title : str
+    title : :class:`str`
         Title of the content.
-    url : str
+    url : :class:`str`
         The URL of the content.
-    description : str
+    description : :class:`str`
         Description of the content.
-    external_link : str
+    external_link : :class:`str`
         External link related to the content.
     """
 
@@ -404,9 +406,9 @@ class StatusTranslation:
 
     Attributes
     ----------
-    content : str
+    content : :class:`str`
         The translated content message.
-    locale : str
+    locale : :class:`str`
         The locale code (e.g., 'en_US').
     """
 
@@ -420,9 +422,9 @@ class StatusTitle:
 
     Attributes
     ----------
-    content : str
+    content : :class:`str`
         The title text.
-    locale : str
+    locale : :class:`str`
         The locale code (e.g., 'en_US').
     """
 
@@ -436,19 +438,19 @@ class StatusUpdate:
 
     Attributes
     ----------
-    created_at : datetime
+    created_at : :class:`datetime.datetime`
         When the update was created.
-    updated_at : datetime
+    updated_at : :class:`datetime.datetime`
         When the update was last modified.
-    publish : bool
+    publish : :class:`bool`
         Whether the update is published.
-    id : int
+    id : :class:`int`
         Unique identifier for the update.
-    translations : List[StatusTranslation]
+    translations : List[:class:`StatusTranslation`]
         Translated content messages.
-    publish_locations : List[str]
+    publish_locations : List[:class:`str`]
         Where the update is published (e.g., 'riotclient').
-    author : str
+    author : :class:`str`
         Author of the update.
     """
 
@@ -467,23 +469,23 @@ class StatusEntry:
 
     Attributes
     ----------
-    created_at : datetime
+    created_at : :class:`datetime.datetime`
         When the entry was created.
-    archive_at : datetime
+    archive_at : :class:`datetime.datetime`
         When the entry will be archived.
-    updates : List[StatusUpdate]
+    updates : List[:class:`StatusUpdate`]
         List of status updates.
-    platforms : List[str]
+    platforms : List[:class:`str`]
         Affected platforms (e.g., 'windows').
-    updated_at : datetime
+    updated_at : :class:`datetime.datetime`
         When the entry was last modified.
-    id : int
+    id : :class:`int`
         Unique identifier for the entry.
-    titles : List[StatusTitle]
+    titles : List[:class:`StatusTitle`]
         Titles for the entry.
-    maintenance_status : str
+    maintenance_status : :class:`str`
         Current maintenance status (e.g., 'in_progress').
-    incident_severity : str
+    incident_severity : :class:`str`
         Severity level (e.g., 'warning').
     """
 
@@ -504,9 +506,9 @@ class Status:
 
     Attributes
     ----------
-    maintenances : List[StatusEntry]
+    maintenances : List[:class:`StatusEntry`]
         List of current maintenance announcements.
-    incidents : List[StatusEntry]
+    incidents : List[:class:`StatusEntry`]
         List of current incidents.
     """
 
@@ -523,13 +525,13 @@ class QueuePartySize:
 
     Attributes
     ----------
-    max : int
+    max : :class:`int`
         Maximum party size allowed.
-    min : int
+    min : :class:`int`
         Minimum party size allowed.
-    invalid : List[int]
+    invalid : List[:class:`int`]
         Party sizes that are not allowed.
-    full_party_bypass : bool
+    full_party_bypass : :class:`bool`
         Whether full parties bypass certain restrictions.
     """
 
@@ -545,11 +547,11 @@ class QueueHighSkill:
 
     Attributes
     ----------
-    max_party_size : int
+    max_party_size : :class:`int`
         Maximum party size for high skill players.
-    min_tier : int
+    min_tier : :class:`int`
         Minimum tier affected by high skill restrictions.
-    max_tier : int
+    max_tier : :class:`int`
         Maximum tier affected by high skill restrictions.
     """
 
@@ -564,9 +566,9 @@ class QueueSkillDisparityTier:
 
     Attributes
     ----------
-    id : int
+    id : :class:`int`
         Tier identifier.
-    name : str
+    name : :class:`str`
         Tier name.
     """
 
@@ -580,11 +582,11 @@ class QueueSkillDisparity:
 
     Attributes
     ----------
-    tier : int
+    tier : :class:`int`
         The tier identifier.
-    name : str
+    name : :class:`str`
         Tier name.
-    max_tier : QueueSkillDisparityTier
+    max_tier : :class:`QueueSkillDisparityTier`
         Maximum tier allowed to queue with this tier.
     """
 
@@ -599,21 +601,21 @@ class QueueGameRules:
 
     Attributes
     ----------
-    overtime_win_by_two : bool
+    overtime_win_by_two : :class:`bool`
         Whether overtime requires winning by two.
-    allow_lenient_surrender : bool
+    allow_lenient_surrender : :class:`bool`
         Whether lenient surrender is allowed.
-    allow_drop_out : bool
+    allow_drop_out : :class:`bool`
         Whether dropping out is allowed.
-    assign_random_agents : bool
+    assign_random_agents : :class:`bool`
         Whether agents are randomly assigned.
-    skip_pregame : bool
+    skip_pregame : :class:`bool`
         Whether pregame is skipped.
-    allow_overtime_draw_vote : bool
+    allow_overtime_draw_vote : :class:`bool`
         Whether overtime draw voting is allowed.
-    overtime_win_by_two_capped : bool
+    overtime_win_by_two_capped : :class:`bool`
         Whether overtime win by two is capped.
-    premier_mode : bool
+    premier_mode : :class:`bool`
         Whether this is premier mode.
     """
 
@@ -633,9 +635,9 @@ class QueueMapInfo:
 
     Attributes
     ----------
-    id : str
+    id : :class:`str`
         Map UUID.
-    name : str
+    name : :class:`str`
         Map display name.
     """
 
@@ -649,9 +651,9 @@ class QueueMap:
 
     Attributes
     ----------
-    map : QueueMapInfo
+    map : :class:`QueueMapInfo`
         Map information.
-    enabled : bool
+    enabled : :class:`bool`
         Whether the map is enabled in this queue.
     """
 
@@ -665,33 +667,33 @@ class QueueData:
 
     Attributes
     ----------
-    mode : str
+    mode : :class:`str`
         Queue mode name (e.g., "Competitive").
-    mode_id : str
+    mode_id : :class:`str`
         Queue mode identifier (e.g., "competitive").
-    enabled : bool
+    enabled : :class:`bool`
         Whether the queue is currently enabled.
-    team_size : int
+    team_size : :class:`int`
         Number of players per team.
-    number_of_teams : int
+    number_of_teams : :class:`int`
         Number of teams in a match.
-    party_size : QueuePartySize
+    party_size : :class:`QueuePartySize`
         Party size constraints.
-    high_skill : QueueHighSkill
+    high_skill : :class:`QueueHighSkill`
         High skill tier restrictions.
-    ranked : bool
+    ranked : :class:`bool`
         Whether this is a ranked queue.
-    tournament : bool
+    tournament : :class:`bool`
         Whether this is a tournament queue.
-    skill_disparity : List[QueueSkillDisparity]
+    skill_disparity : List[:class:`QueueSkillDisparity`]
         Skill disparity restrictions by tier.
-    required_account_level : int
+    required_account_level : :class:`int`
         Minimum account level required.
-    game_rules : QueueGameRules
+    game_rules : :class:`QueueGameRules`
         Game rules configuration.
-    platforms : List[str]
+    platforms : List[:class:`str`]
         Available platforms (e.g., ["pc"]).
-    maps : List[QueueMap]
+    maps : List[:class:`QueueMap`]
         Available maps in this queue.
     """
 
@@ -720,13 +722,13 @@ class EsportsLeague:
 
     Attributes
     ----------
-    name : str
+    name : :class:`str`
         League name.
-    identifier : str
+    identifier : :class:`str`
         League identifier.
-    icon : str
+    icon : :class:`str`
         League icon URL.
-    region : str
+    region : :class:`str`
         League region.
     """
 
@@ -742,9 +744,9 @@ class EsportsTournament:
 
     Attributes
     ----------
-    name : str
+    name : :class:`str`
         Tournament name.
-    season : str
+    season : :class:`str`
         Tournament season.
     """
 
@@ -758,9 +760,9 @@ class EsportsGameType:
 
     Attributes
     ----------
-    type : str
+    type : :class:`str`
         Game type (e.g., "playAll", "bestOf").
-    count : int
+    count : :class:`int`
         Number of games.
     """
 
@@ -774,9 +776,9 @@ class EsportsTeamRecord:
 
     Attributes
     ----------
-    wins : int
+    wins : :class:`int`
         Number of wins.
-    losses : int
+    losses : :class:`int`
         Number of losses.
     """
 
@@ -790,17 +792,17 @@ class EsportsTeam:
 
     Attributes
     ----------
-    name : str
+    name : :class:`str`
         Team name.
-    code : str
+    code : :class:`str`
         Team code.
-    icon : str
+    icon : :class:`str`
         Team icon URL.
-    has_won : bool
+    has_won : :class:`bool`
         Whether the team has won.
-    game_wins : int
+    game_wins : :class:`int`
         Number of games won.
-    record : EsportsTeamRecord
+    record : :class:`EsportsTeamRecord`
         Team's win/loss record.
     """
 
@@ -818,11 +820,11 @@ class EsportsMatch:
 
     Attributes
     ----------
-    id : str
+    id : :class:`str`
         Match ID.
-    game_type : EsportsGameType
+    game_type : :class:`EsportsGameType`
         Game type configuration.
-    teams : List[EsportsTeam]
+    teams : List[:class:`EsportsTeam`]
         List of teams in the match.
     """
 
@@ -837,19 +839,19 @@ class EsportsEvent:
 
     Attributes
     ----------
-    date : datetime
+    date : :class:`datetime.datetime`
         Event date (ISO 8601 format).
-    state : str
+    state : :class:`str`
         Event state (e.g., "completed", "upcoming").
-    type : str
+    type : :class:`str`
         Event type (e.g., "match").
-    vod : str
+    vod : :class:`str`
         Video on demand URL.
-    league : EsportsLeague
+    league : :class:`EsportsLeague`
         League information.
-    tournament : EsportsTournament
+    tournament : :class:`EsportsTournament`
         Tournament information.
-    match : EsportsMatch
+    match : :class:`EsportsMatch`
         Match information.
     """
 
@@ -871,9 +873,9 @@ class LeaderboardTier:
 
     Attributes
     ----------
-    id : int
+    id : :class:`int`
         Tier ID.
-    name : str
+    name : :class:`str`
         Tier name (e.g., "Immortal 1", "Radiant").
     """
 
@@ -887,11 +889,11 @@ class LeaderboardThreshold:
 
     Attributes
     ----------
-    tier : LeaderboardTier
+    tier : :class:`LeaderboardTier`
         Tier information.
-    start_index : int
+    start_index : :class:`int`
         Starting index for this tier.
-    threshold : int
+    threshold : :class:`int`
         RR threshold to reach this tier.
     """
 
@@ -906,29 +908,29 @@ class LeaderboardPlayer:
 
     Attributes
     ----------
-    puuid : str
+    puuid : :class:`str`
         Player's unique identifier.
-    name : str
+    name : :class:`str`
         Player's game name.
-    tag : str
+    tag : :class:`str`
         Player's tag.
-    card : str
+    card : :class:`str`
         Player card ID.
-    title : str
+    title : :class:`str`
         Player title ID.
-    is_banned : bool
+    is_banned : :class:`bool`
         Whether the player is banned.
-    is_anonymized : bool
+    is_anonymized : :class:`bool`
         Whether the player is anonymized.
-    leaderboard_rank : int
+    leaderboard_rank : :class:`int`
         Current leaderboard rank.
-    tier : int
+    tier : :class:`int`
         Current rank tier.
-    rr : int
+    rr : :class:`int`
         Ranking rating points.
-    wins : int
+    wins : :class:`int`
         Number of wins.
-    updated_at : datetime
+    updated_at : :class:`datetime.datetime`
         Last update timestamp.
     """
 
@@ -952,13 +954,13 @@ class Leaderboard:
 
     Attributes
     ----------
-    results : ResultMetadata
+    results : :class:`ResultMetadata`
         Pagination metadata (total, returned, before, after).
-    updated_at : datetime
+    updated_at : :class:`datetime.datetime`
         When the leaderboard was last updated.
-    thresholds : List[LeaderboardThreshold]
+    thresholds : List[:class:`LeaderboardThreshold`]
         Tier threshold information.
-    players : List[LeaderboardPlayer]
+    players : List[:class:`LeaderboardPlayer`]
         List of leaderboard players.
     """
 

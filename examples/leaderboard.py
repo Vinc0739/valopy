@@ -12,7 +12,10 @@ async def main() -> None:
         print(f"Updated: {leaderboard.updated_at}\n")
 
         for player in leaderboard.players:
-            print(f"{player.leaderboard_rank}. {player.name}#{player.tag} - {player.rr} RR ({player.wins} wins)")
+            print(
+                f"{player.leaderboard_rank}. {player.name}#{player.tag} "
+                f"- {player.rr} RR ({player.wins} wins)"
+            )
 
         # Show pagination info
         if leaderboard.results:
